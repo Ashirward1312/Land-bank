@@ -32,7 +32,7 @@ export default function Home() {
   }, []);
 
   return (
-    <section className="relative min-h-[100vh] text-white overflow-hidden">
+    <section className="relative min-h-[100vh] text-white overflow-hidden" id="home">
 
       {/* ✅ IMAGES — Smooth Fade Slider */}
       <div className="absolute inset-0">

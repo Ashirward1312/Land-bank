@@ -1,0 +1,192 @@
+"use client";
+import React, { useState } from "react";
+
+export default function Services() {
+    const GOLD = {
+        btn: "inline-flex items-center justify-center rounded-lg px-4 py-2.5 text-sm font-semibold bg-amber-300 text-neutral-900 ring-1 ring-amber-300/60 hover:bg-amber-200 transition",
+        ring: "ring-amber-300/70",
+    };
+
+    const SERVICES = [
+        {
+            id: "listing",
+            title: "Owner Listing",
+            icon: ListingIcon,
+            summary: "List your plot with complete details and get direct buyer leads.",
+            points: [
+                "High‑visibility listing with photos & location",
+                "Lead delivery via call/WhatsApp/email",
+                "Duplicate and spam lead control",
+            ],
+        },
+        {
+            id: "verification",
+            title: "Verification & KYC",
+            icon: ShieldIcon,
+            summary: "We verify ownership and documents for buyer confidence.",
+            points: [
+                "Owner KYC + ownership check",
+                "Basic encumbrance review",
+                "Verified badge on listing",
+            ],
+        },
+        {
+            id: "sitevisit",
+            title: "Site Visit Coordination",
+            icon: MapPinIcon,
+            summary: "Managed site visits with qualified buyers only.",
+            points: [
+                "Pre‑screened, scheduled visits",
+                "Live navigation pin + check‑in",
+                "Visit notes & feedback",
+            ],
+        },
+        {
+            id: "legal",
+            title: "Legal & Due Diligence",
+            icon: ScaleIcon,
+            summary: "From search reports to sale deed—handled by experts.",
+            points: [
+                "Title search & document review",
+                "Layout/RERA/compliance check",
+                "Agreement to Sale & Sale Deed draft",
+            ],
+        },
+        {
+            id: "marketing",
+            title: "Premium Marketing",
+            icon: MegaphoneIcon,
+            summary: "Stand out with spotlight placements and pro creatives.",
+            points: [
+                "Homepage/category spotlight",
+                "Drone photoshoot (add‑on)",
+                "Targeted buyer campaigns",
+            ],
+        },
+        {
+            id: "valuation",
+            title: "Valuation & Advisory",
+            icon: RupeeIcon,
+            summary: "Realistic pricing and go‑to‑market strategy.",
+            points: [
+                "Comparables & micro‑market analysis",
+                "Demand heatmaps (zone/location)",
+                "Negotiation support",
+            ],
+        },
+    ];
+
+    const [open, setOpen] = useState(null);
+
+    return (
+        <main className="bg-neutral-950 text-neutral-100" id="services">
+            <section className="max-w-[1200px] mx-auto px-4 md:px-6 py-12">
+                <header className="text-center mb-8">
+                    <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight">
+                        Our <span className="text-amber-300">Services</span>
+                    </h1>
+                    <p className="text-neutral-400 mt-1">
+                        Everything you need to list, verify, promote and close plot deals.
+                    </p>
+                    <div className="mx-auto mt-3 h-[3px] w-24 bg-amber-300/80 rounded-full" />
+                </header>
+
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {SERVICES.map((s) => {
+                        const Icon = s.icon;
+                        const isOpen = open === s.id;
+
+                        return (
+                            <article
+                                key={s.id}
+                                className={`rounded-2xl bg-neutral-900/90 ring-1 ring-white/10 p-5 transition ${isOpen ? "shadow-[0_12px_30px_-12px_rgba(251,191,36,.6)]" : ""
+                                    }`}
+                            >
+                                <div className="flex items-start gap-3">
+                                    <span className={`grid h-11 w-11 place-items-center rounded-xl bg-white/5 ring-1 ${GOLD.ring}`}>
+                                        <Icon className="h-5 w-5 text-amber-300" />
+                                    </span>
+                                    <div className="flex-1">
+                                        <h3 className="text-lg font-semibold">{s.title}</h3>
+                                        <p className="text-sm text-neutral-400 mt-1">{s.summary}</p>
+                                    </div>
+                                </div>
+
+                                {/* Expandable details */}
+                                <div className={`overflow-hidden transition-all ${isOpen ? "mt-4 max-h-[240px]" : "max-h-0"}`}>
+                                    <ul className="list-disc list-inside text-sm text-neutral-200 space-y-2 pl-1">
+                                        {s.points.map((p, i) => (
+                                            <li key={i}>{p}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+
+                                <div className="mt-5 flex items-center justify-between">
+                                    <button
+                                        onClick={() => setOpen(isOpen ? null : s.id)}
+                                        className="text-amber-300 hover:text-amber-200 text-sm"
+                                        aria-expanded={isOpen}
+                                    >
+                                        {isOpen ? "Hide details" : "View details"}
+                                    </button>
+                                    <a href="#contact" className={GOLD.btn}>
+                                        Enquire Now                  </a>
+                                </div>
+                            </article>
+                        );
+                    })}
+                </div>
+            </section>
+        </main>
+    );
+}
+
+/* ---------- Icons (inline SVGs) ---------- */
+function ListingIcon({ className = "" }) {
+    return (
+        <svg viewBox="0 0 24 24" className={className} stroke="currentColor" fill="none" strokeWidth="1.6">
+            <rect x="3" y="4" width="18" height="16" rx="2" />
+            <path d="M7 8h10M7 12h10M7 16h6" />
+        </svg>
+    );
+}
+function ShieldIcon({ className = "" }) {
+    return (
+        <svg viewBox="0 0 24 24" className={className} stroke="currentColor" fill="none" strokeWidth="1.6">
+            <path d="M12 3l7 3v6a10 10 0 01-7 9 10 10 0 01-7-9V6l7-3z" />
+            <path d="M9 12l2 2 4-4" />
+        </svg>
+    );
+}
+function MapPinIcon({ className = "" }) {
+    return (
+        <svg viewBox="0 0 24 24" className={className} stroke="currentColor" fill="none" strokeWidth="1.6">
+            <path d="M12 21s7-4.35 7-10a7 7 0 10-14 0c0 5.65 7 10 7 10z" />
+            <circle cx="12" cy="11" r="2.5" />
+        </svg>
+    );
+}
+function ScaleIcon({ className = "" }) {
+    return (
+        <svg viewBox="0 0 24 24" className={className} stroke="currentColor" fill="none" strokeWidth="1.6">
+            <path d="M12 3v18M3 7h18" />
+            <path d="M6 7l-3 6h6l-3-6zM18 7l-3 6h6l-3-6z" />
+        </svg>
+    );
+}
+function MegaphoneIcon({ className = "" }) {
+    return (
+        <svg viewBox="0 0 24 24" className={className} stroke="currentColor" fill="none" strokeWidth="1.6">
+            <path d="M3 11v2l11 5V6L3 11z" />
+            <path d="M14 10h7M14 14h5" />
+            <path d="M6 16l2 4" />
+        </svg>
+    );
+}
+function RupeeIcon({ className = "" }) {
+    return (
+        <svg viewBox="0 0 24 24" className={className} stroke="currentColor" fill="none" strokeWidth="1.6">
+            <path d="M6 5h11M6 9h11M6 9a5 5 0 015 5h-5" />
+        </svg>
+    );
+}
