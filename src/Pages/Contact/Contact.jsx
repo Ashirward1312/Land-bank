@@ -1,11 +1,10 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaClock, FaArrowUp } from "react-icons/fa";
+import React, { useState } from "react";
+import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaClock } from "react-icons/fa";
 
 export default function Contact() {
   const [form, setForm] = useState({ name: "", phone: "", message: "" });
   const [sent, setSent] = useState(false);
-  const [showTop, setShowTop] = useState(false);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -13,21 +12,6 @@ export default function Contact() {
     setSent(true);
     setForm({ name: "", phone: "", message: "" });
     setTimeout(() => setSent(false), 2500);
-  };
-
-  // ✅ Scroll listener (button hide/show)
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 200) setShowTop(true);
-      else setShowTop(false);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // ✅ Scroll to top function
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -138,17 +122,6 @@ export default function Contact() {
           </div>
         </form>
       </div>
-
-      {/* ✅ SCROLL TO TOP BUTTON */}
-      {showTop && (
-        <button
-          onClick={scrollToTop}
-          className="fixed bottom-6 right-6 p-3 rounded-full bg-amber-400 text-neutral-900 
-          shadow-[0_0_15px_rgba(255,215,0,0.45)] hover:bg-amber-300 transition z-50"
-        >
-          <FaArrowUp className="text-xl" />
-        </button>
-      )}
     </section>
   );
 }

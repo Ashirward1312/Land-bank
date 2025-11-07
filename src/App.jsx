@@ -9,6 +9,7 @@ import Faq from '../src/Pages/Faq/Faq.jsx'
 import Contact from '../src/Pages/Contact/Contact.jsx'
 import Floating from '../src/Pages/Floating/Floating.jsx'
 import Whatsapp from '../src/Pages/Whatsapp/Whatsapp.jsx'
+import How from '../src/Pages/How/How.jsx'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <Whatsapp />
       <Cat />
       <Service />
+      <How /> 
       <About />
       <Contact />
       <Faq />
