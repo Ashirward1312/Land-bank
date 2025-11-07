@@ -63,8 +63,7 @@ export default function Home() {
         </h1>
 
         <p className="mt-4 max-w-3xl text-lg md:text-xl text-white/90">
-          Verified land/plots for Educational, Hospital, Hotel, Real Estate and Industrial projects — trusted owners, smooth deals.
-        </p>
+          Trusted and verified land/plots for Institutional, Medical, Hospitality, Real Estate and Industrial developments — secure, smooth and reliable deals.        </p>
 
         {/* ✅ Dots */}
         <div className="mt-8 flex items-center justify-center gap-3">

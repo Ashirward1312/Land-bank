@@ -10,10 +10,12 @@ import Contact from '../src/Pages/Contact/Contact.jsx'
 import Floating from '../src/Pages/Floating/Floating.jsx'
 import Whatsapp from '../src/Pages/Whatsapp/Whatsapp.jsx'
 import How from '../src/Pages/How/How.jsx'
+import Pop from "../src/Pages/Pop/Pop.jsx"
 
 function App() {
   return (
     <div>
+      <Pop/>
       <Navbar />
       <Home />
       <Floating />

@@ -63,17 +63,7 @@ export default function Services() {
                 "Targeted buyer campaigns",
             ],
         },
-        {
-            id: "valuation",
-            title: "Valuation & Advisory",
-            icon: RupeeIcon,
-            summary: "Realistic pricing and go‑to‑market strategy.",
-            points: [
-                "Comparables & micro‑market analysis",
-                "Demand heatmaps (zone/location)",
-                "Negotiation support",
-            ],
-        },
+    
     ];
 
     const [open, setOpen] = useState(null);
@@ -180,13 +170,6 @@ function MegaphoneIcon({ className = "" }) {
             <path d="M3 11v2l11 5V6L3 11z" />
             <path d="M14 10h7M14 14h5" />
             <path d="M6 16l2 4" />
-        </svg>
-    );
-}
-function RupeeIcon({ className = "" }) {
-    return (
-        <svg viewBox="0 0 24 24" className={className} stroke="currentColor" fill="none" strokeWidth="1.6">
-            <path d="M6 5h11M6 9h11M6 9a5 5 0 015 5h-5" />
         </svg>
     );
 }
