@@ -13,12 +13,13 @@ const DEFAULT_LOCATIONS = ["Raipur", "Naya Raipur", "VIP Road", "Tatibandh", "Bh
 const AREA_CHIPS = ["0.5–1 acre", "1–2 acres", "2–5 acres", "5+ acres"];
 const BUDGET_CHIPS = ["< ₹50L", "₹50L–₹1Cr", "₹1–₹3Cr", "₹3–₹5Cr", "₹5Cr+"];
 
-// Light golden accents (no gradients)
-const GOLD = {
-  ring: "ring-amber-300/70",
-  chip: "bg-amber-300 text-neutral-900 ring-amber-300/60",
-  btn: "bg-amber-300 text-neutral-900 ring-amber-300/60 hover:bg-amber-200",
+/* Premium Gold palette (matches the rest of the site) */
+const PALETTE = {
+  gold:   { base: "#D4AF37", soft: "#F3D98E", ring: "rgba(212,175,55,.60)", glow: "rgba(212,175,55,.50)" },
+  light:  { base: "#F7D27D", soft: "#FFE29A", ring: "rgba(255,226,154,.60)", glow: "rgba(255,226,154,.50)" },
 };
+// Pick your tone
+const BRAND = PALETTE.gold;
 
 export default function CategoriesSection({ onApply }) {
   const [selected, setSelected] = useState(null); // category id
@@ -39,19 +40,18 @@ export default function CategoriesSection({ onApply }) {
   const apply = () => {
     const payload = { category: selected, ...(filters[selected] || {}) };
     if (typeof onApply === "function") onApply(payload);
-    // console.log("Applied filters:", payload);
   };
 
-  // Summary tags below filters
+  // Summary tags
   const summary = (() => {
     if (!selected) return [];
-    const tags = [];
-    if (current.locations?.length) current.locations.forEach((l) => tags.push({ type: "loc", value: l }));
-    if (current.areaChip) tags.push({ type: "areaChip", value: current.areaChip });
-    if (current.minArea || current.maxArea) tags.push({ type: "area", value: `${current.minArea || "0"}–${current.maxArea || "∞"} acre` });
-    if (current.budgetChip) tags.push({ type: "budgetChip", value: current.budgetChip });
-    if (current.minBudget || current.maxBudget) tags.push({ type: "budget", value: `₹${current.minBudget || "0"}–₹${current.maxBudget || "∞"}` });
-    return tags;
+    const t = [];
+    if (current.locations?.length) current.locations.forEach((l) => t.push({ type: "loc", value: l }));
+    if (current.areaChip) t.push({ type: "areaChip", value: current.areaChip });
+    if (current.minArea || current.maxArea) t.push({ type: "area", value: `${current.minArea || "0"}–${current.maxArea || "∞"} acre` });
+    if (current.budgetChip) t.push({ type: "budgetChip", value: current.budgetChip });
+    if (current.minBudget || current.maxBudget) t.push({ type: "budget", value: `₹${current.minBudget || "0"}–₹${current.maxBudget || "∞"}` });
+    return t;
   })();
 
   const removeTag = (t) => {
@@ -66,13 +66,22 @@ export default function CategoriesSection({ onApply }) {
   return (
     <section id="categories" className="relative bg-neutral-950 text-neutral-100 py-12">
       <div className="max-w-[1200px] mx-auto px-4 md:px-6">
-        {/* Centered heading with subtle highlight */}
+        {/* Heading */}
         <header className="mb-8 text-center">
           <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight">
-            Browse by <span className="text-amber-300">Category</span>
+            Browse by{" "}
+            <span
+              className="bg-clip-text text-transparent"
+              style={{ backgroundImage: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)` }}
+            >
+              Category
+            </span>
           </h2>
           <p className="text-neutral-400 mt-1">Pick a category and refine by Location, Area and Budget.</p>
-          <div className="mx-auto mt-3 h-[3px] w-24 bg-amber-300/80 rounded-full" />
+          <div
+            className="mx-auto mt-3 h-[3px] w-24 rounded-full"
+            style={{ background: `linear-gradient(90deg, transparent, ${BRAND.base}, ${BRAND.soft}, transparent)` }}
+          />
         </header>
 
         {/* Category cards */}
@@ -84,18 +93,28 @@ export default function CategoriesSection({ onApply }) {
                 type="button"
                 key={id}
                 onClick={() => setSelected((s) => (s === id ? null : id))}
-                className={`group relative flex items-center gap-3 rounded-xl bg-neutral-900/90 px-4 py-3 ring-1 transition ${
-                  isActive ? `${GOLD.ring} shadow-[0_10px_30px_-12px_rgba(251,191,36,.6)]` : "ring-white/10 hover:ring-white/20"
-                }`}
+                className="group relative flex items-center gap-3 rounded-xl bg-neutral-900/90 px-4 py-3 ring-1 ring-white/10 transition"
+                style={
+                  isActive
+                    ? { boxShadow: `0 0 0 1px ${BRAND.ring}, 0 10px 30px -12px ${BRAND.glow}` }
+                    : { boxShadow: "none" }
+                }
               >
-                <span className={`grid h-9 w-9 place-items-center rounded-lg ring-1 ${isActive ? GOLD.ring : "ring-white/10"} bg-white/5`}>
-                  <Icon className={`${isActive ? "text-amber-300" : "text-neutral-300"} h-5 w-5`} />
-                </span>
-                <span className={`text-sm font-semibold ${isActive ? "text-white" : "text-neutral-200"}`}>{label}</span>
                 <span
-                  className={`ml-auto h-6 w-6 grid place-items-center rounded-md text-xs ring-1 ${
-                    isActive ? GOLD.ring : "ring-white/10 text-neutral-400"
-                  }`}
+                  className="grid h-9 w-9 place-items-center rounded-lg ring-1 bg-white/5"
+                  style={{ boxShadow: isActive ? `0 0 0 1px ${BRAND.ring}` : undefined, borderColor: "transparent" }}
+                >
+                  <Icon className="h-5 w-5" style={{ color: isActive ? BRAND.soft : "#d1d5db" }} />
+                </span>
+                <span className="text-sm font-semibold" style={{ color: isActive ? "#fff" : "#e5e7eb" }}>
+                  {label}
+                </span>
+                <span
+                  className="ml-auto h-6 w-6 grid place-items-center rounded-md text-xs ring-1"
+                  style={{
+                    boxShadow: isActive ? `0 0 0 1px ${BRAND.ring}` : undefined,
+                    color: isActive ? "#fff" : "#9ca3af",
+                  }}
                 >
                   {isActive ? "−" : "+"}
                 </span>
@@ -109,10 +128,17 @@ export default function CategoriesSection({ onApply }) {
           {selected && (
             <div className="rounded-2xl bg-neutral-900 ring-1 ring-white/10 p-4 md:p-6 mt-4">
               <div className="flex items-center gap-2 mb-4">
-                <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs ${GOLD.chip}`}>
+                <span
+                  className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs ring-1"
+                  style={{
+                    background: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)`,
+                    color: "#111",
+                    boxShadow: `0 6px 18px -6px ${BRAND.glow}`,
+                    borderColor: BRAND.ring,
+                  }}
+                >
                   {CATS.find((c) => c.id === selected)?.label}
                 </span>
-                {/* <span className="text-sm text-neutral-400">Filters</span> */}
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -128,9 +154,17 @@ export default function CategoriesSection({ onApply }) {
                           type="button"
                           key={loc}
                           onClick={() => setCur({ locations: toggleArray(current.locations, loc) })}
-                          className={`rounded-full px-3 py-1.5 text-sm ring-1 transition ${
-                            active ? GOLD.chip : "bg-white/5 text-neutral-200 ring-white/10 hover:bg-white/10"
-                          }`}
+                          className="rounded-full px-3 py-1.5 text-sm ring-1 transition"
+                          style={
+                            active
+                              ? {
+                                  background: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)`,
+                                  color: "#111",
+                                  boxShadow: `0 6px 18px -6px ${BRAND.glow}`,
+                                  borderColor: BRAND.ring,
+                                }
+                              : { background: "rgba(255,255,255,.05)", color: "#e5e7eb", borderColor: "rgba(255,255,255,.10)" }
+                          }
                         >
                           {loc}
                         </button>
@@ -143,7 +177,14 @@ export default function CategoriesSection({ onApply }) {
                       placeholder="Add custom location"
                       value={current.customLoc || ""}
                       onChange={(e) => setCur({ customLoc: e.target.value })}
-                      className="w-full rounded-lg bg-neutral-900 border-white/10 text-neutral-100 placeholder:text-neutral-500 focus:border-amber-300 focus:ring-amber-300"
+                      className="w-full rounded-lg bg-neutral-900 border text-neutral-100 placeholder:text-neutral-500 focus:outline-none focus:ring-1"
+                      style={{
+                        borderColor: "rgba(255,255,255,.10)",
+                        caretColor: BRAND.base,
+                        boxShadow: "none",
+                      }}
+                      onFocus={(e) => (e.currentTarget.style.boxShadow = `0 0 0 1px ${BRAND.base}`)}
+                      onBlur={(e) => (e.currentTarget.style.boxShadow = "none")}
                     />
                     <button
                       type="button"
@@ -152,7 +193,13 @@ export default function CategoriesSection({ onApply }) {
                         if (!val) return;
                         setCur({ locations: toggleArray(current.locations, val), customLoc: "" });
                       }}
-                      className={`rounded-lg px-3 py-2 text-sm ring-1 ${GOLD.btn}`}
+                      className="rounded-lg px-3 py-2 text-sm ring-1 transition"
+                      style={{
+                        background: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)`,
+                        color: "#111",
+                        borderColor: BRAND.ring,
+                        boxShadow: `0 6px 18px -6px ${BRAND.glow}`,
+                      }}
                     >
                       Add
                     </button>
@@ -164,18 +211,29 @@ export default function CategoriesSection({ onApply }) {
                   <h3 className="text-sm font-semibold text-white">Area</h3>
                   <p className="text-xs text-neutral-400">Pick a quick range or enter custom.</p>
                   <div className="mt-3 flex flex-wrap gap-2">
-                    {AREA_CHIPS.map((chip) => (
-                      <button
-                        type="button"
-                        key={chip}
-                        onClick={() => setCur({ areaChip: current.areaChip === chip ? "" : chip })}
-                        className={`rounded-full px-3 py-1.5 text-sm ring-1 transition ${
-                          current.areaChip === chip ? GOLD.chip : "bg-white/5 text-neutral-200 ring-white/10 hover:bg-white/10"
-                        }`}
-                      >
-                        {chip}
-                      </button>
-                    ))}
+                    {AREA_CHIPS.map((chip) => {
+                      const active = current.areaChip === chip;
+                      return (
+                        <button
+                          type="button"
+                          key={chip}
+                          onClick={() => setCur({ areaChip: active ? "" : chip })}
+                          className="rounded-full px-3 py-1.5 text-sm ring-1 transition"
+                          style={
+                            active
+                              ? {
+                                  background: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)`,
+                                  color: "#111",
+                                  boxShadow: `0 6px 18px -6px ${BRAND.glow}`,
+                                  borderColor: BRAND.ring,
+                                }
+                              : { background: "rgba(255,255,255,.05)", color: "#e5e7eb", borderColor: "rgba(255,255,255,.10)" }
+                          }
+                        >
+                          {chip}
+                        </button>
+                      );
+                    })}
                   </div>
                   <div className="mt-3 grid grid-cols-2 gap-2">
                     <input
@@ -185,7 +243,10 @@ export default function CategoriesSection({ onApply }) {
                       placeholder="Min (acre)"
                       value={current.minArea || ""}
                       onChange={(e) => setCur({ minArea: e.target.value })}
-                      className="rounded-lg bg-neutral-900 border-white/10 text-neutral-100 placeholder:text-neutral-500 focus:border-amber-300 focus:ring-amber-300"
+                      className="rounded-lg bg-neutral-900 border text-neutral-100 placeholder:text-neutral-500 focus:outline-none focus:ring-1"
+                      style={{ borderColor: "rgba(255,255,255,.10)" }}
+                      onFocus={(e) => (e.currentTarget.style.boxShadow = `0 0 0 1px ${BRAND.base}`)}
+                      onBlur={(e) => (e.currentTarget.style.boxShadow = "none")}
                     />
                     <input
                       type="number"
@@ -194,7 +255,10 @@ export default function CategoriesSection({ onApply }) {
                       placeholder="Max (acre)"
                       value={current.maxArea || ""}
                       onChange={(e) => setCur({ maxArea: e.target.value })}
-                      className="rounded-lg bg-neutral-900 border-white/10 text-neutral-100 placeholder:text-neutral-500 focus:border-amber-300 focus:ring-amber-300"
+                      className="rounded-lg bg-neutral-900 border text-neutral-100 placeholder:text-neutral-500 focus:outline-none focus:ring-1"
+                      style={{ borderColor: "rgba(255,255,255,.10)" }}
+                      onFocus={(e) => (e.currentTarget.style.boxShadow = `0 0 0 1px ${BRAND.base}`)}
+                      onBlur={(e) => (e.currentTarget.style.boxShadow = "none")}
                     />
                   </div>
                 </div>
@@ -204,18 +268,29 @@ export default function CategoriesSection({ onApply }) {
                   <h3 className="text-sm font-semibold text-white">Budget</h3>
                   <p className="text-xs text-neutral-400">Select a bracket or set limits.</p>
                   <div className="mt-3 flex flex-wrap gap-2">
-                    {BUDGET_CHIPS.map((chip) => (
-                      <button
-                        type="button"
-                        key={chip}
-                        onClick={() => setCur({ budgetChip: current.budgetChip === chip ? "" : chip })}
-                        className={`rounded-full px-3 py-1.5 text-sm ring-1 transition ${
-                          current.budgetChip === chip ? GOLD.chip : "bg-white/5 text-neutral-200 ring-white/10 hover:bg-white/10"
-                        }`}
-                      >
-                        {chip}
-                      </button>
-                    ))}
+                    {BUDGET_CHIPS.map((chip) => {
+                      const active = current.budgetChip === chip;
+                      return (
+                        <button
+                          type="button"
+                          key={chip}
+                          onClick={() => setCur({ budgetChip: active ? "" : chip })}
+                          className="rounded-full px-3 py-1.5 text-sm ring-1 transition"
+                          style={
+                            active
+                              ? {
+                                  background: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)`,
+                                  color: "#111",
+                                  boxShadow: `0 6px 18px -6px ${BRAND.glow}`,
+                                  borderColor: BRAND.ring,
+                                }
+                              : { background: "rgba(255,255,255,.05)", color: "#e5e7eb", borderColor: "rgba(255,255,255,.10)" }
+                          }
+                        >
+                          {chip}
+                        </button>
+                      );
+                    })}
                   </div>
                   <div className="mt-3 grid grid-cols-2 gap-2">
                     <input
@@ -224,7 +299,10 @@ export default function CategoriesSection({ onApply }) {
                       placeholder="Min (₹)"
                       value={current.minBudget || ""}
                       onChange={(e) => setCur({ minBudget: e.target.value })}
-                      className="rounded-lg bg-neutral-900 border-white/10 text-neutral-100 placeholder:text-neutral-500 focus:border-amber-300 focus:ring-amber-300"
+                      className="rounded-lg bg-neutral-900 border text-neutral-100 placeholder:text-neutral-500 focus:outline-none focus:ring-1"
+                      style={{ borderColor: "rgba(255,255,255,.10)" }}
+                      onFocus={(e) => (e.currentTarget.style.boxShadow = `0 0 0 1px ${BRAND.base}`)}
+                      onBlur={(e) => (e.currentTarget.style.boxShadow = "none")}
                     />
                     <input
                       type="number"
@@ -232,7 +310,10 @@ export default function CategoriesSection({ onApply }) {
                       placeholder="Max (₹)"
                       value={current.maxBudget || ""}
                       onChange={(e) => setCur({ maxBudget: e.target.value })}
-                      className="rounded-lg bg-neutral-900 border-white/10 text-neutral-100 placeholder:text-neutral-500 focus:border-amber-300 focus:ring-amber-300"
+                      className="rounded-lg bg-neutral-900 border text-neutral-100 placeholder:text-neutral-500 focus:outline-none focus:ring-1"
+                      style={{ borderColor: "rgba(255,255,255,.10)" }}
+                      onFocus={(e) => (e.currentTarget.style.boxShadow = `0 0 0 1px ${BRAND.base}`)}
+                      onBlur={(e) => (e.currentTarget.style.boxShadow = "none")}
                     />
                   </div>
                 </div>
@@ -244,7 +325,13 @@ export default function CategoriesSection({ onApply }) {
                   {summary.map((t, i) => (
                     <span
                       key={`${t.type}-${t.value}-${i}`}
-                      className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs ring-1 ${GOLD.chip}`}
+                      className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs ring-1"
+                      style={{
+                        background: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)`,
+                        color: "#111",
+                        borderColor: BRAND.ring,
+                        boxShadow: `0 6px 18px -6px ${BRAND.glow}`,
+                      }}
                     >
                       {t.value}
                       <button
@@ -272,7 +359,13 @@ export default function CategoriesSection({ onApply }) {
                 <button
                   type="button"
                   onClick={apply}
-                  className={`rounded-lg px-5 py-2 text-sm font-semibold ring-1 ${GOLD.btn}`}
+                  className="rounded-lg px-5 py-2 text-sm font-semibold ring-1 transition"
+                  style={{
+                    background: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)`,
+                    color: "#111",
+                    borderColor: BRAND.ring,
+                    boxShadow: `0 10px 24px ${BRAND.glow}`,
+                  }}
                 >
                   Show results
                 </button>

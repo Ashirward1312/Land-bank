@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from "react";
 import {
   FaCheckCircle,
@@ -58,9 +57,36 @@ const features = [
   { icon: <FaMapMarkerAlt size={26} aria-hidden="true" />, title: "Local Expertise", desc: "Strong network across Chhattisgarh & pan‑India with neighborhood insights." },
 ];
 
-/* ================== Theme Tokens ================== */
-const GOLD = "#D4AF37";
-const GOLD_SOFT = "#E6C766";
+/* ================== Premium Gold Palettes ================== */
+const PALETTE = {
+  // Rich, premium gold (default)
+  gold: {
+    soft: "#F3D98E",
+    base: "#D4AF37",
+    light: "#FFE29A",
+    deep: "#A77C2B",
+    ring: "rgba(212,175,55,.50)",
+    glow: "rgba(212,175,55,.45)",
+    grid: "rgba(212,175,55,.035)",
+    mesh1: "rgba(212,175,55,.10)",
+    mesh2: "rgba(230,199,102,.08)",
+  },
+  // Lighter, airy golden (switch if you want a softer vibe)
+  lightGold: {
+    soft: "#FFE29A",
+    base: "#F7D27D",
+    light: "#FFF0BD",
+    deep: "#C9A24A",
+    ring: "rgba(255,226,154,.55)",
+    glow: "rgba(255,226,154,.45)",
+    grid: "rgba(255,226,154,.035)",
+    mesh1: "rgba(255,226,154,.10)",
+    mesh2: "rgba(247,210,125,.08)",
+  },
+};
+
+// Pick your palette here
+const BRAND = PALETTE.gold;
 
 /* ================== Main Component ================== */
 const HowWeAre = () => {
@@ -78,8 +104,8 @@ const HowWeAre = () => {
       style={{
         backgroundColor: "#0a0a0a",
         backgroundImage: `
-          linear-gradient(to right, rgba(212,175,55,0.035) 1px, transparent 1px),
-          linear-gradient(to bottom, rgba(212,175,55,0.035) 1px, transparent 1px)
+          linear-gradient(to right, ${BRAND.grid} 1px, transparent 1px),
+          linear-gradient(to bottom, ${BRAND.grid} 1px, transparent 1px)
         `,
         backgroundSize: "22px 22px",
       }}
@@ -90,8 +116,8 @@ const HowWeAre = () => {
         aria-hidden="true"
         style={{
           background: `
-            radial-gradient(600px 280px at 18% 10%, rgba(212,175,55,0.10), transparent 60%),
-            radial-gradient(600px 280px at 85% 85%, rgba(230,199,102,0.08), transparent 65%)
+            radial-gradient(600px 280px at 18% 10%, ${BRAND.mesh1}, transparent 60%),
+            radial-gradient(600px 280px at 85% 85%, ${BRAND.mesh2}, transparent 65%)
           `,
         }}
       />
@@ -105,7 +131,8 @@ const HowWeAre = () => {
           }`}
           style={{
             background:
-              "linear-gradient(135deg, rgba(212,175,55,0.75), rgba(230,199,102,0.35) 40%, rgba(212,175,55,0.75))",
+              `linear-gradient(135deg, ${BRAND.base}CC, ${BRAND.soft}59 40%, ${BRAND.base}CC)`,
+            boxShadow: `0 18px 60px -24px ${BRAND.glow}`,
           }}
         >
           <div className="rounded-[calc(1.5rem-1.5px)] bg-neutral-900 text-white ring-1 ring-white/10 p-6 sm:p-10 relative overflow-hidden">
@@ -115,7 +142,8 @@ const HowWeAre = () => {
               aria-hidden="true"
               style={{
                 backgroundImage:
-                  "radial-gradient(600px 300px at 25% 15%, rgba(212,175,55,0.12), transparent 60%), radial-gradient(700px 320px at 85% 80%, rgba(230,199,102,0.10), transparent 60%)",
+                  `radial-gradient(600px 300px at 25% 15%, ${BRAND.mesh1}, transparent 60%),
+                   radial-gradient(700px 320px at 85% 80%, ${BRAND.mesh2}, transparent 60%)`,
               }}
             />
 
@@ -125,8 +153,8 @@ const HowWeAre = () => {
                 className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium tracking-wide heading-font ring-1"
                 style={{
                   color: "white",
-                  backgroundColor: "rgba(212,175,55,0.09)",
-                  borderColor: "rgba(212,175,55,0.28)",
+                  backgroundColor: `${BRAND.soft}1A`,
+                  borderColor: `${BRAND.ring}`,
                 }}
               >
                 WHO WE ARE
@@ -143,7 +171,7 @@ const HowWeAre = () => {
                     className="p-[3px] rounded-full"
                     style={{
                       background:
-                        "conic-gradient(from 180deg at 50% 50%, rgba(212,175,55,0.85), rgba(230,199,102,0.6), rgba(212,175,55,0.85))",
+                        `conic-gradient(from 180deg at 50% 50%, ${BRAND.base}D9, ${BRAND.soft}99, ${BRAND.base}D9)`,
                     }}
                   >
                     <div className="rounded-full bg-neutral-900 p-[3px]">
@@ -157,9 +185,6 @@ const HowWeAre = () => {
                       />
                     </div>
                   </div>
-
-                  {/* Years badge */}
-                
                 </div>
               </div>
 
@@ -167,15 +192,13 @@ const HowWeAre = () => {
               <div className="lg:col-span-7 space-y-4 text-center lg:text-left">
                 <h2
                   className="heading-font text-xl sm:text-2xl lg:text-3xl font-bold leading-tight"
-                  style={{
-                    color: GOLD,
-                  }}
+                  style={{ color: BRAND.base }}
                 >
                   {FOUNDER.quote}
                 </h2>
 
                 <p className="paragraph-font text-neutral-200 text-sm sm:text-base lg:text-[16px] leading-relaxed max-w-lg mx-auto lg:mx-0">
-                  <span style={{ color: GOLD_SOFT }}>Over Two decades</span> in real estate strategy, sales, and marketing. From large‑scale builder planning to pan‑India broker networks, Pradeep has led innovative models that accelerate closures and create long‑term value.
+                  <span style={{ color: BRAND.soft }}>Over Two decades</span> in real estate strategy, sales, and marketing. From large‑scale builder planning to pan‑India broker networks, Pradeep has led innovative models that accelerate closures and create long‑term value.
                 </p>
 
                 {(FOUNDER.name || FOUNDER.role) && (
@@ -183,7 +206,7 @@ const HowWeAre = () => {
                     {FOUNDER.name && (
                       <div
                         className="heading-font text-sm sm:text-base font-semibold"
-                        style={{ color: GOLD }}
+                        style={{ color: BRAND.base }}
                       >
                         {FOUNDER.name}
                       </div>
@@ -200,17 +223,16 @@ const HowWeAre = () => {
                 <div className="flex flex-col sm:flex-row gap-3 pt-2 sm:pt-3 justify-center lg:justify-start">
                   <a
                     href="#contact"
-                    className={`inline-flex items-center justify-center rounded-lg px-5 py-3 text-sm font-semibold text-black shadow-md ring-1 ring-black/20 transition ${
-                      prefersReducedMotion ? "" : "hover:-translate-y-0.5"
-                    }`}
+                    className={`inline-flex items-center justify-center rounded-lg px-5 py-3 text-sm font-semibold text-black shadow-md ring-1 ring-black/20 transition ${prefersReducedMotion ? "" : "hover:-translate-y-0.5"}`}
                     style={{
                       background:
-                        "linear-gradient(135deg, #F3D98E, #D4AF37 70%)",
+                        `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)`,
+                      boxShadow: `0 10px 26px ${BRAND.glow}`,
+                      borderColor: BRAND.ring,
                     }}
                   >
                     Talk to Us
                   </a>
-              
                 </div>
               </div>
             </div>
@@ -221,10 +243,13 @@ const HowWeAre = () => {
         <div className="text-center mt-12 sm:mt-16">
           <h3 className="heading-font text-2xl sm:text-3xl font-bold text-white mb-2 inline-block">
             Who We Are
-            <span className="block w-14 h-1 rounded mt-2 mx-auto" style={{ backgroundColor: GOLD }} />
+            <span
+              className="block w-14 h-1 rounded mt-2 mx-auto"
+              style={{ backgroundColor: BRAND.base, boxShadow: `0 6px 16px -8px ${BRAND.glow}` }}
+            />
           </h3>
           <p className="paragraph-font text-neutral-300 max-w-2xl mx-auto text-sm sm:text-base lg:text-[17px] leading-relaxed">
-            <span className="font-semibold" style={{ color: GOLD_SOFT }}>
+            <span className="font-semibold" style={{ color: BRAND.soft }}>
               With over Two decades
             </span>{" "}
             of hands‑on real estate leadership, we help buyers, sellers, and trusted agents close with confidence. KYC‑verified owners and brokers, transparent pricing, live market data, and end‑to‑end support — from first call to documentation — keep every step simple, fast, and reliable.
@@ -254,6 +279,7 @@ const HowWeAre = () => {
                 style={{
                   background: "rgba(255,255,255,0.02)",
                   borderColor: "rgba(255,255,255,0.08)",
+                  boxShadow: `0 8px 24px -10px ${BRAND.glow}`,
                 }}
               >
                 {/* Gold top divider */}
@@ -261,19 +287,20 @@ const HowWeAre = () => {
                   className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl"
                   style={{
                     background:
-                      "linear-gradient(90deg, transparent, rgba(212,175,55,0.7), rgba(230,199,102,0.6), transparent)",
+                      `linear-gradient(90deg, transparent, ${BRAND.base}B3, ${BRAND.soft}99, transparent)`,
                   }}
                 />
 
                 {/* Icon with gold halo */}
-                <div className="h-14 w-14 rounded-full p-[2px] mb-3"
+                <div
+                  className="h-14 w-14 rounded-full p-[2px] mb-3"
                   style={{
-                    background:
-                      "linear-gradient(135deg, rgba(212,175,55,0.85), rgba(230,199,102,0.65))",
+                    background: `linear-gradient(135deg, ${BRAND.base}D9, ${BRAND.soft}A6)`,
                   }}
                 >
-                  <div className="h-full w-full rounded-full flex items-center justify-center"
-                    style={{ backgroundColor: "#F3D98E" }}
+                  <div
+                    className="h-full w-full rounded-full flex items-center justify-center"
+                    style={{ backgroundColor: BRAND.soft }}
                   >
                     {Icon}
                   </div>
@@ -281,7 +308,7 @@ const HowWeAre = () => {
 
                 <h4
                   className="heading-font mt-1 text-[17px] sm:text-[18px] font-semibold"
-                  style={{ color: GOLD_SOFT }}
+                  style={{ color: BRAND.soft }}
                 >
                   {f.title}
                 </h4>

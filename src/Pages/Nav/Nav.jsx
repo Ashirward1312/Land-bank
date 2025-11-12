@@ -5,6 +5,18 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("Home");
 
+  // Premium gold palette
+  const BRAND = {
+    base: "#D4AF37",
+    soft: "#F3D98E",
+    ring: "rgba(212,175,55,.55)",
+    glow: "rgba(212,175,55,.45)",
+  };
+  const GRAD = {
+    btn: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)`,
+    line: `linear-gradient(90deg, ${BRAND.base}, ${BRAND.soft})`,
+  };
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
     window.addEventListener("scroll", onScroll);
@@ -33,18 +45,34 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 bg-neutral-950 border-b border-white/10 transition-all ${
-        scrolled ? "shadow-[0_1px_0_0_rgba(255,255,255,.08)]" : ""
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 bg-neutral-950 border-b border-white/10 transition-all`}
+      style={{
+        boxShadow: scrolled ? `0 10px 24px -12px ${BRAND.glow}` : "none",
+        backdropFilter: scrolled ? "saturate(140%) blur(4px)" : undefined,
+      }}
     >
       <div className="max-w-7xl mx-auto h-16 px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         {/* Brand */}
         <a href="#" className="flex items-center gap-3">
-          <div className="h-9 w-9 rounded-md bg-amber-400 text-neutral-900 grid place-items-center font-extrabold">
+          <div
+            className="h-9 w-9 rounded-md grid place-items-center font-extrabold ring-1"
+            style={{
+              background: GRAD.btn,
+              color: "#111",
+              borderColor: BRAND.ring,
+              boxShadow: `0 6px 18px -6px ${BRAND.glow}`,
+            }}
+          >
             LB
           </div>
           <span className="text-white text-xl font-extrabold tracking-tight">
-            Land <span className="text-amber-400">Bank</span>
+            Land{" "}
+            <span
+              className="bg-clip-text text-transparent"
+              style={{ backgroundImage: GRAD.btn }}
+            >
+              Bank
+            </span>
           </span>
         </a>
 
@@ -58,26 +86,32 @@ export default function Navbar() {
                   key={l.label}
                   href={l.href}
                   onClick={() => setActive(l.label)}
-                  className="inline-flex items-center rounded-lg px-4 py-2 font-semibold text-neutral-900 bg-amber-400 hover:bg-amber-300 transition ring-1 ring-amber-300/40 shadow-[0_8px_18px_-10px_rgba(251,191,36,.7)]"
+                  className="inline-flex items-center rounded-lg px-4 py-2 font-semibold ring-1 transition active:scale-[.99]"
+                  style={{
+                    background: GRAD.btn,
+                    color: "#111",
+                    borderColor: BRAND.ring,
+                    boxShadow: `0 8px 18px -10px ${BRAND.glow}`,
+                  }}
                 >
                   {l.label}
                 </a>
               );
             }
+            const isActive = active === l.label;
             return (
               <a
                 key={l.label}
                 href={l.href}
                 onClick={() => setActive(l.label)}
-                className={`group relative pb-1 transition ${
-                  active === l.label ? "text-white" : "text-white/80 hover:text-white"
-                }`}
+                className={`group relative pb-1 transition ${isActive ? "text-white" : "text-white/80 hover:text-white"}`}
               >
                 {l.label}
                 <span
-                  className={`pointer-events-none absolute left-0 -bottom-0.5 h-[2px] bg-amber-400 transition-all ${
-                    active === l.label ? "w-full" : "w-0 group-hover:w-full"
+                  className={`pointer-events-none absolute left-0 -bottom-0.5 h-[2px] transition-all ${
+                    isActive ? "w-full" : "w-0 group-hover:w-full"
                   }`}
+                  style={{ backgroundImage: GRAD.line }}
                 />
               </a>
             );
@@ -117,6 +151,7 @@ export default function Navbar() {
         className={`fixed right-0 top-0 bottom-0 z-50 w-72 bg-neutral-950 border-l border-white/10 md:hidden transform transition-transform duration-200 ${
           open ? "translate-x-0" : "translate-x-full"
         }`}
+        style={{ boxShadow: `-10px 0 30px -18px ${BRAND.glow}` }}
       >
         <div className="h-16 px-4 flex items-center justify-between border-b border-white/10">
           <span className="text-white font-semibold">Menu</span>
@@ -134,7 +169,8 @@ export default function Navbar() {
         <nav className="px-3 py-3 space-y-2">
           {links.map((l) => {
             const isContact = l.label === "Contact";
-            return (
+            const isActive = active === l.label;
+            return isContact ? (
               <a
                 key={l.label}
                 href={l.href}
@@ -142,13 +178,29 @@ export default function Navbar() {
                   setActive(l.label);
                   setOpen(false);
                 }}
-                className={
-                  isContact
-                    ? "block text-center rounded-lg px-4 py-2 font-semibold bg-amber-400 text-neutral-900 hover:bg-amber-300 transition"
-                    : `block rounded-md px-3 py-2 ${
-                        active === l.label ? "text-white bg-white/10" : "text-white/85 hover:bg-white/10"
-                      }`
-                }
+                className="block text-center rounded-lg px-4 py-2 font-semibold ring-1 transition active:scale-[.99]"
+                style={{
+                  background: GRAD.btn,
+                  color: "#111",
+                  borderColor: BRAND.ring,
+                  boxShadow: `0 8px 18px -10px ${BRAND.glow}`,
+                }}
+              >
+                {l.label}
+              </a>
+            ) : (
+              <a
+                key={l.label}
+                href={l.href}
+                onClick={() => {
+                  setActive(l.label);
+                  setOpen(false);
+                }}
+                className="block rounded-md px-3 py-2 transition"
+                style={{
+                  color: isActive ? "#fff" : "rgba(255,255,255,.85)",
+                  backgroundColor: isActive ? "rgba(255,255,255,.08)" : "transparent",
+                }}
               >
                 {l.label}
               </a>
