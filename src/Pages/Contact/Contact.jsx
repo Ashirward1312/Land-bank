@@ -5,8 +5,18 @@ import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaClock } from "react-icons/fa"
 export default function Contact() {
   // Premium Gold palettes (matches rest of site)
   const PALETTE = {
-    gold: { base: "#D4AF37", soft: "#F3D98E", ring: "rgba(212,175,55,.55)", glow: "rgba(212,175,55,.45)" },
-    light: { base: "#F7D27D", soft: "#FFE29A", ring: "rgba(255,226,154,.55)", glow: "rgba(255,226,154,.45)" },
+    gold: {
+      base: "#D4AF37",
+      soft: "#F3D98E",
+      ring: "rgba(212,175,55,.55)",
+      glow: "rgba(212,175,55,.45)",
+    },
+    light: {
+      base: "#F7D27D",
+      soft: "#FFE29A",
+      ring: "rgba(255,226,154,.55)",
+      glow: "rgba(255,226,154,.45)",
+    },
   };
   const BRAND = PALETTE.gold; // switch to PALETTE.light for a softer tone
 
@@ -22,7 +32,8 @@ export default function Contact() {
   };
 
   // Common input focus styling (gold focus ring)
-  const focusGold = (e) => (e.currentTarget.style.boxShadow = `0 0 0 1px ${BRAND.base}`);
+  const focusGold = (e) =>
+    (e.currentTarget.style.boxShadow = `0 0 0 1px ${BRAND.base}`);
   const blurGold = (e) => (e.currentTarget.style.boxShadow = "none");
 
   return (
@@ -57,27 +68,52 @@ export default function Contact() {
             Let’s{" "}
             <span
               className="bg-clip-text text-transparent"
-              style={{ backgroundImage: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)` }}
+              style={{
+                backgroundImage: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)`,
+              }}
             >
               Connect
             </span>
           </h2>
 
           <p className="text-neutral-400 mt-2 mb-6 text-base md:text-lg">
-            Reach out to us for plot enquiries, site visits, pricing and project details.
-            We usually respond within 24 hours.
+            Reach out to us for plot enquiries, site visits, pricing and project
+            details. We usually respond within 24 hours.
           </p>
 
           <div
             className="mx-0 mt-1 h-[3px] w-24 rounded-full"
-            style={{ background: `linear-gradient(90deg, transparent, ${BRAND.base}, ${BRAND.soft}, transparent)`, boxShadow: `0 8px 22px -8px ${BRAND.glow}` }}
+            style={{
+              background: `linear-gradient(90deg, transparent, ${BRAND.base}, ${BRAND.soft}, transparent)`,
+              boxShadow: `0 8px 22px -8px ${BRAND.glow}`,
+            }}
           />
 
           <div className="space-y-6 mt-6">
-            <InfoRow Icon={FaPhoneAlt} title="Phone" text="+91 98765 43210" brand={BRAND} />
-            <InfoRow Icon={FaEnvelope} title="Email" text="contact@landbank.in" brand={BRAND} />
-            <InfoRow Icon={FaMapMarkerAlt} title="Office Location" text="Raipur, Chhattisgarh, India" brand={BRAND} />
-            <InfoRow Icon={FaClock} title="Office Hours" text="Mon – Sat: 10:00 AM – 6:30 PM" brand={BRAND} />
+            <InfoRow
+              Icon={FaPhoneAlt}
+              title="Phone"
+              text="+91 88710-90476"
+              brand={BRAND}
+            />
+            {/* <InfoRow
+              Icon={FaEnvelope}
+              title="Email"
+              text="hello@pradeepmaheshwari.com"
+              brand={BRAND}
+            /> */}
+            <InfoRow
+              Icon={FaMapMarkerAlt}
+              title="Office Location"
+              text="Mahesh Ventures, LK Logistic Park, Kursi, 3rd Floor, Near Kamal Vihar, Raipur (C.G.)"
+              brand={BRAND}
+            />
+            <InfoRow
+              Icon={FaClock}
+              title="Office Hours"
+              text="Mon – Sat: 9:30 AM – 6:30 PM"
+              brand={BRAND}
+            />
           </div>
         </div>
 
@@ -110,7 +146,10 @@ export default function Contact() {
                 className="mt-1 w-full rounded-lg bg-neutral-900 border text-neutral-100 placeholder:text-neutral-500 focus:outline-none"
                 onFocus={focusGold}
                 onBlur={blurGold}
-                style={{ borderColor: "rgba(255,255,255,.10)", caretColor: BRAND.base }}
+                style={{
+                  borderColor: "rgba(255,255,255,.10)",
+                  caretColor: BRAND.base,
+                }}
               />
             </div>
 
@@ -121,11 +160,14 @@ export default function Contact() {
                 pattern="[0-9+\s()-]{10,}"
                 value={form.phone}
                 onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                placeholder="+91 9xxxxxxxxx"
+                placeholder="+91 98765 43210"
                 className="mt-1 w-full rounded-lg bg-neutral-900 border text-neutral-100 placeholder:text-neutral-500 focus:outline-none"
                 onFocus={focusGold}
                 onBlur={blurGold}
-                style={{ borderColor: "rgba(255,255,255,.10)", caretColor: BRAND.base }}
+                style={{
+                  borderColor: "rgba(255,255,255,.10)",
+                  caretColor: BRAND.base,
+                }}
               />
             </div>
 
@@ -140,7 +182,10 @@ export default function Contact() {
                 className="mt-1 w-full rounded-lg bg-neutral-900 border text-neutral-100 placeholder:text-neutral-500 focus:outline-none"
                 onFocus={focusGold}
                 onBlur={blurGold}
-                style={{ borderColor: "rgba(255,255,255,.10)", caretColor: BRAND.base }}
+                style={{
+                  borderColor: "rgba(255,255,255,.10)",
+                  caretColor: BRAND.base,
+                }}
               />
             </div>
           </div>

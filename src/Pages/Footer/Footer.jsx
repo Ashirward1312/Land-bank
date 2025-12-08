@@ -25,6 +25,8 @@ const Footer = () => {
   const hoverGold = (e) => (e.currentTarget.style.color = BRAND.soft);
   const unhoverGold = (e) => (e.currentTarget.style.color = "");
 
+  const year = new Date().getFullYear();
+
   return (
     <footer className="relative bg-neutral-950 text-neutral-100 pt-12 pb-6 border-t border-white/10">
       {/* subtle gold mesh glows */}
@@ -45,7 +47,9 @@ const Footer = () => {
             Land{" "}
             <span
               className="bg-clip-text text-transparent"
-              style={{ backgroundImage: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)` }}
+              style={{
+                backgroundImage: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)`,
+              }}
             >
               Bank
             </span>
@@ -56,14 +60,18 @@ const Footer = () => {
           </p>
           <div
             className="mt-3 h-[3px] w-20 rounded-full"
-            style={{ background: `linear-gradient(90deg, transparent, ${BRAND.base}, ${BRAND.soft}, transparent)` }}
+            style={{
+              background: `linear-gradient(90deg, transparent, ${BRAND.base}, ${BRAND.soft}, transparent)`,
+            }}
           />
         </div>
 
         <nav>
           <h3
             className="text-lg font-semibold mb-4 bg-clip-text text-transparent"
-            style={{ backgroundImage: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)` }}
+            style={{
+              backgroundImage: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)`,
+            }}
           >
             Quick Links
           </h3>
@@ -93,35 +101,39 @@ const Footer = () => {
         <div>
           <h3
             className="text-lg font-semibold mb-4 bg-clip-text text-transparent"
-            style={{ backgroundImage: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)` }}
+            style={{
+              backgroundImage: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)`,
+            }}
           >
             Contact Us
           </h3>
           <ul className="space-y-3 text-neutral-300 text-sm">
-            <li>📍 Land Bank HQ,<br />Raipur, Chhattisgarh, India</li>
+            <li>
+              📍 Mahesh Ventures, LK Logistic Park, Kursi, 
+                 3rd Floor, Near Kamal Vihar, Raipur (C.G.)
+            </li>
             <li>
               📞{" "}
               <a
-                href="tel:+919876543211"
+                href="tel:+918871090476"
                 className="transition"
                 style={{ color: "#d1d5db" }}
                 onMouseEnter={hoverGold}
                 onMouseLeave={unhoverGold}
               >
-                +91 9876543211
+                +91 88710-90476
               </a>
             </li>
             <li>
-              📧{" "}
-              <a
-                href="mailto:hello@landbank.example"
+              {/* <a
+                href="mailto:hello@pradeepmaheshwari.com"
                 className="transition"
                 style={{ color: "#d1d5db" }}
                 onMouseEnter={hoverGold}
                 onMouseLeave={unhoverGold}
               >
-                hello@landbank.example
-              </a>
+                hello@pradeepmaheshwari.com
+              </a> */}
             </li>
           </ul>
         </div>
@@ -129,31 +141,98 @@ const Footer = () => {
         <div>
           <h3
             className="text-lg font-semibold mb-4 bg-clip-text text-transparent"
-            style={{ backgroundImage: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)` }}
+            style={{
+              backgroundImage: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)`,
+            }}
           >
             Follow Us
           </h3>
           <div className="flex gap-3">
-            {[
-              { Icon: FaFacebookF, href: "#" },
-              { Icon: FaInstagram, href: "#" },
-              { Icon: FaLinkedinIn, href: "#" },
-              { Icon: FaTwitter, href: "#" },
-            ].map(({ Icon, href }, i) => (
-              <a key={i} href={href} aria-label="social" className="transition hover:-translate-y-0.5">
-                <span
-                  className="h-9 w-9 rounded-lg grid place-items-center ring-1"
-                  style={{
-                    background: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)`,
-                    color: "#111",
-                    borderColor: BRAND.ring,
-                    boxShadow: `0 8px 18px -10px ${BRAND.glow}`,
-                  }}
-                >
-                  <Icon className="text-black" />
-                </span>
-              </a>
-            ))}
+            {/* Facebook */}
+            <a
+              href="https://www.facebook.com/people/Headquarter-HQ-In-Association-with-Kursi/61582888842094/"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Facebook"
+              className="transition hover:-translate-y-0.5"
+            >
+              <span
+                className="h-9 w-9 rounded-lg grid place-items-center ring-1"
+                style={{
+                  background: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)`,
+                  color: "#111",
+                  borderColor: BRAND.ring,
+                  boxShadow: `0 8px 18px -10px ${BRAND.glow}`,
+                }}
+              >
+                <FaFacebookF className="text-black" />
+              </span>
+            </a>
+
+            {/* Instagram */}
+            <a
+              href="https://www.instagram.com/headquarterkursi/"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Instagram"
+              className="transition hover:-translate-y-0.5"
+            >
+              <span
+                className="h-9 w-9 rounded-lg grid place-items-center ring-1"
+                style={{
+                  background: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)`,
+                  color: "#111",
+                  borderColor: BRAND.ring,
+                  boxShadow: `0 8px 18px -10px ${BRAND.glow}`,
+                }}
+              >
+                <FaInstagram className="text-black" />
+              </span>
+            </a>
+
+            {/* LinkedIn – commented out (no link provided) */}
+            {/*
+            <a
+              href="https://linkedin.com"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="LinkedIn"
+              className="transition hover:-translate-y-0.5"
+            >
+              <span
+                className="h-9 w-9 rounded-lg grid place-items-center ring-1"
+                style={{
+                  background: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)`,
+                  color: "#111",
+                  borderColor: BRAND.ring,
+                  boxShadow: `0 8px 18px -10px ${BRAND.glow}`,
+                }}
+              >
+                <FaLinkedinIn className="text-black" />
+              </span>
+            </a>
+            */}
+
+            {/* Twitter / X */}
+            <a
+              href="https://x.com/maheshwari95189"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Twitter / X"
+              className="transition hover:-translate-y-0.5"
+            >
+              <span
+                className="h-9 w-9 rounded-lg grid place-items-center ring-1"
+                style={{
+                  background: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)`,
+                  color: "#111",
+                  borderColor: BRAND.ring,
+                  boxShadow: `0 8px 18px -10px ${BRAND.glow}`,
+                }}
+              >
+                <FaTwitter className="text-black" />
+              </span>
+            </a>
           </div>
         </div>
       </div>
@@ -161,7 +240,11 @@ const Footer = () => {
       {/* Bottom bar */}
       <div className="mt-10 border-t border-white/10 pt-6">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm text-neutral-400">
-          © {new Date().getFullYear()} Land Bank. All rights reserved.
+          © {year} Land Bank. All rights reserved, Designed and Developed by{" "}
+          <span className="text-neutral-100 font-semibold">
+           SP ADVERTISING
+          </span>
+          .
         </div>
       </div>
 

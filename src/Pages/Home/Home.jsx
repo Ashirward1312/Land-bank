@@ -55,7 +55,7 @@ export default function Home() {
 
         <h1 className="mt-5 font-extrabold leading-tight tracking-tight">
           <span className="block text-4xl md:text-5xl lg:text-6xl">
-            Find Premium Plots
+            Find Premium Land Bank
           </span>
           <span className="block text-4xl md:text-5xl lg:text-6xl text-amber-300">
             in Raipur
@@ -63,8 +63,7 @@ export default function Home() {
         </h1>
 
         <p className="mt-4 max-w-3xl text-lg md:text-xl text-white/90">
-          Trusted and verified land/plots for Institutional, Medical, Hospitality, Real Estate and Industrial developments — secure, smooth and reliable deals.        </p>
-
+          “Trusted and verified land and plots for Real Estate, Institutional, Medical, Hospitality, Malls, Industrial developments, and more — delivering secure, smooth, and reliable deals. Whether you want to buy or sell land, we ensure a fully professional and transparent experience.”</p>
         {/* ✅ Dots */}
         <div className="mt-8 flex items-center justify-center gap-3">
           {slides.map((_, i) => (
