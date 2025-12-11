@@ -109,8 +109,9 @@ const Footer = () => {
           </h3>
           <ul className="space-y-3 text-neutral-300 text-sm">
             <li>
-              📍 Mahesh Ventures, LK Logistic Park, Kursi, 
-                 3rd Floor, Near Kamal Vihar, Raipur (C.G.)
+              📍 Mahesh Ventures, LK Logistic Park, Kursi,
+              <br />
+              &nbsp;&nbsp;&nbsp;3rd Floor, Near Kamal Vihar, Raipur (C.G.)
             </li>
             <li>
               📞{" "}
@@ -124,17 +125,7 @@ const Footer = () => {
                 +91 88710-90476
               </a>
             </li>
-            <li>
-              {/* <a
-                href="mailto:hello@pradeepmaheshwari.com"
-                className="transition"
-                style={{ color: "#d1d5db" }}
-                onMouseEnter={hoverGold}
-                onMouseLeave={unhoverGold}
-              >
-                hello@pradeepmaheshwari.com
-              </a> */}
-            </li>
+            <li>{/* email commented as per earlier code */}</li>
           </ul>
         </div>
 
@@ -190,29 +181,6 @@ const Footer = () => {
               </span>
             </a>
 
-            {/* LinkedIn – commented out (no link provided) */}
-            {/*
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="LinkedIn"
-              className="transition hover:-translate-y-0.5"
-            >
-              <span
-                className="h-9 w-9 rounded-lg grid place-items-center ring-1"
-                style={{
-                  background: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)`,
-                  color: "#111",
-                  borderColor: BRAND.ring,
-                  boxShadow: `0 8px 18px -10px ${BRAND.glow}`,
-                }}
-              >
-                <FaLinkedinIn className="text-black" />
-              </span>
-            </a>
-            */}
-
             {/* Twitter / X */}
             <a
               href="https://x.com/maheshwari95189"
@@ -241,9 +209,14 @@ const Footer = () => {
       <div className="mt-10 border-t border-white/10 pt-6">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm text-neutral-400">
           © {year} Land Bank. All rights reserved, Designed and Developed by{" "}
-          <span className="text-neutral-100 font-semibold">
-           SP ADVERTISING
-          </span>
+          <a
+            href="https://spadvertising.in/"
+            target="_blank"
+            rel="noreferrer"
+            className="text-neutral-100 font-semibold hover:text-[#F3D98E] transition-colors"
+          >
+            SP ADVERTISING
+          </a>
           .
         </div>
       </div>
