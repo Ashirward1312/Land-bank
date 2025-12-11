@@ -107,17 +107,31 @@ const Footer = () => {
           >
             Contact Us
           </h3>
-          <ul className="space-y-3 text-neutral-300 text-sm">
-            <li>
-              📍 Mahesh Ventures, LK Logistic Park, Kursi,
-              <br />
-              &nbsp;&nbsp;&nbsp;3rd Floor, Near Kamal Vihar, Raipur (C.G.)
+          <ul className="space-y-4 text-sm text-neutral-300">
+            {/* Address */}
+            <li className="flex items-start gap-3 rounded-xl bg-neutral-800/40 px-4 py-3 border border-neutral-700/60">
+              <span className="mt-1 flex h-8 w-8 items-center justify-center rounded-full bg-amber-500/10 text-lg">
+                📍
+              </span>
+              <div>
+                <p className="font-semibold text-neutral-50">
+                  Mahesh Ventures
+                </p>
+                <p className="text-neutral-300 leading-snug">
+                  LK Logistic Park, Kursi, 3rd Floor<br />
+                  Near Kamal Vihar, Raipur (C.G.)
+                </p>
+              </div>
             </li>
-            <li>
-              📞{" "}
+
+            {/* Phone */}
+            <li className="flex items-center gap-3 rounded-xl bg-neutral-800/40 px-4 py-3 border border-neutral-700/60">
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500/10 text-lg">
+                📞
+              </span>
               <a
                 href="tel:+918871090476"
-                className="transition"
+                className="transition-colors text-neutral-300 hover:text-amber-400"
                 style={{ color: "#d1d5db" }}
                 onMouseEnter={hoverGold}
                 onMouseLeave={unhoverGold}
@@ -125,6 +139,8 @@ const Footer = () => {
                 +91 88710-90476
               </a>
             </li>
+
+            {/* Future: email, etc. */}
             <li>{/* email commented as per earlier code */}</li>
           </ul>
         </div>
