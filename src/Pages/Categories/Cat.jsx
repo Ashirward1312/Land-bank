@@ -1,427 +1,3 @@
-// "use client";
-// import React, { useState } from "react";
-
-// const CATS = [
-//   { id: "industry", label: "Industries", icon: IndustryIcon },
-//   { id: "hospital", label: "Hospital", icon: HospitalIcon },
-//   { id: "education", label: "Education", icon: EducationIcon },
-//   { id: "realestate", label: "Real Estate", icon: RealEstateIcon },
-//   { id: "hotel", label: "Hotel", icon: HotelIcon },
-// ];
-
-// const DEFAULT_LOCATIONS = ["Raipur", "Naya Raipur", "VIP Road", "Tatibandh", "Bhilai", "Dhamtari Road"];
-// const AREA_CHIPS = ["0.5–1 acre", "1–2 acres", "2–5 acres", "5+ acres"];
-// const BUDGET_CHIPS = ["< ₹50L", "₹50L–₹1Cr", "₹1–₹3Cr", "₹3–₹5Cr", "₹5Cr+"];
-
-// /* Premium Gold palette (matches the rest of the site) */
-// const PALETTE = {
-//   gold:   { base: "#D4AF37", soft: "#F3D98E", ring: "rgba(212,175,55,.60)", glow: "rgba(212,175,55,.50)" },
-//   light:  { base: "#F7D27D", soft: "#FFE29A", ring: "rgba(255,226,154,.60)", glow: "rgba(255,226,154,.50)" },
-// };
-// // Pick your tone
-// const BRAND = PALETTE.gold;
-
-// export default function CategoriesSection({ onApply }) {
-//   const [selected, setSelected] = useState(null); // category id
-//   const [filters, setFilters] = useState({});     // per-category filters
-//   const current = selected ? filters[selected] || {} : {};
-
-//   const setCur = (up) =>
-//     setFilters((f) => ({
-//       ...f,
-//       [selected]: { ...(f[selected] || {}), ...up },
-//     }));
-
-//   const toggleArray = (arr = [], v) => (arr?.includes(v) ? arr.filter((x) => x !== v) : [...(arr || []), v]);
-
-//   const onClear = () =>
-//     setCur({ locations: [], areaChip: "", minArea: "", maxArea: "", budgetChip: "", minBudget: "", maxBudget: "", customLoc: "" });
-
-//   const apply = () => {
-//     const payload = { category: selected, ...(filters[selected] || {}) };
-//     if (typeof onApply === "function") onApply(payload);
-//   };
-
-//   // Summary tags
-//   const summary = (() => {
-//     if (!selected) return [];
-//     const t = [];
-//     if (current.locations?.length) current.locations.forEach((l) => t.push({ type: "loc", value: l }));
-//     if (current.areaChip) t.push({ type: "areaChip", value: current.areaChip });
-//     if (current.minArea || current.maxArea) t.push({ type: "area", value: `${current.minArea || "0"}–${current.maxArea || "∞"} acre` });
-//     if (current.budgetChip) t.push({ type: "budgetChip", value: current.budgetChip });
-//     if (current.minBudget || current.maxBudget) t.push({ type: "budget", value: `₹${current.minBudget || "0"}–₹${current.maxBudget || "∞"}` });
-//     return t;
-//   })();
-
-//   const removeTag = (t) => {
-//     if (!selected) return;
-//     if (t.type === "loc") setCur({ locations: toggleArray(current.locations, t.value) });
-//     if (t.type === "areaChip") setCur({ areaChip: "" });
-//     if (t.type === "area") setCur({ minArea: "", maxArea: "" });
-//     if (t.type === "budgetChip") setCur({ budgetChip: "" });
-//     if (t.type === "budget") setCur({ minBudget: "", maxBudget: "" });
-//   };
-
-//   return (
-//     <section id="categories" className="relative bg-neutral-950 text-neutral-100 py-12">
-//       <div className="max-w-[1200px] mx-auto px-4 md:px-6">
-//         {/* Heading */}
-//         <header className="mb-8 text-center">
-//           <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight">
-//             Browse by{" "}
-//             <span
-//               className="bg-clip-text text-transparent"
-//               style={{ backgroundImage: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)` }}
-//             >
-//               Category
-//             </span>
-//           </h2>
-//           <p className="text-neutral-400 mt-1">Pick a category and refine by Location, Area and Budget.</p>
-//           <div
-//             className="mx-auto mt-3 h-[3px] w-24 rounded-full"
-//             style={{ background: `linear-gradient(90deg, transparent, ${BRAND.base}, ${BRAND.soft}, transparent)` }}
-//           />
-//         </header>
-
-//         {/* Category cards */}
-//         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 justify-center">
-//           {CATS.map(({ id, label, icon: Icon }) => {
-//             const isActive = selected === id;
-//             return (
-//               <button
-//                 type="button"
-//                 key={id}
-//                 onClick={() => setSelected((s) => (s === id ? null : id))}
-//                 className="group relative flex items-center gap-3 rounded-xl bg-neutral-900/90 px-4 py-3 ring-1 ring-white/10 transition"
-//                 style={
-//                   isActive
-//                     ? { boxShadow: `0 0 0 1px ${BRAND.ring}, 0 10px 30px -12px ${BRAND.glow}` }
-//                     : { boxShadow: "none" }
-//                 }
-//               >
-//                 <span
-//                   className="grid h-9 w-9 place-items-center rounded-lg ring-1 bg-white/5"
-//                   style={{ boxShadow: isActive ? `0 0 0 1px ${BRAND.ring}` : undefined, borderColor: "transparent" }}
-//                 >
-//                   <Icon className="h-5 w-5" style={{ color: isActive ? BRAND.soft : "#d1d5db" }} />
-//                 </span>
-//                 <span className="text-sm font-semibold" style={{ color: isActive ? "#fff" : "#e5e7eb" }}>
-//                   {label}
-//                 </span>
-//                 <span
-//                   className="ml-auto h-6 w-6 grid place-items-center rounded-md text-xs ring-1"
-//                   style={{
-//                     boxShadow: isActive ? `0 0 0 1px ${BRAND.ring}` : undefined,
-//                     color: isActive ? "#fff" : "#9ca3af",
-//                   }}
-//                 >
-//                   {isActive ? "−" : "+"}
-//                 </span>
-//               </button>
-//             );
-//           })}
-//         </div>
-
-//         {/* Filter panel */}
-//         <div className={`transition-all duration-300 overflow-hidden ${selected ? "mt-6 max-h-[1200px]" : "max-h-0"}`} aria-hidden={!selected}>
-//           {selected && (
-//             <div className="rounded-2xl bg-neutral-900 ring-1 ring-white/10 p-4 md:p-6 mt-4">
-//               <div className="flex items-center gap-2 mb-4">
-//                 <span
-//                   className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs ring-1"
-//                   style={{
-//                     background: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)`,
-//                     color: "#111",
-//                     boxShadow: `0 6px 18px -6px ${BRAND.glow}`,
-//                     borderColor: BRAND.ring,
-//                   }}
-//                 >
-//                   {CATS.find((c) => c.id === selected)?.label}
-//                 </span>
-//               </div>
-
-//               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-//                 {/* Locations */}
-//                 <div>
-//                   <h3 className="text-sm font-semibold text-white">Location</h3>
-//                   <p className="text-xs text-neutral-400">Choose popular localities or add your own.</p>
-//                   <div className="mt-3 flex flex-wrap gap-2">
-//                     {DEFAULT_LOCATIONS.map((loc) => {
-//                       const active = (current.locations || []).includes(loc);
-//                       return (
-//                         <button
-//                           type="button"
-//                           key={loc}
-//                           onClick={() => setCur({ locations: toggleArray(current.locations, loc) })}
-//                           className="rounded-full px-3 py-1.5 text-sm ring-1 transition"
-//                           style={
-//                             active
-//                               ? {
-//                                   background: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)`,
-//                                   color: "#111",
-//                                   boxShadow: `0 6px 18px -6px ${BRAND.glow}`,
-//                                   borderColor: BRAND.ring,
-//                                 }
-//                               : { background: "rgba(255,255,255,.05)", color: "#e5e7eb", borderColor: "rgba(255,255,255,.10)" }
-//                           }
-//                         >
-//                           {loc}
-//                         </button>
-//                       );
-//                     })}
-//                   </div>
-//                   <div className="mt-3 flex items-center gap-2">
-//                     <input
-//                       type="text"
-//                       placeholder="Add custom location"
-//                       value={current.customLoc || ""}
-//                       onChange={(e) => setCur({ customLoc: e.target.value })}
-//                       className="w-full rounded-lg bg-neutral-900 border text-neutral-100 placeholder:text-neutral-500 focus:outline-none focus:ring-1"
-//                       style={{
-//                         borderColor: "rgba(255,255,255,.10)",
-//                         caretColor: BRAND.base,
-//                         boxShadow: "none",
-//                       }}
-//                       onFocus={(e) => (e.currentTarget.style.boxShadow = `0 0 0 1px ${BRAND.base}`)}
-//                       onBlur={(e) => (e.currentTarget.style.boxShadow = "none")}
-//                     />
-//                     <button
-//                       type="button"
-//                       onClick={() => {
-//                         const val = (current.customLoc || "").trim();
-//                         if (!val) return;
-//                         setCur({ locations: toggleArray(current.locations, val), customLoc: "" });
-//                       }}
-//                       className="rounded-lg px-3 py-2 text-sm ring-1 transition"
-//                       style={{
-//                         background: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)`,
-//                         color: "#111",
-//                         borderColor: BRAND.ring,
-//                         boxShadow: `0 6px 18px -6px ${BRAND.glow}`,
-//                       }}
-//                     >
-//                       Add
-//                     </button>
-//                   </div>
-//                 </div>
-
-//                 {/* Area */}
-//                 <div>
-//                   <h3 className="text-sm font-semibold text-white">Area</h3>
-//                   <p className="text-xs text-neutral-400">Pick a quick range or enter custom.</p>
-//                   <div className="mt-3 flex flex-wrap gap-2">
-//                     {AREA_CHIPS.map((chip) => {
-//                       const active = current.areaChip === chip;
-//                       return (
-//                         <button
-//                           type="button"
-//                           key={chip}
-//                           onClick={() => setCur({ areaChip: active ? "" : chip })}
-//                           className="rounded-full px-3 py-1.5 text-sm ring-1 transition"
-//                           style={
-//                             active
-//                               ? {
-//                                   background: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)`,
-//                                   color: "#111",
-//                                   boxShadow: `0 6px 18px -6px ${BRAND.glow}`,
-//                                   borderColor: BRAND.ring,
-//                                 }
-//                               : { background: "rgba(255,255,255,.05)", color: "#e5e7eb", borderColor: "rgba(255,255,255,.10)" }
-//                           }
-//                         >
-//                           {chip}
-//                         </button>
-//                       );
-//                     })}
-//                   </div>
-//                   <div className="mt-3 grid grid-cols-2 gap-2">
-//                     <input
-//                       type="number"
-//                       step="0.1"
-//                       min="0"
-//                       placeholder="Min (acre)"
-//                       value={current.minArea || ""}
-//                       onChange={(e) => setCur({ minArea: e.target.value })}
-//                       className="rounded-lg bg-neutral-900 border text-neutral-100 placeholder:text-neutral-500 focus:outline-none focus:ring-1"
-//                       style={{ borderColor: "rgba(255,255,255,.10)" }}
-//                       onFocus={(e) => (e.currentTarget.style.boxShadow = `0 0 0 1px ${BRAND.base}`)}
-//                       onBlur={(e) => (e.currentTarget.style.boxShadow = "none")}
-//                     />
-//                     <input
-//                       type="number"
-//                       step="0.1"
-//                       min="0"
-//                       placeholder="Max (acre)"
-//                       value={current.maxArea || ""}
-//                       onChange={(e) => setCur({ maxArea: e.target.value })}
-//                       className="rounded-lg bg-neutral-900 border text-neutral-100 placeholder:text-neutral-500 focus:outline-none focus:ring-1"
-//                       style={{ borderColor: "rgba(255,255,255,.10)" }}
-//                       onFocus={(e) => (e.currentTarget.style.boxShadow = `0 0 0 1px ${BRAND.base}`)}
-//                       onBlur={(e) => (e.currentTarget.style.boxShadow = "none")}
-//                     />
-//                   </div>
-//                 </div>
-
-//                 {/* Budget */}
-//                 <div>
-//                   <h3 className="text-sm font-semibold text-white">Budget</h3>
-//                   <p className="text-xs text-neutral-400">Select a bracket or set limits.</p>
-//                   <div className="mt-3 flex flex-wrap gap-2">
-//                     {BUDGET_CHIPS.map((chip) => {
-//                       const active = current.budgetChip === chip;
-//                       return (
-//                         <button
-//                           type="button"
-//                           key={chip}
-//                           onClick={() => setCur({ budgetChip: active ? "" : chip })}
-//                           className="rounded-full px-3 py-1.5 text-sm ring-1 transition"
-//                           style={
-//                             active
-//                               ? {
-//                                   background: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)`,
-//                                   color: "#111",
-//                                   boxShadow: `0 6px 18px -6px ${BRAND.glow}`,
-//                                   borderColor: BRAND.ring,
-//                                 }
-//                               : { background: "rgba(255,255,255,.05)", color: "#e5e7eb", borderColor: "rgba(255,255,255,.10)" }
-//                           }
-//                         >
-//                           {chip}
-//                         </button>
-//                       );
-//                     })}
-//                   </div>
-//                   <div className="mt-3 grid grid-cols-2 gap-2">
-//                     <input
-//                       type="number"
-//                       min="0"
-//                       placeholder="Min (₹)"
-//                       value={current.minBudget || ""}
-//                       onChange={(e) => setCur({ minBudget: e.target.value })}
-//                       className="rounded-lg bg-neutral-900 border text-neutral-100 placeholder:text-neutral-500 focus:outline-none focus:ring-1"
-//                       style={{ borderColor: "rgba(255,255,255,.10)" }}
-//                       onFocus={(e) => (e.currentTarget.style.boxShadow = `0 0 0 1px ${BRAND.base}`)}
-//                       onBlur={(e) => (e.currentTarget.style.boxShadow = "none")}
-//                     />
-//                     <input
-//                       type="number"
-//                       min="0"
-//                       placeholder="Max (₹)"
-//                       value={current.maxBudget || ""}
-//                       onChange={(e) => setCur({ maxBudget: e.target.value })}
-//                       className="rounded-lg bg-neutral-900 border text-neutral-100 placeholder:text-neutral-500 focus:outline-none focus:ring-1"
-//                       style={{ borderColor: "rgba(255,255,255,.10)" }}
-//                       onFocus={(e) => (e.currentTarget.style.boxShadow = `0 0 0 1px ${BRAND.base}`)}
-//                       onBlur={(e) => (e.currentTarget.style.boxShadow = "none")}
-//                     />
-//                   </div>
-//                 </div>
-//               </div>
-
-//               {/* Selected summary tags */}
-//               {summary.length > 0 && (
-//                 <div className="mt-5 flex flex-wrap gap-2 justify-center md:justify-start">
-//                   {summary.map((t, i) => (
-//                     <span
-//                       key={`${t.type}-${t.value}-${i}`}
-//                       className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs ring-1"
-//                       style={{
-//                         background: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)`,
-//                         color: "#111",
-//                         borderColor: BRAND.ring,
-//                         boxShadow: `0 6px 18px -6px ${BRAND.glow}`,
-//                       }}
-//                     >
-//                       {t.value}
-//                       <button
-//                         type="button"
-//                         onClick={() => removeTag(t)}
-//                         className="ml-1 h-5 w-5 grid place-items-center rounded-full bg-black/10 text-neutral-900 hover:bg-black/20"
-//                         aria-label="Remove"
-//                       >
-//                         ×
-//                       </button>
-//                     </span>
-//                   ))}
-//                 </div>
-//               )}
-
-//               {/* Actions */}
-//               <div className="mt-6 flex items-center justify-between gap-3">
-//                 <button
-//                   type="button"
-//                   onClick={onClear}
-//                   className="rounded-lg px-4 py-2 text-sm text-neutral-100 ring-1 ring-white/10 bg-white/5 hover:bg-white/10"
-//                 >
-//                   Clear
-//                 </button>
-//                 <button
-//                   type="button"
-//                   onClick={apply}
-//                   className="rounded-lg px-5 py-2 text-sm font-semibold ring-1 transition"
-//                   style={{
-//                     background: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)`,
-//                     color: "#111",
-//                     borderColor: BRAND.ring,
-//                     boxShadow: `0 10px 24px ${BRAND.glow}`,
-//                   }}
-//                 >
-//                   Show results
-//                 </button>
-//               </div>
-//             </div>
-//           )}
-//         </div>
-//       </div>
-//     </section>
-//   );
-// }
-
-// /* ---------- Icons (inline SVGs) ---------- */
-// function IndustryIcon({ className = "" }) {
-//   return (
-//     <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.6">
-//       <path d="M3 21V9l6 4V9l6 4V9l6 4v8H3Z" />
-//       <path d="M7 21v-3M11 21v-6M15 21v-4M19 21v-2" />
-//     </svg>
-//   );
-// }
-// function HospitalIcon({ className = "" }) {
-//   return (
-//     <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.6">
-//       <rect x="4" y="3" width="16" height="18" rx="2" />
-//       <path d="M12 7v6M9 10h6" />
-//     </svg>
-//   );
-// }
-// function EducationIcon({ className = "" }) {
-//   return (
-//     <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.6">
-//       <path d="M3 7l9-4 9 4-9 4-9-4z" />
-//       <path d="M13 11v6l-1 1-1-1v-6" />
-//       <path d="M21 8v5" />
-//     </svg>
-//   );
-// }
-// function RealEstateIcon({ className = "" }) {
-//   return (
-//     <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.6">
-//       <path d="M3 11l9-7 9 7" />
-//       <path d="M5 10v10h14V10" />
-//       <path d="M9 20v-6h6v6" />
-//     </svg>
-//   );
-// }
-// function HotelIcon({ className = "" }) {
-//   return (
-//     <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.6">
-//       <path d="M3 21V8a2 2 0 012-2h14a2 2 0 012 2v13" />
-//       <path d="M7 12h10M7 9h10M7 15h6" />
-//     </svg>
-//   );
-// }
-
 "use client";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -438,101 +14,94 @@ import {
   FerrisWheel as FerrisWheelIcon,
   LineChart as LineChartIcon,
   MoreHorizontal as MoreHorizontalIcon,
+  MapPin as MapPinIcon, // Land on Lease
+  Home as HomeIcon, // Premium Farm House
 } from "lucide-react";
 
 const CATS = [
-  { id: "industry", label: "Industries", icon: FactoryIcon },
+  { id: "bestbuy", label: "Best Buy", icon: FactoryIcon },
+
+  { id: "jointventures", label: "Joint Ventures", icon: FactoryIcon },
+
   { id: "hospital", label: "Hospital", icon: HospitalIcon },
   { id: "education", label: "Education", icon: GraduationCapIcon },
-  { id: "realestate", label: "Real Estate", icon: BuildingIcon },
+
+  { id: "residential", label: "Residential Real Estate", icon: BuildingIcon },
+  { id: "commercial", label: "Commercial Real Estate", icon: BuildingIcon },
 
   { id: "luxuryplots", label: "Premium Luxury Plots", icon: GemIcon },
-  { id: "malls", label: "Malls", icon: ShoppingBagIcon },
-  { id: "weddinglawns", label: "Wedding Lawns", icon: TreesIcon },
-  { id: "resorts", label: "Resorts", icon: HotelIcon },
-  { id: "warehouse", label: "Ware House", icon: BoxesIcon },
-  { id: "amusementpark", label: "Amusement Park", icon: FerrisWheelIcon },
 
-  { id: "investment", label: "Investment", icon: LineChartIcon },
+  { id: "farmhouse", label: "Premium Farm House", icon: HomeIcon },
+
+  { id: "malls", label: "Malls", icon: ShoppingBagIcon },
+
+  {
+    id: "resortswedding",
+    label: "Resorts / Wedding Lawns",
+    icon: TreesIcon,
+  },
+
+  { id: "warehouse", label: "Ware House", icon: BoxesIcon },
+
+  { id: "lease", label: "Land on Lease", icon: MapPinIcon },
+
+  { id: "invest-land", label: "Land / Plot Investment", icon: LineChartIcon },
+
   { id: "landplot", label: "Land/Plot", icon: LineChartIcon },
 
   { id: "others", label: "Others", icon: MoreHorizontalIcon },
 ];
 
-const PALETTE = {
-  gold: {
-    base: "#D4AF37",
-    soft: "#F3D98E",
-    ring: "rgba(212,175,55,.60)",
-    glow: "rgba(212,175,55,.50)",
-  },
+const BRAND = {
+  base: "#facc15", // gold
+  soft: "#fde68a", // soft light gold
+  ring: "rgba(250,204,21,0.65)",
+  glow: "rgba(250,204,21,0.50)",
 };
-const BRAND = PALETTE.gold;
 
 export default function CategoriesSection() {
   const navigate = useNavigate();
   const [selected, setSelected] = useState(null);
 
   const handleCategoryClick = (id) => {
-    // Hospital
-    if (id === "hospital") {
-      navigate("/Hospital");
-      return;
-    }
+    if (id === "bestbuy") return navigate("/bestbuy");
+    if (id === "jointventures") return navigate("/jointventures");
+    if (id === "hospital") return navigate("/hospital");
+    if (id === "education") return navigate("/education");
+    if (id === "residential") return navigate("/residential");
+    if (id === "commercial") return navigate("/commercial");
+    if (id === "landplot" || id === "luxuryplots") return navigate("/land");
+    if (id === "malls") return navigate("/malls");
+    if (id === "resortswedding") return navigate("/resorts-wedding");
+    if (id === "farmhouse") return navigate("/farmhouse");
+    if (id === "warehouse") return navigate("/warehouse");
+    if (id === "invest-realestate") return navigate("/commercial");
+    if (id === "invest-land") return navigate("/land-investment");
+    if (id === "lease") return navigate("/lease");
+    if (id === "others") return navigate("/others");
 
-    // Land / Plot & Premium Luxury Plots -> same /land page
-    if (id === "landplot" || id === "luxuryplots") {
-      navigate("/land");
-      return;
-    }
-
-    // Others -> video page
-    if (id === "others") {
-      navigate("/others");
-      return;
-    }
-
-    // Real Estate ke liye sub options
-    if (id === "realestate") {
-      setSelected((s) => (s === id ? null : id));
-      return;
-    }
-
-    // Investment ke liye Real Estate + Land/Plot sub options
-    if (id === "investment") {
-      setSelected((s) => (s === id ? null : id));
-      return;
-    }
-
-    // Baaki categories future ke liye
     setSelected((s) => (s === id ? null : id));
-  };
-
-  const handleRealEstateOptionClick = (type) => {
-    if (type === "residential") {
-      navigate("/residential");
-    } else if (type === "commercial") {
-      navigate("/commercial");
-    }
-  };
-
-  const handleInvestmentOptionClick = (type) => {
-    if (type === "realestate") {
-      navigate("/commercial"); // ya /residential, jo tum chaho
-    } else if (type === "land") {
-      navigate("/land");
-    }
   };
 
   return (
     <section
       id="categories"
-      className="relative bg-neutral-950 text-neutral-100 py-12"
+      className="relative bg-black text-slate-100 py-12 sm:py-16"
     >
+      {/* Gold aura (same as other sections) */}
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-56"
+        style={{
+          background:
+            "radial-gradient(60% 60% at 50% 0%, rgba(250,204,21,0.25) 0%, rgba(253,230,138,0.18) 35%, rgba(0,0,0,0) 70%)",
+        }}
+        aria-hidden="true"
+      />
+
       <div className="max-w-[1200px] mx-auto px-4 md:px-6">
         {/* Header */}
         <header className="mb-8 text-center">
-          <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight uppercase">
+          <h2 className="mt-3 text-2xl md:text-3xl font-extrabold tracking-tight uppercase">
             Browse by{" "}
             <span
               className="bg-clip-text text-transparent"
@@ -543,6 +112,7 @@ export default function CategoriesSection() {
               Category
             </span>
           </h2>
+
           <div
             className="mx-auto mt-3 h-[3px] w-24 rounded-full"
             style={{
@@ -560,41 +130,50 @@ export default function CategoriesSection() {
                 type="button"
                 key={id}
                 onClick={() => handleCategoryClick(id)}
-                className="group relative flex items-center gap-3 rounded-xl bg-neutral-900/90 px-4 py-3 ring-1 ring-white/10 transition hover:bg-neutral-900 hover:ring-neutral-300/50 cursor-pointer"
+                className="group relative flex items-center gap-3 rounded-xl bg-slate-900/90 px-4 py-3 ring-1 ring-white/10 shadow-[0_16px_40px_rgba(0,0,0,0.85)] transition hover:bg-slate-900 hover:ring-[#fde68a]/80 cursor-pointer"
                 style={
                   isActive
                     ? {
-                        boxShadow: `0 0 0 1px ${BRAND.ring}, 0 10px 30px -12px ${BRAND.glow}`,
+                        boxShadow: `0 0 0 1px ${BRAND.ring}, 0 12px 28px ${BRAND.glow}`,
                       }
                     : undefined
                 }
               >
                 <span
-                  className="grid h-9 w-9 place-items-center rounded-lg ring-1 bg-white/5"
-                  style={{
-                    boxShadow: isActive
-                      ? `0 0 0 1px ${BRAND.ring}`
-                      : undefined,
-                  }}
+                  className="grid h-9 w-9 place-items-center rounded-lg ring-1 bg-white/5 ring-slate-700/70 transition"
+                  style={
+                    isActive
+                      ? {
+                          boxShadow: `0 0 0 1px ${BRAND.ring}`,
+                          background:
+                            "radial-gradient(circle at 30% 20%, rgba(255,255,255,0.16), transparent 60%)",
+                        }
+                      : undefined
+                  }
                 >
                   <Icon
-                    className="h-5 w-5"
-                    style={{ color: isActive ? BRAND.soft : "#d1d5db" }}
+                    className="h-5 w-5 transition-colors duration-200"
+                    style={{
+                      // soft gold when normal, brighter gold + glow when active
+                      color: isActive ? BRAND.base : BRAND.soft,
+                      filter: isActive
+                        ? `drop-shadow(0 0 6px ${BRAND.glow})`
+                        : "none",
+                    }}
                   />
                 </span>
                 <span
                   className="text-sm font-semibold"
-                  style={{ color: isActive ? "#fff" : "#e5e7eb" }}
+                  style={{ color: isActive ? "#ffffff" : "#e5e7eb" }}
                 >
                   {label}
                 </span>
                 <span
-                  className="ml-auto h-6 w-6 grid place-items-center rounded-md text-xs ring-1"
+                  className="ml-auto h-6 w-6 grid place-items-center rounded-md text-xs ring-1 bg-slate-950/90 transition"
                   style={{
-                    boxShadow: isActive
-                      ? `0 0 0 1px ${BRAND.ring}`
-                      : undefined,
-                    color: isActive ? "#fff" : "#9ca3af",
+                    borderColor: "rgba(148,163,184,0.6)",
+                    boxShadow: isActive ? `0 0 0 1px ${BRAND.ring}` : undefined,
+                    color: isActive ? "#ffffff" : BRAND.base,
                   }}
                 >
                   {isActive ? "−" : "+"}
@@ -603,58 +182,6 @@ export default function CategoriesSection() {
             );
           })}
         </div>
-
-        {/* Real Estate ka sub menu */}
-        {selected === "realestate" && (
-          <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center">
-            <button
-              type="button"
-              onClick={() => handleRealEstateOptionClick("residential")}
-              className="w-full sm:w-auto rounded-xl px-6 py-3 text-sm font-semibold ring-1 transition"
-              style={{
-                background: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)`,
-                color: "#111",
-                borderColor: BRAND.ring,
-                boxShadow: `0 10px 24px ${BRAND.glow}`,
-              }}
-            >
-              Residential
-            </button>
-            <button
-              type="button"
-              onClick={() => handleRealEstateOptionClick("commercial")}
-              className="w-full sm:w-auto rounded-xl px-6 py-3 text-sm font-semibold bg-neutral-900 ring-1 ring-white/10 text-neutral-100 hover:bg-neutral-800 transition"
-            >
-              Commercial
-            </button>
-          </div>
-        )}
-
-        {/* Investment ka sub menu (Real Estate + Land/Plot) */}
-        {selected === "investment" && (
-          <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center">
-            <button
-              type="button"
-              onClick={() => handleInvestmentOptionClick("realestate")}
-              className="w-full sm:w-auto rounded-xl px-6 py-3 text-sm font-semibold ring-1 transition"
-              style={{
-                background: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)`,
-                color: "#111",
-                borderColor: BRAND.ring,
-                boxShadow: `0 10px 24px ${BRAND.glow}`,
-              }}
-            >
-              Real Estate Investment
-            </button>
-            <button
-              type="button"
-              onClick={() => handleInvestmentOptionClick("land")}
-              className="w-full sm:w-auto rounded-xl px-6 py-3 text-sm font-semibold bg-neutral-900 ring-1 ring-white/10 text-neutral-100 hover:bg-neutral-800 transition"
-            >
-              Land / Plot Investment
-            </button>
-          </div>
-        )}
       </div>
     </section>
   );

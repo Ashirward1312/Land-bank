@@ -44,14 +44,14 @@ const Footer = () => {
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
         <div>
           <h2 className="text-xl font-extrabold tracking-tight mb-4">
-            Land{" "}
+            LAND{" "}
             <span
               className="bg-clip-text text-transparent"
               style={{
                 backgroundImage: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)`,
               }}
             >
-              Bank
+              BAZAR
             </span>
           </h2>
           <p className="text-neutral-400 text-sm leading-relaxed">
@@ -224,7 +224,7 @@ const Footer = () => {
       {/* Bottom bar */}
       <div className="mt-10 border-t border-white/10 pt-6">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm text-neutral-400">
-          © {year} Land Bank. All rights reserved, Designed and Developed by{" "}
+          © {year} LAND BAZAR. All rights reserved, Designed and Developed by{" "}
           <a
             href="https://spadvertising.in/"
             target="_blank"

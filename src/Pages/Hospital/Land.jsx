@@ -1,297 +1,188 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
-// 👉 Apne 4 land images ke actual path
-import L1Img from "../../images/Land 1.jpeg";
-import L2Img from "../../images/Land 2.jpeg";
-import L3Img from "../../images/Land 3.jpeg";
-import L4Img from "../../images/Land 4.jpeg";
-
-const GOLD = {
-  soft: "#F3D98E",
-  base: "#D4AF37",
-  ring: "rgba(212,175,55,.60)",
-  glow: "rgba(212,175,55,.45)",
+const BRAND = {
+  base: "#facc15", // gold
+  soft: "#fde68a", // soft gold
+  ring: "rgba(250,204,21,0.65)",
+  glow: "rgba(250,204,21,0.50)",
 };
 
-/* -------------------- LAND DATA (1 PROPERTY WITH 4 SLIDER IMAGES) -------------------- */
-const LAND_PROPERTIES = [
+const LAND_CARDS = [
   {
-    id: "prime-land-raipur",
-    title: "Premium Land Parcel – Near Raipur",
-    city: "Raipur",
-    priceLabel: "Price on request",
-    status: "Clear-title land parcel, ideal for farmhouse / plotting / investment.",
-    locationText: "Near Raipur – connected to key growth corridor.",
-    images: [L1Img, L2Img, L3Img, L4Img],
+    id: "vip-3000-6000",
+    title: "3,000 – 6,000 sq.ft Land – VIP Road Belt",
+    locationTag: "VIP Road, Raipur",
+    size: "Approx 3,000 – 6,000 sq.ft plots available",
+  },
+  {
+    id: "magneto-3000-6000",
+    title: "3,000 – 6,000 sq.ft Land – Near Magneto",
+    locationTag: "Near Magneto Mall, Raipur",
+    size: "Approx 3,000 – 6,000 sq.ft plots available",
+  },
+  {
+    id: "sayaji-3000-6000",
+    title: "3,000 – 6,000 sq.ft Land – Near Sayaji",
+    locationTag: "Near Sayaji, Raipur",
+    size: "Approx 3,000 – 6,000 sq.ft plots available",
+  },
+  {
+    id: "pachpedi",
+    title: "Land Near Pachpedi Naka",
+    locationTag: "Pachpedi Naka, Raipur",
+    size: "Size as per requirement",
+  },
+  {
+    id: "tagore",
+    title: "Land Near Tagore Nagar",
+    locationTag: "Tagore Nagar, Raipur",
+    size: "Size as per requirement",
   },
 ];
 
-/* -------------------- HERO SLIDER -------------------- */
-
-function HeroSlider({ images = [] }) {
-  const [current, setCurrent] = useState(0);
-  if (!images.length) return null;
-
-  const total = images.length;
-  const goNext = () => setCurrent((c) => (c + 1) % total);
-  const goPrev = () => setCurrent((c) => (c - 1 + total) % total);
-
-  useEffect(() => {
-    const id = setInterval(goNext, 6000);
-    return () => clearInterval(id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [total]);
-
-  return (
-    <div className="space-y-3">
-      {/* Main image (fade slider) */}
-      <div className="relative w-full overflow-hidden rounded-3xl bg-black/40 ring-1 ring-white/10">
-        <div className="relative w-full aspect-[16/9]">
-          {images.map((img, index) => (
-            <img
-              key={index}
-              src={img}
-              alt={`Land view ${index + 1}`}
-              className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
-                index === current ? "opacity-100" : "opacity-0"
-              }`}
-              loading="lazy"
-              decoding="async"
-            />
-          ))}
-
-          {/* Top-left tag */}
-          <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
-            <span className="inline-flex items-center rounded-full bg-black/80 px-2.5 py-1 text-[10px] font-semibold text-neutral-100 ring-1 ring-white/20">
-              Land • Near Raipur
-            </span>
-            <span className="inline-flex items-center rounded-full bg-emerald-500/90 px-2.5 py-1 text-[10px] font-semibold text-black ring-1 ring-emerald-300/80">
-              Open Green Parcel
-            </span>
-          </div>
-
-          {/* Arrows */}
-          {total > 1 && (
-            <>
-              <button
-                type="button"
-                onClick={goPrev}
-                className="absolute left-3 top-1/2 -translate-y-1/2 grid h-9 w-9 place-items-center rounded-full bg-black/65 text-neutral-100 hover:bg-black/85 transition"
-              >
-                <span className="text-lg">‹</span>
-              </button>
-              <button
-                type="button"
-                onClick={goNext}
-                className="absolute right-3 top-1/2 -translate-y-1/2 grid h-9 w-9 place-items-center rounded-full bg-black/65 text-neutral-100 hover:bg-black/85 transition"
-              >
-                <span className="text-lg">›</span>
-              </button>
-            </>
-          )}
-        </div>
-
-        {/* Dots */}
-        {total > 1 && (
-          <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5">
-            {images.map((_, i) => (
-              <button
-                key={i}
-                type="button"
-                onClick={() => setCurrent(i)}
-                className={`h-1.5 rounded-full transition-all ${
-                  i === current ? "w-5 bg-white" : "w-2 bg-white/50"
-                }`}
-              />
-            ))}
-          </div>
-        )}
-      </div>
-
-      {/* Thumbnails */}
-      {total > 1 && (
-        <div className="flex gap-2 overflow-x-auto pb-1">
-          {images.map((img, index) => (
-            <button
-              key={index}
-              type="button"
-              onClick={() => setCurrent(index)}
-              className={`relative flex-shrink-0 overflow-hidden rounded-xl border ${
-                index === current
-                  ? "border-white ring-2 ring-white/80"
-                  : "border-white/15"
-              }`}
-            >
-              <div className="h-16 w-24 md:h-18 md:w-28 lg:h-20 lg:w-32">
-                <img
-                  src={img}
-                  alt={`Thumbnail ${index + 1}`}
-                  className="h-full w-full object-cover"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
-
-/* -------------------- COMPONENT -------------------- */
-
 export default function LandListings() {
   const navigate = useNavigate();
-  const properties = LAND_PROPERTIES;
-
-  if (!properties.length) {
-    return (
-      <section className="bg-neutral-950 text-neutral-100 pt-24 pb-10 md:pt-28 md:pb-12">
-        <div className="max-w-[1200px] mx-auto px-4 md:px-6">
-          <p className="text-center text-neutral-400 text-sm">
-            No land listings near Raipur are available right now.
-          </p>
-        </div>
-      </section>
-    );
-  }
 
   return (
-    <section className="relative bg-neutral-950 text-neutral-100 pt-24 pb-14 md:pt-28 md:pb-16">
-      {/* Background aura */}
+    <section className="relative bg-black text-slate-100 pt-24 pb-16 md:pt-28 md:pb-20">
+      {/* Gold aura (same theme) */}
       <div
         className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-64"
         style={{
           background:
-            "radial-gradient(60% 60% at 50% 0%, rgba(52,211,153,0.20) 0%, rgba(0,0,0,0) 70%)",
+            "radial-gradient(60% 60% at 50% 0%, rgba(250,204,21,0.25) 0%, rgba(253,230,138,0.18) 35%, rgba(0,0,0,0) 70%)",
         }}
       />
 
-      <div className="max-w-[1200px] mx-auto px-4 md:px-6">
+      <div className="max-w-6xl mx-auto px-4 md:px-6">
         {/* Back button */}
-        <div className="mb-6 flex items-center justify-between">
+        <div className="mb-8 flex items-center justify-between">
           <button
             type="button"
             onClick={() => navigate("/")}
-            className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/70 px-3.5 py-1.5 text-xs md:text-sm font-medium text-neutral-200 hover:bg-black/90 hover:border-white/40 transition"
+            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/70 px-4 py-2 text-sm font-medium text-slate-200 shadow-md transition-all duration-200 hover:bg-black/90 hover:border-white/40"
           >
-            <span className="text-base md:text-lg">←</span>
+            <svg
+              className="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2.5}
+                d="M10 19l-7-7m0 0l7-7m-7 7h18"
+              />
+            </svg>
             <span>Back to Home</span>
           </button>
         </div>
 
-        {properties.map((prop) => (
-          <article
-            key={prop.id}
-            className="rounded-3xl bg-gradient-to-br from-emerald-500/15 via-emerald-300/5 to-emerald-500/10 p-[1.7px] shadow-[0_24px_80px_-40px_rgba(0,0,0,0.95)] overflow-hidden"
+        {/* Heading */}
+        <header className="mb-12 text-center space-y-2">
+          <p
+            className="text-xs sm:text-sm font-semibold uppercase tracking-[0.22em]"
+            style={{
+              backgroundImage: `linear-gradient(90deg, ${BRAND.soft}, ${BRAND.base})`,
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+              color: "transparent",
+            }}
           >
-            <div className="rounded-[1.4rem] bg-neutral-900/95 ring-1 ring-white/10 overflow-hidden">
-              {/* Top glow line */}
-              <div
-                className="h-[3px] w-full"
-                style={{
-                  background: `linear-gradient(90deg, transparent, ${GOLD.base}, ${GOLD.soft}, transparent)`,
-                }}
-              />
+            PREMIUM LAND • RAIPUR
+          </p>
+          <h1 className="mt-1 text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight">
+            PREMIUM LAND IN RAIPUR
+          </h1>
+        </header>
 
-              <div className="p-5 md:p-7 lg:p-8 flex flex-col lg:flex-row gap-8 lg:gap-10">
-                {/* Left: Slider */}
-                <div className="lg:w-[60%]">
-                  <HeroSlider images={prop.images} />
+        {/* Cards grid */}
+        <div className="grid gap-8 sm:grid-cols-1 lg:grid-cols-2">
+          {LAND_CARDS.map((land, index) => (
+            <article
+              key={land.id}
+              className="group relative rounded-3xl bg-gradient-to-b from-slate-900/90 via-slate-950 to-black ring-1 ring-white/10 overflow-hidden shadow-[0_20px_60px_-35px_rgba(0,0,0,1)] transition-all duration-300 hover:ring-[#fde68a]/80 hover:shadow-[0_30px_90px_-45px_rgba(0,0,0,1)] hover:-translate-y-[2px]"
+            >
+              {/* Top small accent line + option badge */}
+              <div className="flex items-center justify-between px-6 pt-4">
+                <div
+                  className="h-[3px] w-24 rounded-full"
+                  style={{
+                    background: `linear-gradient(90deg, transparent, ${BRAND.base}, ${BRAND.soft}, transparent)`,
+                  }}
+                />
+                <span
+                  className="rounded-full bg-black/80 px-3 py-1 text-[10px] font-semibold text-slate-200 border"
+                  style={{ borderColor: BRAND.soft }}
+                >
+                  OPTION {String(index + 1).padStart(2, "0")}
+                </span>
+              </div>
+
+              {/* Content */}
+              <div className="px-6 pb-6 pt-4 sm:px-8 sm:pb-7 sm:pt-5 space-y-4">
+                {/* Location tag */}
+                <span className="inline-flex items-center rounded-full bg-black/80 px-3.5 py-1.5 text-[11px] font-semibold text-slate-100 border border-white/20">
+                  <span
+                    className="h-1.5 w-1.5 rounded-full mr-1.5"
+                    style={{ backgroundColor: BRAND.base }}
+                  />
+                  {land.locationTag}
+                </span>
+
+                {/* Title */}
+                <h2 className="text-xl sm:text-2xl font-bold text-white transition-colors duration-200 group-hover:text-[#facc15]">
+                  {land.title}
+                </h2>
+
+                {/* Simple details */}
+                <div className="mt-2 space-y-1.5 text-sm text-slate-300">
+                  <p>
+                    <span className="font-semibold text-slate-100">
+                      Location:
+                    </span>{" "}
+                    {land.locationTag}
+                  </p>
+                  <p>
+                    <span className="font-semibold text-slate-100">
+                      Size / Range:
+                    </span>{" "}
+                    {land.size}
+                  </p>
                 </div>
 
-                {/* Right: Details */}
-                <div className="lg:w-[40%] flex flex-col gap-5">
-                  {/* Title + tags + price on request */}
-                  <div className="space-y-4">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <span className="inline-flex items-center rounded-full bg-black/70 px-3 py-1 text-[11px] font-semibold text-neutral-100 ring-1 ring-white/10">
-                        Land • Near Raipur
-                      </span>
-                      <span className="inline-flex items-center rounded-full bg-emerald-500/90 px-3 py-1 text-[11px] font-semibold text-black ring-1 ring-emerald-300/80">
-                        Ideal for Investment
-                      </span>
-                    </div>
-
-                    <h1 className="text-xl md:text-2xl font-extrabold text-white leading-tight">
-                      {prop.title}
-                    </h1>
-
-                    {/* Price pill: Price on request */}
-                    <span
-                      className="inline-flex items-center rounded-full px-4 py-1.5 text-[13px] font-bold whitespace-nowrap"
-                      style={{
-                        background: `linear-gradient(135deg, ${GOLD.soft}, ${GOLD.base} 70%)`,
-                        color: "#111",
-                        boxShadow: `0 4px 18px -4px ${GOLD.glow}`,
-                      }}
-                    >
-                      {prop.priceLabel || "Price on request"}
-                    </span>
-
-                    {/* Near Raipur line */}
-                    <p className="text-neutral-300 text-sm mt-2">
-                      {prop.locationText ||
-                        "Near Raipur – open, clear-title land parcel in a developing growth belt."}
-                    </p>
-
-                    {/* Meta bullets to fill space */}
-                    <ul className="mt-1 space-y-1.5 text-sm text-neutral-200">
-                      <li className="flex gap-2">
-                        <span className="mt-[4px] h-1.5 w-1.5 flex-shrink-0 rounded-full bg-emerald-400" />
-                        <span>Near Raipur growth corridor with good road access.</span>
-                      </li>
-                      <li className="flex gap-2">
-                        <span className="mt-[4px] h-1.5 w-1.5 flex-shrink-0 rounded-full bg-emerald-400" />
-                        <span>
-                          Suitable for farmhouse, plotting or long-term land banking.
-                        </span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  {/* Status + CTA */}
-                  <div className="mt-2 flex flex-col gap-3">
-                    {prop.status && (
-                      <p className="text-[14px] text-emerald-400 font-semibold">
-                        {prop.status}
-                      </p>
-                    )}
-
-                    <div className="flex flex-wrap items-center gap-3">
-                      <a
-                        href="/#contact"
-                        className="inline-flex items-center justify-center rounded-full
-                                   px-6 py-2.5 text-sm font-semibold
-                                   shadow-md shadow-black/40 ring-1
-                                   transition-all
-                                   hover:shadow-black/70 hover:-translate-y-[1px]
-                                   focus-visible:outline-none
-                                   focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950"
-                        style={{
-                          background: `linear-gradient(135deg, ${GOLD.soft}, ${GOLD.base} 70%)`,
-                          color: "#111",
-                          borderColor: GOLD.ring,
-                          boxShadow: `0 12px 28px -14px ${GOLD.glow}`,
-                        }}
-                      >
-                        Contact Us
-                      </a>
-
-                      <span className="text-xs text-neutral-400">
-                        Share your budget & use case, we’ll plan the best land option
-                        for you near Raipur.
-                      </span>
-                    </div>
-                  </div>
+                {/* CTA row */}
+                <div className="mt-6 flex items-center justify-between gap-4 border-t border-slate-800 pt-5">
+                  <a
+                    href="/#contact"
+                    className="inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold text-neutral-900 shadow-xl ring-1 border transition-all duration-300 hover:scale-[1.03]"
+                    style={{
+                      background: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base})`,
+                      boxShadow: `0 10px 24px ${BRAND.glow}`,
+                      borderColor: BRAND.soft,
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.filter = "brightness(1.08)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.filter = "brightness(1.0)";
+                    }}
+                  >
+                    Contact about this land
+                  </a>
+                  <span className="text-xs text-slate-400 text-right">
+                    Exact pricing &amp; layout
+                    <br />
+                    shared on request
+                  </span>
                 </div>
               </div>
-            </div>
-          </article>
-        ))}
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );

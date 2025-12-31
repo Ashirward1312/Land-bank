@@ -12,7 +12,7 @@ export default function FaqSection() {
 
   const faqs = [
     {
-      q: "What can I list on Land Bank?",
+      q: "What can I list on Land Bazar?",
       a: "Only land/plots. We do not list constructed properties like apartments, villas, or shops.",
     },
     {

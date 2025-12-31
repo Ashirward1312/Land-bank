@@ -55,10 +55,10 @@ export default function Home() {
 
         <h1 className="mt-5 font-extrabold leading-tight tracking-tight">
           <span className="block text-4xl md:text-5xl lg:text-6xl">
-            Find Premium Land Bank
+            FIND PREMIUM LAND BAZAR
           </span>
           <span className="block text-4xl md:text-5xl lg:text-6xl text-amber-300">
-            in Raipur
+             IN RAIPUR
           </span>
         </h1>
 
