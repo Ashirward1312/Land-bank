@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import img from "../../images/farm.png"; // <-- yahan apni farmhouse image ka sahi path/naam lagao
 
 const BRAND = {
   base: "#facc15", // gold
@@ -17,19 +18,29 @@ const FARMHOUSE_OPTIONS = [
     type: "FARM HOUSE LAND",
     city: "Raipur",
     title: "FARM HOUSE PLOTS – 10,000 TO 20,000 SQ.FT",
-    location: "Kumhari / Arang Belt, Raipur",
+    location: "Kumhari / Arang / Pirda, Raipur",
     size: "Approx 10,000 – 20,000 sq.ft per plot",
     note: "Approx 400* (farm house belt)",
   },
+  // {
+  //   id: "mm-fun-city-prelaunch",
+  //   type: "FARM HOUSE LAND",
+  //   city: "Raipur",
+  //   title: "FARM HOUSE PLOTS – NEAR MM FUN CITY ROAD",
+  //   location: "Near MM Fun City Road, Raipur",
+  //   size: "Approx 1,200 – 1,300 sq.ft pre-launch options",
+  //   note: "Pre-launch 1,200 – 1,300* (as shared on discussion)",
+  // },
   {
-    id: "mm-fun-city-prelaunch",
-    type: "FARM HOUSE LAND",
-    city: "Raipur",
-    title: "FARM HOUSE PLOTS – NEAR MM FUN CITY ROAD",
-    location: "Near MM Fun City Road, Raipur",
-    size: "Approx 1,200 – 1,300 sq.ft pre-launch options",
-    note: "Pre-launch 1,200 – 1,300* (as shared on discussion)",
-  },
+  id: "mm-fun-city-8-acres-land",
+  type: "BIG LAND",
+  city: "Raipur",
+  title: "8 ACRES LAND – NEAR MM FUN CITY ROAD",
+  location: "Near MM Fun City Road, Raipur",
+  size: "Approx 8 Acres",
+  note: "Clear 8 acres land parcel suitable for farm house development, plotting or long-term investment.",
+},
+
 ];
 
 /* -------------------- CARD COMPONENT -------------------- */
@@ -159,19 +170,21 @@ export default function FarmhouseListings() {
 
       <div className="max-w-6xl mx-auto px-4 md:px-6">
         {/* Back button */}
-        <div className="mb-6 flex items-center justify-between">
+        <div className="mb-6 flex.items-center justify-between">
           <button
-            type="button"
-            onClick={() => navigate("/")}
-            className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/70 px-3.5 py-1.5 text-xs md:text-sm font-medium text-slate-200 hover:bg-black/90 hover:border-white/40 transition"
-          >
-            <span className="text-base md:text-lg">←</span>
-            <span>Back to Home</span>
-          </button>
+                    type="button"
+                    onClick={() => navigate("/", { state: { scrollTo: "categories" } })}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/70 px-3.5 py-1.5 text-xs md:text-sm font-medium text-slate-200 hover:bg-black/90 hover:border-white/40 transition"
+                >
+                    <span className="text-base md:text-lg">←</span>
+                    <span>BACK TO CATEGORIES
+                    </span>
+                </button>
+
         </div>
 
         {/* Heading */}
-        <header className="mb-8 space-y-3 text-center">
+        <header className="mb-6 space-y-3 text-center">
           <p
             className="text-xs sm:text-sm font-semibold uppercase tracking-[0.22em]"
             style={{
@@ -184,6 +197,15 @@ export default function FarmhouseListings() {
             PREMIUM FARM HOUSE
           </p>
         </header>
+
+        {/* Simple center image (smaller) */}
+        <div className="mb-8 flex justify-center">
+          <img
+            src={img}
+            alt="Premium farm house land and plots near Raipur"
+            className="w-full max-w-xs sm:max-w-sm md:max-w-md rounded-2xl object-cover"
+          />
+        </div>
 
         {/* Cards grid */}
         <div className="grid gap-6 md:grid-cols-2">

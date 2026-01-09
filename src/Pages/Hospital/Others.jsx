@@ -1,78 +1,175 @@
 "use client";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import sampleVideo from "../../images/PM1.mp4"; // 👈 apna path lagao
 
-export default function Others() {
-  const navigate = useNavigate();
+const BRAND = {
+  base: "#facc15", // gold
+  soft: "#fde68a", // soft gold
+  ring: "rgba(250,204,21,0.65)",
+  glow: "rgba(250,204,21,0.50)",
+};
+
+/* -------------------- DATA -------------------- */
+
+const UNDER_CONSTRUCTION_PROJECTS = [
+  {
+    id: "ivy-hospital-on-rent-underconstruction",
+    title: "UNDER CONSTRUCTION – NEAR IVY HOSPITAL",
+    location: "Near IVY Hospital, Raipur",
+    status: "Under Construction",
+    tag: "ON RENT",
+    highlight: true,
+  },
+  {
+    id: "ring-road-1-underconstruction",
+    title: "UNDER CONSTRUCTION – NEAR RING ROAD NO.1",
+    location: "Near Ring Road No.1, Raipur",
+    status: "Under Construction",
+  },
+];
+
+/* -------------------- CARD -------------------- */
+
+function UnderConstructionCard({ item, index }) {
+  const { title, location, status, tag, highlight } = item;
 
   return (
-    <section className="relative bg-neutral-950 text-neutral-100 pt-24 pb-16 md:pt-28 md:pb-20">
-      {/* Background glow */}
+    <article className="group relative flex flex-col rounded-3xl bg-gradient-to-b from-slate-900/90 via-slate-950 to-black ring-1 ring-white/10 shadow-[0_20px_60px_-35px_rgba(0,0,0,1)] hover:ring-[#fde68a]/80 hover:shadow-[0_30px_90px_-45px_rgba(0,0,0,1)] hover:-translate-y-[2px] transition-all duration-200 overflow-hidden">
+      
+      {/* Top gold line */}
       <div
-        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-64"
+        className="absolute inset-x-0 top-0 h-[3px]"
         style={{
-          background:
-            "radial-gradient(60% 60% at 50% 0%, rgba(148,163,184,0.22) 0%, rgba(0,0,0,0) 70%)",
+          background: `linear-gradient(90deg, transparent, ${BRAND.base}, ${BRAND.soft}, transparent)`,
         }}
       />
 
-      <div className="max-w-[1200px] mx-auto px-4 md:px-6">
-        {/* Back button */}
-        <div className="mb-4 flex items-center justify-between">
-          <button
-            type="button"
-            onClick={() => navigate("/")}
-            className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/70 px-3.5 py-1.5 text-xs md:text-sm font-medium text-neutral-200 hover:bg-black/90 hover:border-white/40 transition"
-          >
-            <span className="text-base md:text-lg">←</span>
-            <span>Back to Home</span>
-          </button>
-        </div>
+      {/* Option badge */}
+      <div
+        className="absolute right-4 top-4 rounded-full bg-black/80 px-3 py-1 text-[11px] font-semibold text-slate-200 border"
+        style={{ borderColor: BRAND.soft }}
+      >
+        OPTION {String(index + 1).padStart(2, "0")}
+      </div>
 
-        {/* Heading */}
-        <header className="mb-6 text-left md:text-center">
-          <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight">
+      <div className="p-5 md:p-6 space-y-4 flex-1 flex flex-col">
+        
+        {/* Tags */}
+        <div className="flex flex-wrap gap-2 text-[11px] font-semibold">
+          <span
+            className="rounded-full bg-black/80 px-3 py-1 text-slate-100 border"
+            style={{ borderColor: BRAND.soft }}
+          >
+            UNDER CONSTRUCTION • RAIPUR
+          </span>
+
+          {tag && (
             <span
-              className="bg-clip-text text-transparent"
+              className={`rounded-full px-3 py-1 border uppercase tracking-wider ${
+                highlight ? "animate-pulse" : ""
+              }`}
               style={{
-                backgroundImage:
-                  "linear-gradient(135deg, #F3D98E, #D4AF37 70%)",
+                background: highlight
+                  ? `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base})`
+                  : "rgba(0,0,0,0.7)",
+                color: highlight ? "#000" : "#fff",
+                borderColor: BRAND.base,
+                boxShadow: highlight ? `0 0 18px ${BRAND.glow}` : "none",
               }}
             >
-              Premium Video Showcase
+              {tag}
             </span>
-          </h1>
-       
-        </header>
+          )}
+        </div>
 
-        {/* Smaller video frame */}
-        <div className="flex justify-center">
-          <div
-            className="relative w-full max-w-[720px] md:max-w-[800px] rounded-3xl bg-gradient-to-br from-white/25 via-white/10 to-white/20 p-[1.7px] shadow-[0_20px_60px_-36px_rgba(0,0,0,0.95)]"
+        {/* Title */}
+        <h2 className="text-sm sm:text-base md:text-lg font-bold text-white uppercase leading-snug">
+          {title}
+        </h2>
+
+        {/* Details */}
+        <div className="rounded-2xl border border-white/5 bg-black/50 px-3 py-3 space-y-1.5">
+          <p className="text-xs text-slate-400 uppercase tracking-[0.16em]">
+            Key Details
+          </p>
+          <p className="text-sm text-slate-300">
+            <span className="font-semibold text-slate-100">Location:</span>{" "}
+            {location}
+          </p>
+          <p className="text-sm text-slate-300">
+            <span className="font-semibold text-slate-100">Status:</span>{" "}
+            {status}
+          </p>
+        </div>
+      </div>
+
+      {/* CTA */}
+      <div className="border-t border-white/5 px-5 md:px-6 py-4 bg-black/70">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+          <span className="text-xs text-slate-400 flex-1">
+            For under construction options near IVY Hospital and Ring Road No.1,
+            share your requirement and budget.
+          </span>
+
+          <a
+            href="/#contact"
+            className="inline-flex items-center justify-center rounded-full px-5 py-2 text-xs md:text-sm font-semibold text-neutral-900 ring-1 border transition"
             style={{
-              boxShadow:
-                "0 20px 60px -36px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.05)",
+              background: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base})`,
+              borderColor: BRAND.soft,
+              boxShadow: `0 10px 24px ${BRAND.glow}`,
             }}
           >
-            <div className="relative rounded-[1.4rem] bg-black overflow-hidden">
-              {/* Thoda chhota height: 16:9 with max height */}
-              <div className="relative w-full aspect-video max-h-[360px] md:max-h-[420px] mx-auto">
-                <video
-                  src={sampleVideo}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  controls={false}
-                  className="absolute inset-0 h-full w-full object-cover"
-                />
+            ENQUIRE
+          </a>
+        </div>
+      </div>
+    </article>
+  );
+}
 
-                {/* Optional overlay for future text */}
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-              </div>
-            </div>
-          </div>
+/* -------------------- MAIN -------------------- */
+
+export default function UnderConstruction() {
+  const navigate = useNavigate();
+
+  return (
+    <section className="relative bg-black text-slate-100 pt-24 pb-14">
+      <div className="max-w-6xl mx-auto px-4 md:px-6">
+
+        {/* Back */}
+        <button
+          onClick={() =>
+            navigate("/", { state: { scrollTo: "categories" } })
+          }
+          className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/70 px-4 py-2 text-xs font-medium text-slate-200 hover:border-white/40"
+        >
+          ← BACK TO CATEGORIES
+        </button>
+
+        {/* Heading */}
+        <header className="mb-8 text-center">
+          <p
+            className="text-xs font-semibold uppercase tracking-[0.22em]"
+            style={{
+              backgroundImage: `linear-gradient(90deg, ${BRAND.soft}, ${BRAND.base})`,
+              WebkitBackgroundClip: "text",
+              color: "transparent",
+            }}
+          >
+            OTHERS
+          </p>
+        </header>
+
+        {/* Grid */}
+        <div className="grid gap-6 md:grid-cols-2">
+          {UNDER_CONSTRUCTION_PROJECTS.map((item, index) => (
+            <UnderConstructionCard
+              key={item.id}
+              item={item}
+              index={index}
+            />
+          ))}
         </div>
       </div>
     </section>

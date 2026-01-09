@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import img from "../../images/education.png"; // <-- yahan apni image file ka sahi path/naam lagao
 
 const BRAND = {
   base: "#facc15", // gold
@@ -47,7 +48,7 @@ function EducationCard({ item, index }) {
   const { type, city, title, location, size, note } = item;
 
   return (
-    <article className="group relative flex flex-col rounded-3xl bg-gradient-to-b from-slate-900/90 via-slate-950 to-black ring-1 ring-white/10 shadow-[0_20px_60px_-35px_rgba(0,0,0,1)] hover:ring-[#fde68a]/80 hover:shadow-[0_30px_90px_-45px_rgba(0,0,0,1)] hover:-translate-y-[2px] transition-all duration-200 overflow-hidden">
+    <article className="group relative flex flex-col rounded-2xl bg-gradient-to-b from-slate-900/90 via-slate-950 to-black ring-1 ring-white/10 shadow-[0_20px_60px_-35px_rgba(0,0,0,1)] hover:ring-[#fde68a]/80 hover:shadow-[0_30px_90px_-45px_rgba(0,0,0,1)] hover:-translate-y-[2px] transition-all duration-200 overflow-hidden">
       {/* Top gradient line */}
       <div
         className="absolute inset-x-0 top-0 h-[3px] opacity-90"
@@ -172,18 +173,20 @@ export default function EducationListings() {
       <div className="max-w-6xl mx-auto px-4 md:px-6">
         {/* Back button */}
         <div className="mb-6 flex items-center justify-between">
-          <button
-            type="button"
-            onClick={() => navigate("/")}
-            className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/70 px-3.5 py-1.5 text-xs md:text-sm font-medium text-slate-200 hover:bg-black/90 hover:border-white/40 transition"
-          >
-            <span className="text-base md:text-lg">←</span>
-            <span>Back to Home</span>
-          </button>
+       <button
+                    type="button"
+                    onClick={() => navigate("/", { state: { scrollTo: "categories" } })}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/70 px-3.5 py-1.5 text-xs md:text-sm font-medium text-slate-200 hover:bg-black/90 hover:border-white/40 transition"
+                >
+                    <span className="text-base md:text-lg">←</span>
+                    <span>BACK TO CATEGORIES
+                    </span>
+                </button>
+
         </div>
 
         {/* Heading */}
-        <header className="mb-8 space-y-3 text-center">
+        <header className="mb-6 space-y-3 text-center">
           <p
             className="text-xs sm:text-sm font-semibold uppercase tracking-[0.22em]"
             style={{
@@ -196,6 +199,15 @@ export default function EducationListings() {
             EDUCATION • INSTITUTIONAL • RAIPUR
           </p>
         </header>
+
+        {/* Simple center image */}
+        <div className="mb-8 flex justify-center">
+          <img
+            src={img}
+            alt="Education and institutional land opportunities"
+            className="w-full max-w-2xl rounded-2xl object-cover"
+          />
+        </div>
 
         {/* Cards grid */}
         <div className="grid gap-6 md:grid-cols-2">

@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import img from "../../images/image.png"; // apni image ka sahi path
 
 const BRAND = {
   base: "#facc15", // gold
@@ -9,11 +10,6 @@ const BRAND = {
   glow: "rgba(250,204,21,0.50)",
 };
 
-const CTA_COLOR = BRAND.base;
-const CTA_HOVER = "#fde047";
-
-/* -------------------- PROPERTY DATA -------------------- */
-
 const PROPERTIES = [
   {
     id: "pachpedi-naka-tower",
@@ -21,15 +17,10 @@ const PROPERTIES = [
     location: "Main road, Pachpedi Naka, Raipur (next to Ganeshi Hospital)",
     size: "Approx 8,800 sq.ft plot • Multi-storey RCC structure ready",
   },
-  {
-    id: "raipur-3000",
-    title: "3,000 sq.ft Construction-Ready Land in Raipur",
-    location: "Well-connected location, Raipur",
-    size: "Approx 3,000 sq.ft construction potential",
-  },
+ 
   {
     id: "raigarh-50000",
-    title: "Up to 50,000 sq.ft Construction near AIIMS, Raigarh",
+    title: "Up to 50,000 sq.ft Construction , Raigarh",
     location: "Raigarh",
     size: "Approx 50,000 sq.ft construction potential",
   },
@@ -45,6 +36,13 @@ const PROPERTIES = [
     location: "Near Swarn Bhoomi, Raipur",
     size: "Approx 60,000 sq.ft construction potential",
   },
+  {
+  id: "60000", // agar chaho to isse change karke "bhatagaon-hospital-25000" bhi rakh sakte ho
+  title: "20,000 – 25,000 sq.ft Hospital Project – Near Bhatagaon",
+  location: "Near Bhatagaon, Raipur",
+  size: "Approx 20,000 to 25,000 sq.ft construction potential, ideal for hospital use",
+
+}
 ];
 
 /* -------------------- CARD COMPONENT -------------------- */
@@ -73,14 +71,6 @@ function PropertyCard({ property, index }) {
       <div className="p-5 md:p-6 space-y-4">
         {/* Tags */}
         <div className="flex flex-wrap gap-2 text-[11px] font-semibold">
-          {/* Future tag: label / city if needed */}
-          {/* <span
-            className="rounded-full bg-black/80 px-3 py-1 text-slate-100 border"
-            style={{ borderColor: BRAND.soft }}
-          >
-            {label} • {city}
-          </span> */}
-
           <span
             className="rounded-full px-3 py-1 text-black text-[11px] font-semibold shadow-sm border"
             style={{
@@ -128,7 +118,7 @@ function PropertyCard({ property, index }) {
           your project requirement and planning.
         </p>
 
-        {/* Bullet points (optional, future use) */}
+        {/* Bullet points (optional) */}
         {details.length > 0 && (
           <ul className="mt-1 space-y-1.5 text-sm text-slate-300 list-disc list-inside">
             {details.map((point, idx) => (
@@ -176,7 +166,7 @@ export default function HospitalListings({ filters }) {
 
   return (
     <section className="relative bg-black text-slate-100 pt-24 pb-14 md:pt-28 md:pb-16">
-      {/* Gold aura (same theme as other pages) */}
+      {/* Gold aura background */}
       <div
         className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-64"
         style={{
@@ -188,18 +178,20 @@ export default function HospitalListings({ filters }) {
       <div className="max-w-6xl mx-auto px-4 md:px-6">
         {/* Back button */}
         <div className="mb-6 flex items-center justify-between">
-          <button
-            type="button"
-            onClick={() => navigate("/")}
-            className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/70 px-3.5 py-1.5 text-xs md:text-sm font-medium text-slate-200 hover:bg-black/90 hover:border-white/40 transition"
-          >
-            <span className="text-base md:text-lg">←</span>
-            <span>Back to Home</span>
-          </button>
+         <button
+                    type="button"
+                    onClick={() => navigate("/", { state: { scrollTo: "categories" } })}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/70 px-3.5 py-1.5 text-xs md:text-sm font-medium text-slate-200 hover:bg-black/90 hover:border-white/40 transition"
+                >
+                    <span className="text-base md:text-lg">←</span>
+                    <span>BACK TO CATEGORIES
+                    </span>
+                </button>
+
         </div>
 
         {/* Heading */}
-        <header className="mb-8 space-y-3 text-center">
+        <header className="mb-6 space-y-3 text-center">
           <p
             className="text-xs sm:text-sm font-semibold uppercase tracking-[0.22em]"
             style={{
@@ -219,10 +211,23 @@ export default function HospitalListings({ filters }) {
           </p>
         </header>
 
+        {/* Simple center image (smaller) */}
+        <div className="mb-8 flex justify-center">
+          <img
+            src={img}
+            alt="Hospital and medical real estate opportunities"
+            className="w-full max-w-xs sm:max-w-sm md:max-w-md rounded-2xl object-cover"
+          />
+        </div>
+
         {/* Cards grid */}
         <div className="grid gap-6 md:grid-cols-2">
           {PROPERTIES.map((property, index) => (
-            <PropertyCard key={property.id} property={property} index={index} />
+            <PropertyCard
+              key={property.id}
+              property={property}
+              index={index}
+            />
           ))}
         </div>
       </div>

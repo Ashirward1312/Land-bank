@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import img from "../../images/warehouse.png"; // <-- yahan apni warehouse image ka sahi path/naam lagao
 
 const BRAND = {
   base: "#facc15", // gold
@@ -150,18 +151,20 @@ export default function WarehouseListings() {
       <div className="max-w-6xl mx-auto px-4 md:px-6">
         {/* Back button */}
         <div className="mb-6 flex items-center justify-between">
-          <button
-            type="button"
-            onClick={() => navigate("/")}
-            className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/70 px-3.5 py-1.5 text-xs md:text-sm font-medium text-slate-200 hover:bg-black/90 hover:border-white/40 transition"
-          >
-            <span className="text-base md:text-lg">←</span>
-            <span>Back to Home</span>
-          </button>
+      <button
+                    type="button"
+                    onClick={() => navigate("/", { state: { scrollTo: "categories" } })}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/70 px-3.5 py-1.5 text-xs md:text-sm font-medium text-slate-200 hover:bg-black/90 hover:border-white/40 transition"
+                >
+                    <span className="text-base md:text-lg">←</span>
+                    <span>BACK TO CATEGORIES
+                    </span>
+                </button>
+
         </div>
 
         {/* Heading (center, CAPS) */}
-        <header className="mb-8 space-y-3 text-center">
+        <header className="mb-6 space-y-3 text-center">
           <p
             className="text-xs sm:text-sm font-semibold uppercase tracking-[0.22em]"
             style={{
@@ -174,6 +177,15 @@ export default function WarehouseListings() {
             WAREHOUSE
           </p>
         </header>
+
+        {/* Simple center image (smaller) */}
+        <div className="mb-8 flex justify-center">
+          <img
+            src={img}
+            alt="Modern warehouse and logistics land opportunity near Raipur"
+            className="w-full max-w-xs sm:max-w-sm md:max-w-md rounded-2xl object-cover"
+          />
+        </div>
 
         {/* Cards grid */}
         <div className="grid gap-6 md:grid-cols-2">

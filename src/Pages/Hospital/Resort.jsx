@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import img from "../../images/resort.png"; // <-- yahan apni resort/wedding lawn image ka sahi path/naam lagao
 
 const BRAND = {
   base: "#facc15", // gold
@@ -11,14 +12,24 @@ const BRAND = {
 
 /* -------------------- RESORT / WEDDING LAWN DATA -------------------- */
 
-const RESORT_OPTION = {
-  id: "kanha-resort-10-13",
-  title: "RESORT / WEDDING LAWN – KANHA NATIONAL PARK (MP)",
-  location: "Near Kanha National Park, Madhya Pradesh",
-  size: "Approx 10 to 13 acres",
-  approvals: "With all approvals in place (resort / hospitality use).",
-  note: "Suitable for resort, wedding lawn, destination wedding venue and nature-based hospitality project.",
-};
+const RESORT_OPTIONS = [
+  {
+    id: "kanha-resort-10-13",
+    title: "RESORT / WEDDING LAWN – KANHA NATIONAL PARK (MP)",
+    location: "Near Kanha National Park, Madhya Pradesh",
+    size: "Approx 10 to 13 acres",
+    approvals: "With all approvals in place (resort / hospitality use).",
+    note: "Suitable for resort, wedding lawn, destination wedding venue and nature-based hospitality project.",
+  },
+  {
+    id: "vip-road-resort-3-5-7",
+    title: "3, 5 & 7 ACRE RESORT LAND – NEAR VIP ROAD (LEASE / JV)",
+    location: "Near VIP Road, Raipur",
+    size: "Approx 3, 5 & 7 acre resort land options",
+    approvals: "",
+    note: "Lease and Joint Venture options available for resort project.",
+  },
+];
 
 /* -------------------- CARD COMPONENT -------------------- */
 
@@ -91,9 +102,7 @@ function ResortCard({ item, index }) {
           </p>
           {approvals && (
             <p className="text-sm text-slate-300">
-              <span className="font-semibold text-slate-100">
-                Approvals:
-              </span>{" "}
+              <span className="font-semibold text-slate-100">Approvals:</span>{" "}
               {approvals}
             </p>
           )}
@@ -111,12 +120,12 @@ function ResortCard({ item, index }) {
           <span className="text-xs text-slate-400 sm:flex-1">
             Share your resort / wedding lawn concept and budget – we&apos;ll
             share exact location, site layout and commercial terms for this
-            Kanha National Park opportunity.
+            opportunity.
           </span>
 
           <a
             href="/#contact"
-            className="inline-flex shrink-0 items-center justify-center rounded-full px-5 py-2 text-xs md:text-sm font-semibold text-neutral-900 shadow-lg ring-1 border transition duration-200"
+            className="inline-flex shrink-0 items-center justify-center rounded-full px-5 py-2 text-xs md:text-sm font-semibold text-neutral-900 shadow-lg ring-1 border transition.duration-200"
             style={{
               background: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)`,
               boxShadow: `0 10px 24px ${BRAND.glow}`,
@@ -156,18 +165,20 @@ export default function ResortListings() {
       <div className="max-w-6xl mx-auto px-4 md:px-6">
         {/* Back button */}
         <div className="mb-6 flex items-center justify-between">
-          <button
-            type="button"
-            onClick={() => navigate("/")}
-            className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/70 px-3.5 py-1.5 text-xs md:text-sm font-medium text-slate-200 hover:bg-black/90 hover:border-white/40 transition"
-          >
-            <span className="text-base md:text-lg">←</span>
-            <span>Back to Home</span>
-          </button>
+        <button
+                    type="button"
+                    onClick={() => navigate("/", { state: { scrollTo: "categories" } })}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/70 px-3.5 py-1.5 text-xs md:text-sm font-medium text-slate-200 hover:bg-black/90 hover:border-white/40 transition"
+                >
+                    <span className="text-base md:text-lg">←</span>
+                    <span>BACK TO CATEGORIES
+                    </span>
+                </button>
+
         </div>
 
         {/* Heading */}
-        <header className="mb-8 space-y-3 text-center">
+        <header className="mb-6 space-y-3 text-center">
           <p
             className="text-xs sm:text-sm font-semibold uppercase tracking-[0.22em]"
             style={{
@@ -181,9 +192,20 @@ export default function ResortListings() {
           </p>
         </header>
 
-        {/* Card */}
+        {/* Simple center image (smaller) */}
+        <div className="mb-8 flex justify-center">
+          <img
+            src={img}
+            alt="Luxury resort and wedding lawn near Kanha National Park"
+            className="w-full max-w-xs sm:max-w-sm md:max-w-md rounded-2xl object-cover"
+          />
+        </div>
+
+        {/* Cards */}
         <div className="grid gap-6 md:grid-cols-1">
-          <ResortCard item={RESORT_OPTION} index={0} />
+          {RESORT_OPTIONS.map((item, index) => (
+            <ResortCard key={item.id} item={item} index={index} />
+          ))}
         </div>
       </div>
     </section>

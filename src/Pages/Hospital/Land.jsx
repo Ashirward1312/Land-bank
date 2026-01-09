@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import img from "../../images/plot.png"; // <-- yahan apni land wali image ka sahi path/naam lagao
 
 const BRAND = {
   base: "#facc15", // gold
@@ -28,18 +29,13 @@ const LAND_CARDS = [
     locationTag: "Near Sayaji, Raipur",
     size: "Approx 3,000 – 6,000 sq.ft plots available",
   },
-  {
-    id: "pachpedi",
-    title: "Land Near Pachpedi Naka",
-    locationTag: "Pachpedi Naka, Raipur",
-    size: "Size as per requirement",
-  },
-  {
-    id: "tagore",
-    title: "Land Near Tagore Nagar",
-    locationTag: "Tagore Nagar, Raipur",
-    size: "Size as per requirement",
-  },
+  // {
+  //   id: "pachpedi",
+  //   title: "Land Near Pachpedi Naka",
+  //   locationTag: "Pachpedi Naka, Raipur",
+  //   size: "Size as per requirement",
+  // },
+
 ];
 
 export default function LandListings() {
@@ -59,30 +55,20 @@ export default function LandListings() {
       <div className="max-w-6xl mx-auto px-4 md:px-6">
         {/* Back button */}
         <div className="mb-8 flex items-center justify-between">
-          <button
-            type="button"
-            onClick={() => navigate("/")}
-            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/70 px-4 py-2 text-sm font-medium text-slate-200 shadow-md transition-all duration-200 hover:bg-black/90 hover:border-white/40"
-          >
-            <svg
-              className="h-4 w-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2.5}
-                d="M10 19l-7-7m0 0l7-7m-7 7h18"
-              />
-            </svg>
-            <span>Back to Home</span>
-          </button>
+         <button
+                    type="button"
+                    onClick={() => navigate("/", { state: { scrollTo: "categories" } })}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/70 px-3.5 py-1.5 text-xs md:text-sm font-medium text-slate-200 hover:bg-black/90 hover:border-white/40 transition"
+                >
+                    <span className="text-base md:text-lg">←</span>
+                    <span>BACK TO CATEGORIES
+                    </span>
+                </button>
+
         </div>
 
         {/* Heading */}
-        <header className="mb-12 text-center space-y-2">
+        <header className="mb-6 text-center space-y-2">
           <p
             className="text-xs sm:text-sm font-semibold uppercase tracking-[0.22em]"
             style={{
@@ -95,9 +81,18 @@ export default function LandListings() {
             PREMIUM LAND • RAIPUR
           </p>
           <h1 className="mt-1 text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight">
-            PREMIUM LAND IN RAIPUR
+            PREMIUM LUXURY PLOTS IN RAIPUR
           </h1>
         </header>
+
+        {/* Simple center image (smaller) */}
+        <div className="mb-10 flex justify-center">
+          <img
+            src={img}
+            alt="Premium land opportunities in Raipur"
+            className="w-full max-w-xs sm:max-w-sm md:max-w-md rounded-2xl object-cover"
+          />
+        </div>
 
         {/* Cards grid */}
         <div className="grid gap-8 sm:grid-cols-1 lg:grid-cols-2">

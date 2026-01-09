@@ -9,13 +9,12 @@ import {
   Gem as GemIcon,
   ShoppingBag as ShoppingBagIcon,
   Trees as TreesIcon,
-  Hotel as HotelIcon,
   Boxes as BoxesIcon,
-  FerrisWheel as FerrisWheelIcon,
   LineChart as LineChartIcon,
   MoreHorizontal as MoreHorizontalIcon,
-  MapPin as MapPinIcon, // Land on Lease
-  Home as HomeIcon, // Premium Farm House
+  MapPin as MapPinIcon, // Land on Lease / Project Lands
+  Home as HomeIcon,     // Premium Farm House
+  Leaf as AgricultureIcon, // ✅ NEW: Agriculture icon
 } from "lucide-react";
 
 const CATS = [
@@ -47,7 +46,25 @@ const CATS = [
 
   { id: "invest-land", label: "Land / Plot Investment", icon: LineChartIcon },
 
-  { id: "landplot", label: "Land/Plot", icon: LineChartIcon },
+  // ✅ Project Lands → navigates to /projects (matches projects.jsx)
+  { id: "projectlands", label: "Project Lands", icon: MapPinIcon },
+
+  // ✅ Agriculture → navigates to /agriculture (matches agriculture.jsx)
+  { id: "agriculture", label: "Agriculture Land", icon: AgricultureIcon },
+
+  // Big Land / Patch Work
+  {
+    id: "biglandpatch",
+    label: "Big Land / Patch Work",
+    icon: LineChartIcon,
+  },
+
+  // Auction (Bank / Auction properties)
+  {
+    id: "auction",
+    label: "Auction",
+    icon: LineChartIcon,
+  },
 
   { id: "others", label: "Others", icon: MoreHorizontalIcon },
 ];
@@ -70,14 +87,28 @@ export default function CategoriesSection() {
     if (id === "education") return navigate("/education");
     if (id === "residential") return navigate("/residential");
     if (id === "commercial") return navigate("/commercial");
-    if (id === "landplot" || id === "luxuryplots") return navigate("/land");
+
+    if (id === "luxuryplots") return navigate("/land");
+    if (id === "farmhouse") return navigate("/farmhouse");
     if (id === "malls") return navigate("/malls");
     if (id === "resortswedding") return navigate("/resorts-wedding");
-    if (id === "farmhouse") return navigate("/farmhouse");
     if (id === "warehouse") return navigate("/warehouse");
-    if (id === "invest-realestate") return navigate("/commercial");
-    if (id === "invest-land") return navigate("/land-investment");
     if (id === "lease") return navigate("/lease");
+    if (id === "invest-land") return navigate("/land-investment");
+
+    // ✅ FIXED & CONFIRMED: Project Lands → /projects (for projects.jsx)
+    if (id === "projectlands") return navigate("/projects");
+
+    // ✅ FIXED & CONFIRMED: Agriculture → /agriculture (for agriculture.jsx)
+    if (id === "agriculture") return navigate("/agriculture");
+
+    // Big land / patch work page
+    if (id === "biglandpatch") return navigate("/patch");
+
+    // Auction page
+    if (id === "auction") return navigate("/bank");
+
+    // Others page
     if (id === "others") return navigate("/others");
 
     setSelected((s) => (s === id ? null : id));
@@ -88,7 +119,6 @@ export default function CategoriesSection() {
       id="categories"
       className="relative bg-black text-slate-100 py-12 sm:py-16"
     >
-      {/* Gold aura (same as other sections) */}
       <div
         className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-56"
         style={{
@@ -99,7 +129,6 @@ export default function CategoriesSection() {
       />
 
       <div className="max-w-[1200px] mx-auto px-4 md:px-6">
-        {/* Header */}
         <header className="mb-8 text-center">
           <h2 className="mt-3 text-2xl md:text-3xl font-extrabold tracking-tight uppercase">
             Browse by{" "}
@@ -121,7 +150,6 @@ export default function CategoriesSection() {
           />
         </header>
 
-        {/* Category grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 justify-center">
           {CATS.map(({ id, label, icon: Icon }) => {
             const isActive = selected === id;
@@ -154,7 +182,6 @@ export default function CategoriesSection() {
                   <Icon
                     className="h-5 w-5 transition-colors duration-200"
                     style={{
-                      // soft gold when normal, brighter gold + glow when active
                       color: isActive ? BRAND.base : BRAND.soft,
                       filter: isActive
                         ? `drop-shadow(0 0 6px ${BRAND.glow})`

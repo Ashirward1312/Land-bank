@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import img from "../../images/investment.png"; // <-- yahan apni land/plot investment image ka sahi path/naam lagao
 
 const BRAND = {
   base: "#facc15", // gold
@@ -21,24 +22,44 @@ const LAND_INVEST_OPTIONS = [
     size: "Approx 60,000 sq.ft",
     note: "Suitable for large commercial, mixed-use or long-term investment holding on VIP Road belt.",
   },
-  {
-    id: "vip-30000",
-    type: "LAND / PLOT INVESTMENT",
-    city: "Raipur",
-    title: "30,000 SQ.FT LAND INVESTMENT – VIP ROAD, RAIPUR",
-    location: "VIP Road, Raipur",
-    size: "Approx 30,000 sq.ft",
-    note: "Ideal ticket size for branded showroom, office block or mid-sized mixed-use development.",
-  },
+  // {
+  //   id: "vip-30000",
+  //   type: "LAND / PLOT INVESTMENT",
+  //   city: "Raipur",
+  //   title: "30,000 SQ.FT LAND INVESTMENT – VIP ROAD, RAIPUR",
+  //   location: "VIP Road, Raipur",
+  //   size: "Approx 30,000 sq.ft",
+  //   note: "Ideal ticket size for branded showroom, office block or mid-sized mixed-use development.",
+  // },
   {
     id: "kamal-vihar-30000",
     type: "LAND / PLOT INVESTMENT",
     city: "Raipur",
     title: "30,000 SQ.FT LAND INVESTMENT – KAMAL VIHAR, RAIPUR",
     location: "Kamal Vihar area, Raipur",
-    size: "Approx 30,000 sq.ft",
+    size: "Approx 40,000 To 60,000 sq.ft",
     note: "Located in Kamal Vihar planning area – suitable for residential, mixed-use or plotted development.",
   },
+
+   {
+  id: "persulidih-7500",
+  type: "LAND / PLOT INVESTMENT",
+  city: "Raipur",
+  title: "7,500 SQ.FT LAND INVESTMENT – PARSULIDIH, RAIPUR",
+  location: "Parsulidih area, Raipur",
+  size: "Approx 7,500 sq.ft",
+  note: "Persulidih belt land, Raipur.",
+},
+{
+  id: "bhatagaon-20000-25000",
+  type: "LAND / PLOT INVESTMENT",
+  city: "Raipur",
+  title: "20,000–25,000 SQ.FT LAND INVESTMENT – BHATAGAON, RAIPUR",
+  location: "Bhatagaon area, Raipur",
+  size: "Approx 20,000 To 25,000 sq.ft",
+  note: "Located in Bhatagaon area – suitable for residential development, small commercial use or future investment.",
+},
+
 ];
 
 /* -------------------- CARD COMPONENT -------------------- */
@@ -47,7 +68,7 @@ function LandInvestCard({ item, index }) {
   const { type, city, title, location, size, note } = item;
 
   return (
-    <article className="group relative flex flex-col rounded-3xl bg-gradient-to-b from-slate-900/90 via-slate-950 to-black ring-1 ring-white/10 shadow-[0_20px_60px_-35px_rgba(0,0,0,1)] hover:ring-[#fde68a]/80 hover:shadow-[0_30px_90px_-45px_rgba(0,0,0,1)] hover:-translate-y-[2px] transition-all duration-200 overflow-hidden">
+    <article className="group relative flex flex-col rounded-2xl bg-gradient-to-b from-slate-900/90 via-slate-950 to-black ring-1 ring-white/10 shadow-[0_20px_60px_-35px_rgba(0,0,0,1)] hover:ring-[#fde68a]/80 hover:shadow-[0_30px_90px_-45px_rgba(0,0,0,1)] hover:-translate-y-[2px] transition-all duration-200 overflow-hidden">
       {/* Top gradient line */}
       <div
         className="absolute inset-x-0 top-0 h-[3px] opacity-90"
@@ -171,18 +192,20 @@ export default function LandInvestmentListings() {
       <div className="max-w-6xl mx-auto px-4 md:px-6">
         {/* Back button */}
         <div className="mb-6 flex items-center justify-between">
-          <button
-            type="button"
-            onClick={() => navigate("/")}
-            className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/70 px-3.5 py-1.5 text-xs md:text-sm font-medium text-slate-200 hover:bg-black/90 hover:border-white/40 transition"
-          >
-            <span className="text-base md:text-lg">←</span>
-            <span>Back to Home</span>
-          </button>
+         <button
+                    type="button"
+                    onClick={() => navigate("/", { state: { scrollTo: "categories" } })}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/70 px-3.5 py-1.5 text-xs md:text-sm font-medium text-slate-200 hover:bg-black/90 hover:border-white/40 transition"
+                >
+                    <span className="text-base md:text-lg">←</span>
+                    <span>BACK TO CATEGORIES
+                    </span>
+                </button>
+
         </div>
 
         {/* Heading */}
-        <header className="mb-8 space-y-3 text-center">
+        <header className="mb-6 space-y-3 text-center">
           <p
             className="text-xs sm:text-sm font-semibold uppercase tracking-[0.22em]"
             style={{
@@ -195,6 +218,15 @@ export default function LandInvestmentListings() {
             LAND / PLOT INVESTMENT
           </p>
         </header>
+
+        {/* Simple center image */}
+        <div className="mb-8 flex justify-center">
+          <img
+            src={img}
+            alt="Premium land and plot investment opportunities in Raipur"
+            className="w-full max-w-2xl rounded-2xl object-cover"
+          />
+        </div>
 
         {/* Cards grid */}
         <div className="grid gap-6 md:grid-cols-2">

@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import img from "../../images/malls.png"; // <-- yahan apni mall image ka sahi path/naam lagao
 
 const BRAND = {
   base: "#facc15", // gold
@@ -16,18 +17,34 @@ const MALL_OPPORTUNITIES = [
     id: "ambuja-mall-jv",
     dealType: "JV",
     city: "Raipur",
-    title: "MALLS – NEAR AMBUJA",
+    title: "MALLS – NEAR AMBUJA (JV / LEASE)",
     location: "Near Ambuja Mall, Raipur",
-    size: "Size as per project plan (JV basis)",
+    size: "Size as per project plan (JV / Lease basis)",
   },
   {
     id: "kamal-vihar-mall-jv",
     dealType: "JV",
     city: "Raipur",
-    title: "MALLS – NEAR KAMAL VIHAR",
+    title: "MALLS – NEAR KAMAL VIHAR (JV / LEASE)",
     location: "Near Kamal Vihar, Raipur",
-    size: "Size as per project plan (JV basis)",
+    size: "Size as per project plan (JV / Lease basis)",
   },
+  {
+    id: "colors-mall-jv-lease",
+    dealType: "JV",
+    city: "Raipur",
+    title: "MALL – NEAR COLORS MALL (JV / LEASE)",
+    location: "Near Colors Mall, Raipur",
+    size: "Size as per project plan (JV / Lease basis)",
+  },
+  // {
+  //   id: "kamal-vihar-60000-jv-lease",
+  //   dealType: "JV",
+  //   city: "Raipur",
+  //   title: "MALL – NEAR KAMAL VIHAR 60,000 SQ.FT (JV / LEASE)",
+  //   location: "Near Kamal Vihar, Raipur",
+  //   size: "Approx 60,000 sq.ft (JV / Lease basis)",
+  // },
 ];
 
 /* -------------------- CARD COMPONENT -------------------- */
@@ -72,7 +89,7 @@ function MallCard({ item, index }) {
                 borderColor: BRAND.soft,
               }}
             >
-              JV OPPORTUNITY
+              JV / LEASE OPPORTUNITY
             </span>
           )}
         </div>
@@ -104,7 +121,7 @@ function MallCard({ item, index }) {
         <div className="flex flex-col sm:flex-row sm:items-center gap-3">
           <span className="text-xs text-slate-400 sm:flex-1">
             Share your profile and mall concept – we&apos;ll help structure the JV
-            with the land owner and share detailed terms.
+            / Lease with the land owner and share detailed terms.
           </span>
 
           <a
@@ -122,7 +139,7 @@ function MallCard({ item, index }) {
               e.currentTarget.style.filter = "brightness(1.0)";
             }}
           >
-            DISCUSS MALL JV
+            DISCUSS MALL JV / LEASE
           </a>
         </div>
       </div>
@@ -149,18 +166,20 @@ export default function MallsListings() {
       <div className="max-w-6xl mx-auto px-4 md:px-6">
         {/* Back button */}
         <div className="mb-6 flex items-center justify-between">
-          <button
-            type="button"
-            onClick={() => navigate("/")}
-            className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/70 px-3.5 py-1.5 text-xs md:text-sm font-medium text-slate-200 hover:bg-black/90 hover:border-white/40 transition"
-          >
-            <span className="text-base md:text-lg">←</span>
-            <span>Back to Home</span>
-          </button>
+     <button
+                    type="button"
+                    onClick={() => navigate("/", { state: { scrollTo: "categories" } })}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/70 px-3.5 py-1.5 text-xs md:text-sm font-medium text-slate-200 hover:bg-black/90 hover:border-white/40 transition"
+                >
+                    <span className="text-base md:text-lg">←</span>
+                    <span>BACK TO CATEGORIES
+                    </span>
+                </button>
+
         </div>
 
         {/* Heading */}
-        <header className="mb-8 space-y-3 text-center">
+        <header className="mb-6 space-y-3 text-center">
           <p
             className="text-xs sm:text-sm font-semibold uppercase tracking-[0.22em]"
             style={{
@@ -170,22 +189,22 @@ export default function MallsListings() {
               color: "transparent",
             }}
           >
-            MALLS • RETAIL • JOINT VENTURE
+            MALLS • RETAIL • JOINT VENTURE/LEASE
           </p>
-          <h1 className="mt-1 text-2xl sm:text-3xl lg:text-4xl font-semibold text-white tracking-tight uppercase">
-            MALLS &amp; JV OPPORTUNITIES – RAIPUR
+          <h1 className="mt-1 text-2xl sm:text-2xl lg:text-4xl font-semibold text-white tracking-tight uppercase">
+            MALLS &amp; JV OPPORTUNITIES/LEASE – RAIPUR
           </h1>
-          <p className="max-w-2xl mx-auto text-sm sm:text-base text-slate-300 leading-relaxed">
-            These are{" "}
-            <span className="font-semibold text-slate-100">
-              Joint Venture (JV)
-            </span>{" "}
-            opportunities for mall / retail development near Ambuja and near
-            Kamal Vihar. JV is an agreement and mutual understanding between the
-            client and the land owner to develop a project together and share
-            profits, revenue or developed area as per agreed terms.
-          </p>
+          
         </header>
+
+        {/* Simple center image */}
+        <div className="mb-8 flex justify-center">
+          <img
+            src={img}
+            alt="Premium shopping mall JV opportunities in Raipur"
+            className="w-full max-w-2xl rounded-2xl object-cover"
+          />
+        </div>
 
         {/* Cards grid */}
         <div className="grid gap-6 md:grid-cols-2">

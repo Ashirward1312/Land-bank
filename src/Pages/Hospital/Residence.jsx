@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import img from "../../images/residential.png";
 
 const BRAND = {
   base: "#facc15", // gold
@@ -9,127 +10,41 @@ const BRAND = {
   glow: "rgba(250,204,21,0.50)",
 };
 
-/* -------------------- RESIDENTIAL DATA (NO IMAGES) -------------------- */
+/* -------------------- RESIDENTIAL DATA -------------------- */
 
 const RESIDENCE_OPTIONS = [
   {
-    id: "at-classic",
-    project: "AT Classic",
+    id: "old-dhamtari-road-30-50",
     city: "Raipur",
-    title: "AT CLASSIC – 2 BHK READY POSITION",
-    location: "AT Classic, Raipur",
-    config: "2 BHK – Ready position",
-    priceInfo: "Approx ₹55–65 Lakh* (2 BHK)",
-    note: "Good for end use and investment in a developed residential belt.",
-    statusTag: "2 BHK • Ready Position",
-    priceTag: "Approx ₹55–65 Lakh • Price on Request",
+    title: "Start 30 to 50+ lakhs in Old Dhamtari Road",
+    location: "Old Dhamtari Road, Raipur",
+    config: "Residential",
+    priceInfo: "Start 30 to 50+ lakhs",
+    note: "",
+    statusTag: "Residential",
+    priceTag: "30 to 50+ lakhs",
   },
   {
-    id: "aditya-heights",
-    project: "Aditya Heights",
+    id: "kachna-60-150",
     city: "Raipur",
-    title: "ADITYA HEIGHTS – 2 BHK READY POSITION",
-    location: "Aditya Heights, Raipur",
-    config: "2 BHK – Ready position",
-    priceInfo: "Approx ₹55–65 Lakh* (2 BHK)",
-    note: "Modern 2 BHK apartments with ready possession – suitable for small families.",
-    statusTag: "2 BHK • Ready Position",
-    priceTag: "Approx ₹55–65 Lakh • Price on Request",
-  },
-  {
-    id: "vardhman-elements",
-    project: "Vardhman Elements",
-    city: "Raipur",
-    title: "VARDHMAN ELEMENTS – 2 BHK READY POSITION",
-    location: "Vardhman Elements, Raipur",
-    config: "2 BHK – Ready position",
-    priceInfo: "Approx ₹55–65 Lakh* (2 BHK)",
-    note: "Well-planned residential project with good connectivity and amenities.",
-    statusTag: "2 BHK • Ready Position",
-    priceTag: "Approx ₹55–65 Lakh • Price on Request",
-  },
-  {
-    id: "richmond-park-kachna",
-    project: "Richmond Park",
-    city: "Raipur",
-    title: "RICHMOND PARK – 2 BHK READY POSITION (KACHNA)",
-    location: "Richmond Park, Kachna, Raipur",
-    config: "2 BHK – Ready position",
-    priceInfo: "Approx ₹55–65 Lakh* (2 BHK)",
-    note: "Located in the Kachna belt – upcoming residential corridor with good future potential.",
-    statusTag: "2 BHK • Ready Position",
-    priceTag: "Approx ₹55–65 Lakh • Price on Request",
-  },
-  {
-    id: "ambience-kachna",
-    project: "Ambience",
-    city: "Raipur",
-    title: "AMBIENCE – RESIDENTIAL APARTMENTS (KACHNA)",
-    location: "Ambience, Kachna, Raipur",
-    config: "Residential apartments – available",
-    priceInfo: "Price on Request",
-    note: "Premium residential apartments in the Kachna area – availability as per inventory.",
-    statusTag: "Residence Available",
-    priceTag: "Price on Request",
-  },
-  {
-    id: "humming-residential",
-    project: "Humming Residential",
-    city: "Raipur",
-    title: "HUMMING RESIDENTIAL – APARTMENTS",
-    location: "Humming Residential, Raipur",
-    config: "Residential apartments – available",
-    priceInfo: "Price on Request",
-    note: "Modern residential development – suitable for families and investors.",
-    statusTag: "Residence Available",
-    priceTag: "Price on Request",
-  },
-  {
-    id: "rishabh-parksyde",
-    project: "Rishabh The Parksyde",
-    city: "Raipur",
-    title: "RISHABH THE PARKSYDE – RESIDENTIAL APARTMENTS",
-    location: "Rishabh The Parksyde, Raipur",
-    config: "2 & 3 BHK apartments – available as per inventory",
-    priceInfo: "Price on Request",
-    note: "Lifestyle apartments with park-facing options (subject to availability).",
-    statusTag: "Residence Available",
-    priceTag: "Price on Request",
-  },
-  {
-    id: "classic-tower-amlidih",
-    project: "Classic Tower",
-    city: "Raipur",
-    title: "CLASSIC TOWER – AMLIDIH",
-    location: "Classic Tower, Amlidih, Raipur",
-    config: "Residential apartments – available",
-    priceInfo: "Price on Request",
-    note: "Located in the Amlidih area – convenient access to nearby social infrastructure.",
-    statusTag: "Residence Available",
-    priceTag: "Price on Request",
-  },
-  {
-    id: "classic-castle-kachna",
-    project: "Classic Castle",
-    city: "Raipur",
-    title: "CLASSIC CASTLE – KACHNA",
-    location: "Classic Castle, Kachna, Raipur",
-    config: "Residential apartments – available",
-    priceInfo: "Price on Request",
-    note: "Residential project in Kachna with scope for future appreciation.",
-    statusTag: "Residence Available",
-    priceTag: "Price on Request",
+    title: "Kachna 60 lakhs to 1.5 cr+ • 1000 sq.ft and above",
+    location: "Kachna, Raipur",
+    config: "1000 sq.ft and above",
+    priceInfo: "60 lakhs to 1.5 cr+",
+    note: "",
+    statusTag: "Residential",
+    priceTag: "60 lakhs to 1.5 cr+",
   },
 ];
 
 /* -------------------- CARD COMPONENT -------------------- */
 
-function ResidenceCard({ item, index }) {
+function ResidenceCard({ item }) {
   const { title, city, location, config, priceInfo, note, statusTag, priceTag } =
     item;
 
   return (
-    <article className="group relative flex flex-col rounded-3xl bg-gradient-to-b from-slate-900/90 via-slate-950 to-black ring-1 ring-white/10 shadow-[0_20px_60px_-35px_rgba(0,0,0,1)] hover:ring-[#fde68a]/80 hover:shadow-[0_30px_90px_-45px_rgba(0,0,0,1)] hover:-translate-y-[2px] transition-all duration-200 overflow-hidden">
+    <article className="group relative flex flex-col rounded-2xl bg-gradient-to-b from-slate-900/90 via-slate-950 to-black ring-1 ring-white/10 shadow-[0_20px_60px_-35px_rgba(0,0,0,1)] hover:ring-[#fde68a]/80 hover:shadow-[0_30px_90px_-45px_rgba(0,0,0,1)] hover:-translate-y-[2px] transition-all duration-200 overflow-hidden">
       {/* Top gradient line */}
       <div
         className="absolute inset-x-0 top-0 h-[3px] opacity-90"
@@ -137,8 +52,6 @@ function ResidenceCard({ item, index }) {
           background: `linear-gradient(90deg, transparent, ${BRAND.base}, ${BRAND.soft}, transparent)`,
         }}
       />
-
-  
 
       <div className="p-5 md:p-6 space-y-4 flex-1 flex flex-col">
         {/* Tags */}
@@ -204,11 +117,11 @@ function ResidenceCard({ item, index }) {
             <span className="font-semibold text-slate-100">Price Band:</span>{" "}
             {priceInfo}
           </p>
-          {note && (
+          {note ? (
             <p className="text-xs text-slate-400">
               <span className="font-semibold text-slate-100">Note:</span> {note}
             </p>
-          )}
+          ) : null}
         </div>
       </div>
 
@@ -216,16 +129,8 @@ function ResidenceCard({ item, index }) {
       <div className="border-t border-white/5 px-5 md:px-6 py-4 bg-black/70">
         <div className="flex flex-col sm:flex-row sm:items-center gap-3">
           <span className="text-xs text-slate-400 sm:flex-1">
-            Share your{" "}
-            <span className="font-semibold text-slate-100">
-              budget and preferred project
-            </span>{" "}
-            – we&apos;ll share exact availability, floor plans and negotiation
-            room for these{" "}
-            <span className="font-semibold text-slate-100">
-              residential options (Price on Request)
-            </span>
-            .
+            Share your budget and requirement – we&apos;ll share available
+            residential options.
           </span>
 
           <a
@@ -295,18 +200,20 @@ export default function ResidentialListings({ filters }) {
       <div className="max-w-6xl mx-auto px-4 md:px-6">
         {/* Back button */}
         <div className="mb-6 flex items-center justify-between">
-          <button
-            type="button"
-            onClick={() => navigate("/")}
-            className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/70 px-3.5 py-1.5 text-xs md:text-sm font-medium text-slate-200 hover:bg-black/90 hover:border-white/40 transition"
-          >
-            <span className="text-base md:text-lg">←</span>
-            <span>Back to Home</span>
-          </button>
+       <button
+                    type="button"
+                    onClick={() => navigate("/", { state: { scrollTo: "categories" } })}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/70 px-3.5 py-1.5 text-xs md:text-sm font-medium text-slate-200 hover:bg-black/90 hover:border-white/40 transition"
+                >
+                    <span className="text-base md:text-lg">←</span>
+                    <span>BACK TO CATEGORIES
+                    </span>
+                </button>
+
         </div>
 
         {/* Heading */}
-        <header className="mb-8 text-center">
+        <header className="mb-6 text-center">
           <p
             className="text-xs sm:text-sm font-semibold uppercase tracking-[0.22em]"
             style={{
@@ -320,10 +227,19 @@ export default function ResidentialListings({ filters }) {
           </p>
         </header>
 
+        {/* Simple center image */}
+        <div className="mb-8 flex justify-center">
+          <img
+            src={img}
+            alt="Residential apartment building in Raipur"
+            className="w-full max-w-2xl rounded-2xl object-cover"
+          />
+        </div>
+
         {/* Cards grid */}
         <div className="grid gap-6 md:grid-cols-2">
-          {properties.map((item, index) => (
-            <ResidenceCard key={item.id} item={item} index={index} />
+          {properties.map((item) => (
+            <ResidenceCard key={item.id} item={item} />
           ))}
         </div>
       </div>

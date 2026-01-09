@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 /* ===== Common Components ===== */
 import Navbar from "./Pages/Nav/Nav.jsx";
@@ -35,10 +35,35 @@ import Warehouse from "./Pages/Hospital/Warehouse.jsx";
 import Lease from "./Pages/Hospital/Lease.jsx";
 import LandInvestmentListings from "./Pages/Hospital/Landinvestment.jsx";
 
+/* ===== NEW PAGES (earlier) ===== */
+import Patch from "./Pages/Hospital/Patch.jsx"; // Big Land / Patch Work
+import Bank from "./Pages/Hospital/Bank.jsx";   // Bank / Auction properties
+
+/* ===== NEW PAGES (now) ===== */
+import ProjectsListings from "./Pages/Hospital/Projectlands.jsx";   // Project Lands page
+import Agriculture from "./Pages/Hospital/Agri.jsx";     // Agriculture Land page
+
 /* ================================================= */
 /* Home / Main Landing Page */
 /* ================================================= */
 function MainLandingPage() {
+  const location = useLocation();
+
+  React.useEffect(() => {
+    // Agar state me scrollTo: "categories" aaya ho to categories tak scroll karo
+    if (location.state?.scrollTo === "categories") {
+      const el = document.getElementById("categories");
+      if (el) {
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 0);
+      }
+    } else {
+      // normal home navigation pe top pe le jao
+      window.scrollTo({ top: 0, behavior: "auto" });
+    }
+  }, [location]);
+
   return (
     <>
       <Pop />
@@ -52,7 +77,7 @@ function MainLandingPage() {
       <Service />
       <How />
 
-      {/* IMPORTANT: Gallery yahan se hata diya, ab ye home ka part nahi hai */}
+      {/* Gallery ab yahan nahi, alag route pe */}
       {/* <Gallery /> */}
 
       <About />
@@ -207,6 +232,42 @@ function App() {
         element={
           <CommonLayout>
             <LandInvestmentListings />
+          </CommonLayout>
+        }
+      />
+
+      {/* NEW ROUTES: Big Land / Patch Work & Bank / Auction */}
+      <Route
+        path="/patch"
+        element={
+          <CommonLayout>
+            <Patch />
+          </CommonLayout>
+        }
+      />
+      <Route
+        path="/bank"
+        element={
+          <CommonLayout>
+            <Bank />
+          </CommonLayout>
+        }
+      />
+
+      {/* NEW ROUTES: Project Lands & Agriculture Land */}
+      <Route
+        path="/projects"
+        element={
+          <CommonLayout>
+            <ProjectsListings />
+          </CommonLayout>
+        }
+      />
+      <Route
+        path="/agriculture"
+        element={
+          <CommonLayout>
+            <Agriculture />
           </CommonLayout>
         }
       />

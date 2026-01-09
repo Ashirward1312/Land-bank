@@ -12,6 +12,7 @@ import {
   ArrowRight,
   Sparkles,
 } from "lucide-react";
+import img from "../../images/lease.png"; // <-- yahan apni land-on-lease image ka sahi path/naam lagao
 
 const BRAND = {
   base: "#facc15", // gold
@@ -81,13 +82,35 @@ const properties = [
     area: "2,090 sq.ft carpet per floor",
     floors: "G+3 (2,090 sq.ft each floor)",
   },
+  {
+    id: "vip-road-1-5-acre",
+    title: "VIP Road – 1 to 5 Acre Land",
+    tag: "Lease on Lease",
+    location: "VIP Road, Raipur",
+    area: "1 to 5 acre",
+  },
+  {
+    id: "vidhansabha-1-acre-plus",
+    title: "Vidhan Sabha – 1 Acre & Above",
+    tag: "Lease on Lease",
+    location: "Near Vidhan Sabha, Raipur",
+    area: "1 acre & above",
+  },
+  {
+  id: "ring-road-no-4-2-6-acres",
+  title: "Ring Road No. 4 – 2 to 6 Acres",
+  tag: "Lease on Lease",
+  location: "Ring Road No. 4, Raipur",
+  area: "2–6 acres",
+},
+
 ];
 
 export default function LandOnLease() {
   const navigate = useNavigate();
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-black text-slate-100 pt-24 pb-16 md:pt-28 md:pb-20">
+    <section className="relative min-h-screen overflow-hidden bg-black text-slate-100 pt-24 pb-16 md:pt-28.md:pb-20">
       {/* Gold aura */}
       <div
         className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-64"
@@ -99,13 +122,16 @@ export default function LandOnLease() {
 
       <div className="relative mx-auto flex max-w-6xl flex-col gap-10 px-4 sm:px-6 lg:px-8">
         {/* Back Button */}
-        <button
-          onClick={() => navigate("/")}
-          className="group mb-4 inline-flex w-max items-center gap-2 rounded-full border border-white/15 bg-black/70 px-4 py-1.5 text-xs font-medium text-slate-200 backdrop-blur transition-all duration-300 hover:bg-black/90 hover:border-white/40"
-        >
-          <ChevronLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
-          BACK TO HOME
-        </button>
+    <button
+                    type="button"
+                    onClick={() => navigate("/", { state: { scrollTo: "categories" } })}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/70 px-3.5 py-1.5 text-xs md:text-sm font-medium text-slate-200 hover:bg-black/90 hover:border-white/40 transition"
+                >
+                    <span className="text-base md:text-lg">←</span>
+                    <span>BACK TO CATEGORIES
+                    </span>
+                </button>
+
 
         {/* Header */}
         <motion.header
@@ -144,6 +170,15 @@ export default function LandOnLease() {
             </span>
           </motion.h1>
         </motion.header>
+
+        {/* Simple center image (smaller) */}
+        <div className="mb-8 flex justify-center">
+          <img
+            src={img}
+            alt="Land on lease and lease-on-lease opportunities"
+            className="w-full max-w-xs sm:max-w-sm md:max-w-md rounded-2xl object-cover"
+          />
+        </div>
 
         {/* Property Cards */}
         <motion.section
@@ -192,11 +227,7 @@ function PropertyCard({
         }}
       />
 
-      {/* Corner index */}
-      <div className="pointer-events-none absolute -right-6 -top-6 text-7xl font-black tracking-tighter text-white/5">
-        {String(index + 1).padStart(2, "0")}
-      </div>
-
+      
       {/* Badges */}
       <div className="mb-4 flex items-center justify-between gap-3">
         <div

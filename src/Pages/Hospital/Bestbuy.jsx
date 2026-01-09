@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import img from "../../images/bb.png"; // <-- yahan apni Best Buy image ka sahi path/naam lagao
 
 const BRAND = {
   base: "#facc15", // gold
@@ -13,15 +14,7 @@ const CTA_HOVER = "#fde047"; // lighter gold
 /* -------------------- BEST BUY DATA -------------------- */
 
 const BEST_BUY_ITEMS = [
-  {
-    id: "office-jai-stambh",
-    type: "OFFICE / COMMERCIAL",
-    city: "Raipur",
-    title: "OFFICE STARTS FROM 20 LAKH ONLY",
-    location: "Near Jai Stambh Chowk, Raipur",
-    priceInfo: "Ticket size starts from approx ₹20 Lakh only",
-    note: "Ideal for small office, consultancy, CA / legal, or compact commercial space in central Raipur.",
-  },
+ 
   {
     id: "luxury-plots-magneto",
     type: "LUXURY RESIDENTIAL PLOTS",
@@ -40,7 +33,7 @@ function BestBuyCard({ item, index }) {
 
   return (
     <article
-      className="group relative flex flex-col rounded-3xl bg-gradient-to-b from-slate-900/90 via-slate-950 to-black ring-1 ring-white/10 shadow-[0_20px_60px_-35px_rgba(0,0,0,1)] hover:shadow-[0_30px_90px_-45px_rgba(0,0,0,1)] hover:-translate-y-[2px] transition-all duration-200 overflow-hidden hover:ring-[#fde68a]/80" // soft gold on hover ring
+      className="group relative flex flex-col rounded-3xl bg-gradient-to-b from-slate-900/90 via-slate-950 to-black ring-1 ring-white/10 shadow-[0_20px_60px_-35px_rgba(0,0,0,1)] hover:shadow-[0_30px_90px_-45px_rgba(0,0,0,1)] hover:-translate-y-[2px] transition-all duration-200 overflow-hidden hover:ring-[#fde68a]/80"
     >
       {/* Top gradient line */}
       <div
@@ -53,7 +46,7 @@ function BestBuyCard({ item, index }) {
       {/* Option badge */}
       <div
         className="absolute right-4 top-4 rounded-full bg-black/80 px-3 py-1 text-[11px] font-semibold text-slate-200 ring-1"
-        style={{ borderColor: BRAND.soft }} // soft outline
+        style={{ borderColor: BRAND.soft }}
       >
         OPTION {String(index + 1).padStart(2, "0")}
       </div>
@@ -63,12 +56,11 @@ function BestBuyCard({ item, index }) {
         <div className="flex flex-wrap gap-2 text-[11px] font-semibold">
           <span
             className="rounded-full bg-black/80 px-3 py-1 text-slate-100 border"
-            style={{ borderColor: BRAND.soft }} // soft border on type/city pill
+            style={{ borderColor: BRAND.soft }}
           >
             {type} • {city}
           </span>
 
-          {/* BEST BUY pill with base + soft gradient */}
           <span
             className="rounded-full px-3 py-1 text-black ring-1 text-[11px] font-semibold shadow-sm"
             style={{
@@ -123,7 +115,7 @@ function BestBuyCard({ item, index }) {
             className="inline-flex shrink-0 items-center justify-center rounded-full px-5 py-2 text-xs md:text-sm font-semibold text-neutral-900 shadow-lg shadow-yellow-400/30 ring-1"
             style={{
               background: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)`,
-              borderColor: BRAND.soft, // soft border around CTA
+              borderColor: BRAND.soft,
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.filter = "brightness(1.08)";
@@ -159,18 +151,20 @@ export default function BestBuyListings() {
       <div className="max-w-6xl mx-auto px-4 md:px-6">
         {/* Back button */}
         <div className="mb-6 flex items-center justify-between">
-          <button
-            type="button"
-            onClick={() => navigate("/")}
-            className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/70 px-3.5 py-1.5 text-xs md:text-sm font-medium text-slate-200 hover:bg-black/90 hover:border-white/40 transition"
-          >
-            <span className="text-base md:text-lg">←</span>
-            <span>Back to Home</span>
-          </button>
+        <button
+                    type="button"
+                    onClick={() => navigate("/", { state: { scrollTo: "categories" } })}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/70 px-3.5 py-1.5 text-xs md:text-sm font-medium text-slate-200 hover:bg-black/90 hover:border-white/40 transition"
+                >
+                    <span className="text-base md:text-lg">←</span>
+                    <span>BACK TO CATEGORIES
+                    </span>
+                </button>
+
         </div>
 
         {/* Heading */}
-        <header className="mb-8 space-y-3 text-center">
+        <header className="mb-6 space-y-3 text-center">
           <p
             className="text-xs sm:text-sm font-semibold uppercase tracking-[0.22em]"
             style={{
@@ -183,6 +177,15 @@ export default function BestBuyListings() {
             BEST BUY • OFFICE • LUXURY PLOTS
           </p>
         </header>
+
+        {/* Simple center image (smaller) */}
+        <div className="mb-8 flex justify-center">
+          <img
+            src={img}
+            alt="Best buy real estate opportunities"
+            className="w-full max-w-xs sm:max-w-sm md:max-w-md rounded-2xl object-cover"
+          />
+        </div>
 
         {/* Cards grid */}
         <div className="grid gap-6 md:grid-cols-2">
