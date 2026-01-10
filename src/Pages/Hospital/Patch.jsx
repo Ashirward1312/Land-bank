@@ -34,7 +34,20 @@ const PATCH_OPTIONS = [
   size: "Approx 3 to 5 acres",
   type: "Big Land",
 },
-
+{
+  id: "darbha-20-40-acres-plotting",
+  title: "20 TO 40 ACRES – NEAR DARBHA (BEST FOR PLOTTING)",
+  location: "Near Darbha, Raipur",
+  size: "Approx 20 to 40 acres",
+  type: "Big Land",
+},
+{
+  id: "maira-resort-15-20-acres-plotting",
+  title: "15 TO 20 ACRES – NEAR MAIRA RESORT (BEST FOR PLOTTING)",
+  location: "Near Maira Resort, Raipur",
+  size: "Approx 15 to 20 acres",
+  type: "Big Land",
+},
 
 ];
 

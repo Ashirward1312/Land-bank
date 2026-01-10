@@ -29,6 +29,22 @@ const RESORT_OPTIONS = [
     approvals: "",
     note: "Lease and Joint Venture options available for resort project.",
   },
+  {
+  id: "darbha-20-40-acres-plotting",
+  title: "20 TO 40 ACRES PLOTTING LAND – NEAR DARBHA",
+  location: "Near Darbha, Raipur",
+  size: "Approx 20 to 40 acres land options",
+  approvals: "",
+  note: "Best suited for plotting, township development or long-term land investment.",
+},
+{
+  id: "maira-resort-15-20-acres",
+  title: "15 TO 20 ACRES RESORT LAND – NEAR MAIRA RESORT",
+  location: "Near Maira Resort, Raipur",
+  size: "Approx 15 to 20 acres land options",
+  approvals: "",
+  note: "Prime location near Maira Resort – ideal for resort development, eco-tourism or long-term investment.",
+},
 ];
 
 /* -------------------- CARD COMPONENT -------------------- */

@@ -59,7 +59,24 @@ const LAND_INVEST_OPTIONS = [
   size: "Approx 20,000 To 25,000 sq.ft",
   note: "Located in Bhatagaon area – suitable for residential development, small commercial use or future investment.",
 },
-
+{
+  id: "darbha-20-40-acres-plotting",
+  type: "LAND / PLOT INVESTMENT",
+  city: "Raipur",
+  title: "20–40 ACRES LAND INVESTMENT – NEAR DARBHA, RAIPUR",
+  location: "Near Darbha, Raipur",
+  size: "Approx 20 to 40 Acres",
+  note: "Located near Darbha – best suited for plotting, township development or long-term land investment.",
+},
+{
+  id: "maira-resort-15-20-acres-plotting",
+  type: "LAND / PLOT INVESTMENT",
+  city: "Raipur",
+  title: "15–20 ACRES LAND INVESTMENT – NEAR MAIRA RESORT, RAIPUR",
+  location: "Near Maira Resort, Raipur",
+  size: "Approx 15 to 20 Acres",
+  note: "Located near Maira Resort – best suited for resort development, eco-tourism project, plotting or long-term land investment.",
+},
 ];
 
 /* -------------------- CARD COMPONENT -------------------- */

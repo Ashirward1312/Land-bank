@@ -36,12 +36,29 @@ import Lease from "./Pages/Hospital/Lease.jsx";
 import LandInvestmentListings from "./Pages/Hospital/Landinvestment.jsx";
 
 /* ===== NEW PAGES (earlier) ===== */
-import Patch from "./Pages/Hospital/Patch.jsx"; // Big Land / Patch Work
-import Bank from "./Pages/Hospital/Bank.jsx";   // Bank / Auction properties
+import Patch from "./Pages/Hospital/Patch.jsx";
+import Bank from "./Pages/Hospital/Bank.jsx";
 
 /* ===== NEW PAGES (now) ===== */
-import ProjectsListings from "./Pages/Hospital/Projectlands.jsx";   // Project Lands page
-import Agriculture from "./Pages/Hospital/Agri.jsx";     // Agriculture Land page
+import ProjectsListings from "./Pages/Hospital/Projectlands.jsx";
+import Agriculture from "./Pages/Hospital/Agri.jsx";
+
+/* ============================= */
+/* ✅ GLOBAL SCROLL TO TOP FIX    */
+/* ============================= */
+function ScrollToTop() {
+  const location = useLocation();
+
+  React.useEffect(() => {
+    // hash (#contact) ho to top mat karo
+    if (location.hash) return;
+
+    // normal routes -> always top
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [location.pathname]); // pathname change pe chalega
+
+  return null;
+}
 
 /* ================================================= */
 /* Home / Main Landing Page */
@@ -50,7 +67,6 @@ function MainLandingPage() {
   const location = useLocation();
 
   React.useEffect(() => {
-    // Agar state me scrollTo: "categories" aaya ho to categories tak scroll karo
     if (location.state?.scrollTo === "categories") {
       const el = document.getElementById("categories");
       if (el) {
@@ -59,7 +75,6 @@ function MainLandingPage() {
         }, 0);
       }
     } else {
-      // normal home navigation pe top pe le jao
       window.scrollTo({ top: 0, behavior: "auto" });
     }
   }, [location]);
@@ -69,17 +84,12 @@ function MainLandingPage() {
       <Pop />
       <Navbar />
 
-      {/* Home sections */}
       <Home />
       <Floating />
       <Whatsapp />
       <Cat />
       <Service />
       <How />
-
-      {/* Gallery ab yahan nahi, alag route pe */}
-      {/* <Gallery /> */}
-
       <About />
       <Contact />
 
@@ -106,172 +116,177 @@ function CommonLayout({ children }) {
 /* ================================================= */
 function App() {
   return (
-    <Routes>
-      {/* Home */}
-      <Route path="/" element={<MainLandingPage />} />
+    <>
+      {/* ✅ This makes every page open from top/header */}
+      <ScrollToTop />
 
-      {/* Gallery ab separate page hai */}
-      <Route
-        path="/gallery"
-        element={
-          <CommonLayout>
-            <Gallery />
-          </CommonLayout>
-        }
-      />
+      <Routes>
+        {/* Home */}
+        <Route path="/" element={<MainLandingPage />} />
 
-      {/* Hospital Main Pages */}
-      <Route
-        path="/hospital"
-        element={
-          <CommonLayout>
-            <Hospital />
-          </CommonLayout>
-        }
-      />
-      <Route
-        path="/commercial"
-        element={
-          <CommonLayout>
-            <Commercial />
-          </CommonLayout>
-        }
-      />
-      <Route
-        path="/residential"
-        element={
-          <CommonLayout>
-            <Residence />
-          </CommonLayout>
-        }
-      />
-      <Route
-        path="/land"
-        element={
-          <CommonLayout>
-            <Land />
-          </CommonLayout>
-        }
-      />
-      <Route
-        path="/others"
-        element={
-          <CommonLayout>
-            <Others />
-          </CommonLayout>
-        }
-      />
+        {/* Gallery */}
+        <Route
+          path="/gallery"
+          element={
+            <CommonLayout>
+              <Gallery />
+            </CommonLayout>
+          }
+        />
 
-      {/* Hospital Listing Pages */}
-      <Route
-        path="/bestbuy"
-        element={
-          <CommonLayout>
-            <Bestbuy />
-          </CommonLayout>
-        }
-      />
-      <Route
-        path="/jointventures"
-        element={
-          <CommonLayout>
-            <Jointventures />
-          </CommonLayout>
-        }
-      />
-      <Route
-        path="/education"
-        element={
-          <CommonLayout>
-            <Education />
-          </CommonLayout>
-        }
-      />
-      <Route
-        path="/farmhouse"
-        element={
-          <CommonLayout>
-            <Farmhouse />
-          </CommonLayout>
-        }
-      />
-      <Route
-        path="/malls"
-        element={
-          <CommonLayout>
-            <Malls />
-          </CommonLayout>
-        }
-      />
-      <Route
-        path="/resorts-wedding"
-        element={
-          <CommonLayout>
-            <Resorts />
-          </CommonLayout>
-        }
-      />
-      <Route
-        path="/warehouse"
-        element={
-          <CommonLayout>
-            <Warehouse />
-          </CommonLayout>
-        }
-      />
-      <Route
-        path="/lease"
-        element={
-          <CommonLayout>
-            <Lease />
-          </CommonLayout>
-        }
-      />
-      <Route
-        path="/land-investment"
-        element={
-          <CommonLayout>
-            <LandInvestmentListings />
-          </CommonLayout>
-        }
-      />
+        {/* Hospital Main Pages */}
+        <Route
+          path="/hospital"
+          element={
+            <CommonLayout>
+              <Hospital />
+            </CommonLayout>
+          }
+        />
+        <Route
+          path="/commercial"
+          element={
+            <CommonLayout>
+              <Commercial />
+            </CommonLayout>
+          }
+        />
+        <Route
+          path="/residential"
+          element={
+            <CommonLayout>
+              <Residence />
+            </CommonLayout>
+          }
+        />
+        <Route
+          path="/land"
+          element={
+            <CommonLayout>
+              <Land />
+            </CommonLayout>
+          }
+        />
+        <Route
+          path="/others"
+          element={
+            <CommonLayout>
+              <Others />
+            </CommonLayout>
+          }
+        />
 
-      {/* NEW ROUTES: Big Land / Patch Work & Bank / Auction */}
-      <Route
-        path="/patch"
-        element={
-          <CommonLayout>
-            <Patch />
-          </CommonLayout>
-        }
-      />
-      <Route
-        path="/bank"
-        element={
-          <CommonLayout>
-            <Bank />
-          </CommonLayout>
-        }
-      />
+        {/* Hospital Listing Pages */}
+        <Route
+          path="/bestbuy"
+          element={
+            <CommonLayout>
+              <Bestbuy />
+            </CommonLayout>
+          }
+        />
+        <Route
+          path="/jointventures"
+          element={
+            <CommonLayout>
+              <Jointventures />
+            </CommonLayout>
+          }
+        />
+        <Route
+          path="/education"
+          element={
+            <CommonLayout>
+              <Education />
+            </CommonLayout>
+          }
+        />
+        <Route
+          path="/farmhouse"
+          element={
+            <CommonLayout>
+              <Farmhouse />
+            </CommonLayout>
+          }
+        />
+        <Route
+          path="/malls"
+          element={
+            <CommonLayout>
+              <Malls />
+            </CommonLayout>
+          }
+        />
+        <Route
+          path="/resorts-wedding"
+          element={
+            <CommonLayout>
+              <Resorts />
+            </CommonLayout>
+          }
+        />
+        <Route
+          path="/warehouse"
+          element={
+            <CommonLayout>
+              <Warehouse />
+            </CommonLayout>
+          }
+        />
+        <Route
+          path="/lease"
+          element={
+            <CommonLayout>
+              <Lease />
+            </CommonLayout>
+          }
+        />
+        <Route
+          path="/land-investment"
+          element={
+            <CommonLayout>
+              <LandInvestmentListings />
+            </CommonLayout>
+          }
+        />
 
-      {/* NEW ROUTES: Project Lands & Agriculture Land */}
-      <Route
-        path="/projects"
-        element={
-          <CommonLayout>
-            <ProjectsListings />
-          </CommonLayout>
-        }
-      />
-      <Route
-        path="/agriculture"
-        element={
-          <CommonLayout>
-            <Agriculture />
-          </CommonLayout>
-        }
-      />
-    </Routes>
+        {/* Patch / Bank */}
+        <Route
+          path="/patch"
+          element={
+            <CommonLayout>
+              <Patch />
+            </CommonLayout>
+          }
+        />
+        <Route
+          path="/bank"
+          element={
+            <CommonLayout>
+              <Bank />
+            </CommonLayout>
+          }
+        />
+
+        {/* Projects / Agriculture */}
+        <Route
+          path="/projects"
+          element={
+            <CommonLayout>
+              <ProjectsListings />
+            </CommonLayout>
+          }
+        />
+        <Route
+          path="/agriculture"
+          element={
+            <CommonLayout>
+              <Agriculture />
+            </CommonLayout>
+          }
+        />
+      </Routes>
+    </>
   );
 }
 
