@@ -12,66 +12,36 @@ import {
   Boxes as BoxesIcon,
   LineChart as LineChartIcon,
   MoreHorizontal as MoreHorizontalIcon,
-  MapPin as MapPinIcon, // Land on Lease / Project Lands
-  Home as HomeIcon,     // Premium Farm House
-  Leaf as AgricultureIcon, // ✅ NEW: Agriculture icon
+  MapPin as MapPinIcon,
+  Home as HomeIcon,
+  Leaf as AgricultureIcon,
+  ArrowRight as ArrowRightIcon,
 } from "lucide-react";
 
 const CATS = [
   { id: "bestbuy", label: "Best Buy", icon: FactoryIcon },
-
   { id: "jointventures", label: "Joint Ventures", icon: FactoryIcon },
-
   { id: "hospital", label: "Hospital", icon: HospitalIcon },
   { id: "education", label: "Education", icon: GraduationCapIcon },
-
   { id: "residential", label: "Residential Real Estate", icon: BuildingIcon },
   { id: "commercial", label: "Commercial Real Estate", icon: BuildingIcon },
-
   { id: "luxuryplots", label: "Premium Luxury Plots", icon: GemIcon },
-
   { id: "farmhouse", label: "Premium Farm House", icon: HomeIcon },
-
   { id: "malls", label: "Malls", icon: ShoppingBagIcon },
-
-  {
-    id: "resortswedding",
-    label: "Resorts / Wedding Lawns",
-    icon: TreesIcon,
-  },
-
+  { id: "resortswedding", label: "Resorts / Wedding Lawns", icon: TreesIcon },
   { id: "warehouse", label: "Ware House", icon: BoxesIcon },
-
   { id: "lease", label: "Land on Lease", icon: MapPinIcon },
-
   { id: "invest-land", label: "Land / Plot Investment", icon: LineChartIcon },
-
-  // ✅ Project Lands → navigates to /projects (matches projects.jsx)
   { id: "projectlands", label: "Project Lands", icon: MapPinIcon },
-
-  // ✅ Agriculture → navigates to /agriculture (matches agriculture.jsx)
   { id: "agriculture", label: "Agriculture Land", icon: AgricultureIcon },
-
-  // Big Land / Patch Work
-  {
-    id: "biglandpatch",
-    label: "Big Land / Patch Work",
-    icon: LineChartIcon,
-  },
-
-  // Auction (Bank / Auction properties)
-  {
-    id: "auction",
-    label: "Auction",
-    icon: LineChartIcon,
-  },
-
+  { id: "biglandpatch", label: "Big Land / Patch Work", icon: LineChartIcon },
+  { id: "auction", label: "Auction", icon: LineChartIcon },
   { id: "others", label: "Others", icon: MoreHorizontalIcon },
 ];
 
 const BRAND = {
-  base: "#facc15", // gold
-  soft: "#fde68a", // soft light gold
+  base: "#facc15",
+  soft: "#fde68a",
   ring: "rgba(250,204,21,0.65)",
   glow: "rgba(250,204,21,0.50)",
 };
@@ -87,7 +57,6 @@ export default function CategoriesSection() {
     if (id === "education") return navigate("/education");
     if (id === "residential") return navigate("/residential");
     if (id === "commercial") return navigate("/commercial");
-
     if (id === "luxuryplots") return navigate("/land");
     if (id === "farmhouse") return navigate("/farmhouse");
     if (id === "malls") return navigate("/malls");
@@ -95,20 +64,10 @@ export default function CategoriesSection() {
     if (id === "warehouse") return navigate("/warehouse");
     if (id === "lease") return navigate("/lease");
     if (id === "invest-land") return navigate("/land-investment");
-
-    // ✅ FIXED & CONFIRMED: Project Lands → /projects (for projects.jsx)
     if (id === "projectlands") return navigate("/projects");
-
-    // ✅ FIXED & CONFIRMED: Agriculture → /agriculture (for agriculture.jsx)
     if (id === "agriculture") return navigate("/agriculture");
-
-    // Big land / patch work page
     if (id === "biglandpatch") return navigate("/patch");
-
-    // Auction page
     if (id === "auction") return navigate("/bank");
-
-    // Others page
     if (id === "others") return navigate("/others");
 
     setSelected((s) => (s === id ? null : id));
@@ -208,6 +167,91 @@ export default function CategoriesSection() {
               </button>
             );
           })}
+        </div>
+
+        {/* ✅ STYLISH CTA SECTION */}
+        <div className="mt-12 sm:mt-16">
+          {/* Decorative divider */}
+          <div
+            className="mx-auto mb-8 h-[1px] w-full max-w-md"
+            style={{
+              background: `linear-gradient(90deg, transparent, ${BRAND.base}40, ${BRAND.soft}60, ${BRAND.base}40, transparent)`,
+            }}
+          />
+
+          {/* CTA Box */}
+          <div className="relative mx-auto max-w-2xl rounded-2xl sm:rounded-3xl bg-gradient-to-b from-slate-900/95 via-slate-950 to-black ring-1 ring-white/10 p-6 sm:p-8 md:p-10 text-center overflow-hidden">
+            {/* Top gold accent line */}
+            <div
+              className="absolute inset-x-0 top-0 h-[3px]"
+              style={{
+                background: `linear-gradient(90deg, transparent, ${BRAND.base}, ${BRAND.soft}, transparent)`,
+              }}
+            />
+
+            {/* Glow effect */}
+            <div
+              className="pointer-events-none absolute inset-0 -z-10"
+              style={{
+                background:
+                  "radial-gradient(circle at 50% 0%, rgba(250,204,21,0.08) 0%, transparent 60%)",
+              }}
+            />
+
+            {/* Heading */}
+            <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white uppercase tracking-wide">
+              Looking for{" "}
+              <span
+                className="bg-clip-text text-transparent"
+                style={{
+                  backgroundImage: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base})`,
+                }}
+              >
+                Something Specific?
+              </span>
+            </h3>
+
+            {/* Subtext */}
+            <p className="mt-3 sm:mt-4 text-sm sm:text-base text-slate-400 leading-relaxed max-w-lg mx-auto">
+              Whether you're searching for premium lands, commercial properties, 
+              residential plots, investment opportunities, or any exclusive real estate — 
+              <span className="text-slate-200 font-medium"> we've got you covered.</span>
+            </p>
+
+            <p className="mt-2 text-xs sm:text-sm text-slate-500 italic">
+              Share your requirements with us and let our experts curate the perfect options for you.
+            </p>
+
+            {/* CTA Button */}
+            <div className="mt-6 sm:mt-8">
+              <a
+                href="/#contact"
+                className="group inline-flex items-center justify-center gap-2 rounded-full px-6 sm:px-8 py-3 sm:py-3.5 text-sm sm:text-base font-semibold text-neutral-900 ring-1 border transition-all duration-300 hover:scale-[1.02]"
+                style={{
+                  background: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)`,
+                  borderColor: BRAND.soft,
+                  boxShadow: `0 10px 30px ${BRAND.glow}`,
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = `0 14px 40px ${BRAND.glow}`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = `0 10px 30px ${BRAND.glow}`;
+                }}
+              >
+                <span>GET IN TOUCH</span>
+                <ArrowRightIcon className="h-4 w-4 sm:h-5 sm:w-5 transition-transform duration-300 group-hover:translate-x-1" />
+              </a>
+            </div>
+
+            {/* Bottom tagline */}
+            <p
+              className="mt-5 sm:mt-6 text-[11px] sm:text-xs uppercase tracking-[0.2em] font-medium"
+              style={{ color: BRAND.base }}
+            >
+              Your Vision • Our Expertise • Perfect Property
+            </p>
+          </div>
         </div>
       </div>
     </section>
