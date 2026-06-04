@@ -2,11 +2,35 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <!-- LB.png must be in /public folder -->
-    <link rel="icon" type="image/png" href="/LBB.png" />
+
+    <!-- ✅ FAVICON (BEST SUPPORT: ICO) -->
+    <link rel="icon" href="/lb.ico" />
+    <link rel="shortcut icon" href="/lb.ico" />
+
+    <!-- Optional SVG (future / modern browsers) -->
+    <link rel="icon" type="image/svg+xml" href="/lb.svg" />
+
+    <!-- Viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO -->
     <title>LAND BAZAR</title>
+    <meta
+      name="description"
+      content="LAND BAZAR – Buy, Sell & Invest in Land, Commercial & Residential Properties with Trusted Experts."
+    />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Social preview -->
+    <meta property="og:title" content="LAND BAZAR" />
+    <meta
+      property="og:description"
+      content="Premium real estate solutions for land, commercial & residential investments."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/LBB.png" />
   </head>
+
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>

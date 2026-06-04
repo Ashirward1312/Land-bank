@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 
 export default function About() {
@@ -44,8 +43,8 @@ export default function About() {
 
   return (
     <section
-      className="relative text-neutral-100 py-14"
       id="about"
+      className="relative text-neutral-100 pt-20 pb-14 md:pt-24"
       style={{
         backgroundColor: "#0a0a0a",
         backgroundImage: `
@@ -222,9 +221,9 @@ export default function About() {
 
         {/* Stats */}
         <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4">
-          <Stat count="1.2k+" label="ACTIVE PLOTS" color={BRAND} />
+          <Stat count="1.2K+" label="ACTIVE PLOTS" color={BRAND} />
           <Stat count="95%" label="OWNER VERIFIED" color={BRAND} />
-          <Stat count="24h" label="AVG. RESPONSE" color={BRAND} />
+          <Stat count="24Hr" label="AVG. RESPONSE" color={BRAND} />
           <Stat count="40+" label="LOCALITIES COVERED" color={BRAND} />
         </div>
       </div>
@@ -264,7 +263,11 @@ function Check({ className = "", color = "#D4AF37" }) {
       strokeWidth="2"
       style={{ filter: "drop-shadow(0 6px 14px rgba(212,175,55,.35))" }}
     >
-      <path d="M20 6L9 17l-5-5" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M20 6L9 17l-5-5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }

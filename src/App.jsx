@@ -15,7 +15,7 @@ import Floating from "./Pages/Floating/Floating.jsx";
 import Whatsapp from "./Pages/Whatsapp/Whatsapp.jsx";
 import How from "./Pages/How/How.jsx";
 import Pop from "./Pages/Pop/Pop.jsx";
-import Gallery from "./Pages/Gallery/Gallery.jsx";
+
 
 /* ===== Hospital Main Pages ===== */
 import Hospital from "./Pages/Hospital/Hospital.jsx";
@@ -44,18 +44,14 @@ import ProjectsListings from "./Pages/Hospital/Projectlands.jsx";
 import Agriculture from "./Pages/Hospital/Agri.jsx";
 
 /* ============================= */
-/* ✅ GLOBAL SCROLL TO TOP FIX    */
+/* GLOBAL SCROLL TO TOP          */
 /* ============================= */
 function ScrollToTop() {
   const location = useLocation();
 
   React.useEffect(() => {
-    // hash (#contact) ho to top mat karo
-    if (location.hash) return;
-
-    // normal routes -> always top
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-  }, [location.pathname]); // pathname change pe chalega
+  }, [location.pathname]);
 
   return null;
 }
@@ -67,14 +63,18 @@ function MainLandingPage() {
   const location = useLocation();
 
   React.useEffect(() => {
-    if (location.state?.scrollTo === "categories") {
-      const el = document.getElementById("categories");
+    const target = location.state?.scrollTo;
+
+    if (target) {
+      const el = document.getElementById(target);
       if (el) {
+        // thoda delay taaki DOM render ho jaye
         setTimeout(() => {
           el.scrollIntoView({ behavior: "smooth", block: "start" });
         }, 0);
       }
     } else {
+      // normal case: page top se
       window.scrollTo({ top: 0, behavior: "auto" });
     }
   }, [location]);
@@ -88,7 +88,6 @@ function MainLandingPage() {
       <Floating />
       <Whatsapp />
       <Cat />
-      <Service />
       <How />
       <About />
       <Contact />
@@ -112,24 +111,56 @@ function CommonLayout({ children }) {
 }
 
 /* ================================================= */
+/* ✅ Categories Page: sirf Category section */
+/* ================================================= */
+function CategoriesPage() {
+  return (
+    <>
+      <Navbar />
+      <Cat />
+      <Footer />
+    </>
+  );
+}
+
+/* ================================================= */
 /* App Routes */
 /* ================================================= */
 function App() {
   return (
     <>
-      {/* ✅ This makes every page open from top/header */}
       <ScrollToTop />
 
       <Routes>
         {/* Home */}
         <Route path="/" element={<MainLandingPage />} />
 
-        {/* Gallery */}
+        {/* Standalone pages jinke links Navbar me hai */}
         <Route
-          path="/gallery"
+          path="/services"
           element={
             <CommonLayout>
-              <Gallery />
+              <Service />
+            </CommonLayout>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <CommonLayout>
+              <About />
+            </CommonLayout>
+          }
+        />
+
+        {/* ✅ Categories -> sirf category section */}
+        <Route path="/categories" element={<CategoriesPage />} />
+
+        <Route
+          path="/contact"
+          element={
+            <CommonLayout>
+              <Contact />
             </CommonLayout>
           }
         />

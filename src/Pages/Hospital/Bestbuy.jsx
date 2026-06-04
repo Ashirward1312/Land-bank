@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import img from "../../images/bb.png"; // <-- yahan apni Best Buy image ka sahi path/naam lagao
+import img from "../../images/bb.jpeg"; // <-- yahan apni Best Buy image ka sahi path/naam lagao
 
 const BRAND = {
   base: "#facc15", // gold

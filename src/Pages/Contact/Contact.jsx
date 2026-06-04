@@ -1,365 +1,219 @@
-"use client";
+import React, { useState } from 'react';
+import { MapPin, Phone, Clock, ArrowRight, Send } from 'lucide-react';
 
-import { useState } from "react";
-
-const BRAND = {
-  base: "#facc15", // gold
-  soft: "#fde68a", // soft light gold
-  ring: "rgba(250,204,21,0.65)",
-  glow: "rgba(250,204,21,0.45)",
-};
-
-export default function Contact() {
-  const [form, setForm] = useState({
-    name: "",
-    phone: "",
-    message: "",
-  });
-  const [errors, setErrors] = useState({});
-  const [status, setStatus] = useState({ type: "", msg: "" });
-  const [sending, setSending] = useState(false);
+const Contact = () => {
+  const [formData, setFormData] = useState({ name: '', phone: '', message: '' });
 
   const handleChange = (e) => {
-    setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
-    setErrors((er) => ({ ...er, [e.target.name]: "" }));
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const validate = () => {
-    const er = {};
-    if (!form.name.trim()) er.name = "Name is required";
-    if (!form.message.trim()) er.message = "Message is required";
-    return er;
-  };
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const er = validate();
-    if (Object.keys(er).length) return setErrors(er);
-
-    setSending(true);
-    setStatus({ type: "", msg: "" });
-
-    try {
-      const formData = new FormData(e.target);
-      formData.append("access_key", "363556af-2a82-49cc-84f0-1f8851f273ab");
-      formData.append("subject", "New Contact Form Submission");
-
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        body: formData,
-      });
-
-      const data = await response.json();
-      console.log("WEB3FORMS RESPONSE:", data);
-
-      if (data.success) {
-        setStatus({
-          type: "success",
-          msg: "Thanks! We’ll get back to you shortly.",
-        });
-        setForm({ name: "", phone: "", message: "" });
-        e.target.reset();
-      } else {
-        setStatus({
-          type: "error",
-          msg: data.message || "Something went wrong. Please try again.",
-        });
-      }
-    } catch (error) {
-      console.error(error);
-      setStatus({
-        type: "error",
-        msg: "Error submitting the form. Please try again later.",
-      });
+    const { name, phone, message } = formData;
+    
+    if (!name || !phone || !message) {
+      alert("Please fill all the details before sending.");
+      return;
     }
 
-    setSending(false);
+    const whatsappNumber = "918871090476"; 
+    const text = `Hello Mahesh Ventures!\n\nName: ${name}\nPhone: ${phone}\nMessage: ${message}`;
+    const encodedText = encodeURIComponent(text);
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedText}`;
+    
+    window.open(whatsappUrl, '_blank');
   };
 
   return (
-    <section
-      className="relative w-full bg-black text-slate-100 py-10 sm:py-12 lg:py-14"
-      id="contact"
-    >
-      {/* Gold aura */}
-      <div
-        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-72"
-        style={{
-          background:
-            "radial-gradient(60% 60% at 50% 0%, rgba(250,204,21,0.25) 0%, rgba(253,230,138,0.18) 35%, rgba(0,0,0,0) 70%)",
-        }}
-        aria-hidden="true"
-      />
+    <div className="bg-[#0a0a0a] text-white min-h-screen pt-32 pb-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden" id="contact">
+      {/* Decorative Background Elements */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+        <div className="absolute -top-24 -right-24 w-80 h-80 bg-[#d4af37] rounded-full mix-blend-screen filter blur-[100px] opacity-[0.08] animate-blob"></div>
+        <div className="absolute top-1/2 -left-32 w-80 h-80 bg-white rounded-full mix-blend-screen filter blur-[90px] opacity-[0.04] animate-blob animation-delay-2000"></div>
+        <div className="absolute -bottom-32 left-1/2 w-80 h-80 bg-[#d4af37] rounded-full mix-blend-screen filter blur-[95px] opacity-[0.06] animate-blob animation-delay-4000"></div>
+        
+        {/* Subtle Grid Pattern */}
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwwLjAxNSkiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-30"></div>
+      </div>
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="mx-auto max-w-3xl text-center">
-          <span
-            className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-medium uppercase tracking-[0.22em]"
-            style={{
-              background: "rgba(15,23,42,0.9)",
-              border: `1px solid ${BRAND.ring}`,
-              color: BRAND.soft,
-            }}
-          >
-            CONTACT US
-          </span>
-          <h1 className="heading-font mt-3 text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white">
-            WE’D LOVE TO{" "}
-            <span
-              className="bg-clip-text text-transparent"
-              style={{
-                backgroundImage: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base})`,
-              }}
-            >
-              HEAR FROM YOU
-            </span>
+      <div className="max-w-6xl mx-auto relative z-10">
+        {/* Header Section - Compact */}
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-1.5 py-1 px-3 rounded-full bg-[#1a1a1a] border border-[#2a2a2a] mb-3">
+            <div className="w-1 h-1 rounded-full bg-[#d4af37] animate-pulse"></div>
+            <span className="text-[#d4af37] text-[9px] font-semibold tracking-[0.15em] uppercase">Contact</span>
+          </div>
+          
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 tracking-tight">
+            Get In{' '}
+            <span className="text-[#d4af37]">Touch</span>
           </h1>
-          <p className="paragraph-font mt-2 text-sm sm:text-base text-slate-300">
-            Have a question or want to book a site visit? Send us a message and
-            our team will respond soon.
+          <p className="text-gray-400 max-w-xl mx-auto text-xs md:text-sm leading-relaxed">
+            Have questions? We're here to help. Reach out and we'll respond as soon as possible.
           </p>
         </div>
 
-        {/* Content */}
-        <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-8">
-          {/* Info card */}
-          <div className="lg:col-span-1 rounded-2xl bg-gradient-to-b from-slate-950/90 via-black to-black ring-1 ring-white/10 p-5 sm:p-6 shadow-[0_20px_60px_-35px_rgba(0,0,0,1)]">
-            <h2 className="heading-font text-lg font-semibold text-white">
-              GET IN TOUCH
-            </h2>
-            <p className="paragraph-font mt-1 text-sm text-slate-300">
-              Reach out via phone, or visit our office during working hours.
-            </p>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+          {/* Left Column - Contact Info */}
+          <div className="space-y-6">
+            {/* Info Header */}
+            <div className="bg-[#121212] p-4 rounded-lg border border-[#1f1f1f]">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-6 h-[2px] bg-gradient-to-r from-[#d4af37] to-transparent rounded-full"></div>
+                <h3 className="text-sm font-bold text-white uppercase tracking-wide">Contact Info</h3>
+              </div>
+              <p className="text-gray-500 text-xs">
+                Reach us via phone or visit our office.
+              </p>
+            </div>
 
-            <div className="mt-4 space-y-4">
-              {/* Phone */}
-              <a
-                href="tel:+918871090476"
-                className="flex items-center gap-3 rounded-xl p-3 hover:bg-slate-900/70 transition"
-              >
-                <span className="h-9 w-9 inline-flex items-center justify-center rounded-lg bg-black/80 ring-1 ring-white/15">
-                  <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    className="text-[#facc15]"
-                  >
-                    <path
-                      d="M22 16.92v3a2 2 0 0 1-2.18 2A19.8 19.8 0 0 1 3.1 5.18 2 2 0 0 1 5.05 3h3a2 2 0 0 1 2 1.72c.12.86.3 1.7.54 2.5a2 2 0 0 1-.45 2.11l-1.27 1.27a16 16 0 0 0 6.06 6.06l1.27-1.27a2 2 0 0 1 2.11-.45c.8.24 1.64.42 2.5.54A2 2 0 0 1 22 16.92z"
-                      fill="currentColor"
-                    />
-                  </svg>
-                </span>
-                <span className="paragraph-font text-sm text-slate-100">
-                  +91 88710-90476
-                </span>
-              </a>
-
-              {/* Address */}
-              <div className="flex items-start gap-3 rounded-xl p-3">
-                <span className="h-9 w-9 inline-flex items-center justify-center rounded-lg bg-black/80 ring-1 ring-white/15">
-                  <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    className="text-[#facc15]"
-                  >
-                    <path
-                      d="M12 21s-7-4.35-7-10a7 7 0 1 1 14 0c0 5.65-7 10-7 10z"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.6"
-                    />
-                    <circle cx="12" cy="11" r="2" fill="currentColor" />
-                  </svg>
-                </span>
-                <div className="paragraph-font text-sm text-slate-100">
-                  Mahesh Ventures, LK Logistic Park, Kursi, 3rd Floor, Near
-                  Kamal Vihar, Raipur (C.G.)
-                  <div className="mt-1">
-                    <a
-                      className="text-[#fde68a] hover:text-[#facc15] underline underline-offset-2"
-                      href="https://maps.google.com/?q=Mahesh Ventures, LK Logistic Park, Kursi, 3rd Floor, Near Kamal Vihar, Raipur (C.G.)"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      Open in Maps
+            <div className="space-y-3">
+              {/* Phone Card - Compact */}
+              <div className="group relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#d4af37]/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+                <div className="relative flex items-start gap-3 p-4 rounded-lg bg-[#121212] border border-[#1f1f1f] hover:border-[#2a2a2a] transition-all duration-300">
+                  <div className="flex-shrink-0 bg-gradient-to-br from-[#d4af37] to-[#b8941f] p-2 rounded-md shadow-lg shadow-[#d4af37]/10">
+                    <Phone className="w-3.5 h-3.5 text-black" />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="text-[#d4af37] text-[9px] font-semibold uppercase tracking-wider mb-1">Phone</h4>
+                    <a href="tel:+918871090476" className="text-white font-medium text-sm hover:text-[#d4af37] transition-colors">
+                      +91 88710-90476
                     </a>
                   </div>
                 </div>
               </div>
 
-              {/* Working hours */}
-              <div className="rounded-xl bg-slate-900/70 border border-white/10 p-3 text-sm text-slate-200">
-                <div className="heading-font font-medium text-white">
-                  Working hours
+              {/* Address Card - Compact */}
+              <div className="group relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#d4af37]/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+                <div className="relative flex items-start gap-3 p-4 rounded-lg bg-[#121212] border border-[#1f1f1f] hover:border-[#2a2a2a] transition-all duration-300">
+                  <div className="flex-shrink-0 bg-gradient-to-br from-[#d4af37] to-[#b8941f] p-2 rounded-md shadow-lg shadow-[#d4af37]/10">
+                    <MapPin className="w-3.5 h-3.5 text-black" />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="text-[#d4af37] text-[9px] font-semibold uppercase tracking-wider mb-1">Address</h4>
+                    <p className="text-white text-xs leading-relaxed mb-2">
+                      Mahesh Ventures, LK Logistic Park, Kursi, 3rd Floor, Near Kamal Vihar, Raipur (C.G.)
+                    </p>
+                    <a 
+                      href="https://www.google.com/maps?cid=2015291886199415063" 
+                      target="_blank" 
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1 text-[#d4af37] hover:text-white text-[10px] font-semibold transition-all duration-300 group/link"
+                    >
+                      View on Map 
+                      <ArrowRight className="w-2.5 h-2.5 group-hover/link:translate-x-0.5 transition-transform" />
+                    </a>
+                  </div>
                 </div>
-                <div className="paragraph-font mt-0.5 text-slate-300">
-                  Mon–Sat: 9:30 AM – 6:30 PM
+              </div>
+
+              {/* Working Hours Card - Compact */}
+              <div className="group relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#d4af37]/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+                <div className="relative flex items-start gap-3 p-4 rounded-lg bg-[#121212] border border-[#1f1f1f] hover:border-[#2a2a2a] transition-all duration-300">
+                  <div className="flex-shrink-0 bg-gradient-to-br from-[#d4af37] to-[#b8941f] p-2 rounded-md shadow-lg shadow-[#d4af37]/10">
+                    <Clock className="w-3.5 h-3.5 text-black" />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="text-[#d4af37] text-[9px] font-semibold uppercase tracking-wider mb-1">Hours</h4>
+                    <p className="text-white font-medium text-xs">Mon–Sat: 9:30 AM – 6:30 PM</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Form */}
-          <div className="lg:col-span-2 rounded-2xl bg-gradient-to-b from-slate-950/90 via-black to-black ring-1 ring-white/10 p-5 sm:p-6 shadow-[0_20px_60px_-35px_rgba(0,0,0,1)]">
-            {status.msg && (
-              <div
-                className={`paragraph-font mb-4 rounded-lg px-4 py-3 text-sm ring-1 ${
-                  status.type === "success"
-                    ? "bg-amber-950/40 text-amber-100 ring-amber-400/50"
-                    : "bg-red-950/40 text-red-100 ring-red-500/60"
-                }`}
-                role="status"
-                aria-live="polite"
-              >
-                {status.msg}
-              </div>
-            )}
+          {/* Right Column - Form */}
+          <div className="w-full">
+            <div className="relative group">
+              <div className="absolute -inset-px bg-gradient-to-r from-[#d4af37]/20 via-[#d4af37]/10 to-[#d4af37]/20 rounded-lg opacity-0 group-hover:opacity-100 blur transition-all duration-500"></div>
+              
+              <div className="relative bg-[#121212] p-6 rounded-lg border border-[#1f1f1f] shadow-xl">
+                <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#d4af37]/50 to-transparent"></div>
+                
+                <form className="space-y-4" onSubmit={handleSubmit}>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-1.5">
+                      <label className="block text-[10px] font-semibold text-[#d4af37] uppercase tracking-wide">Name</label>
+                      <input 
+                        type="text" 
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        placeholder="Enter your name" 
+                        className="w-full bg-[#0a0a0a] border border-[#1f1f1f] rounded-md px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/30 transition-all duration-300 hover:border-[#2a2a2a]"
+                      />
+                    </div>
+                    
+                    <div className="space-y-1.5">
+                      <label className="block text-[10px] font-semibold text-[#d4af37] uppercase tracking-wide">Phone</label>
+                      <input 
+                        type="tel" 
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        placeholder="+91 XXXXX XXXXX" 
+                        className="w-full bg-[#0a0a0a] border border-[#1f1f1f] rounded-md px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/30 transition-all duration-300 hover:border-[#2a2a2a]"
+                      />
+                    </div>
+                  </div>
 
-            <form onSubmit={handleSubmit} noValidate>
-              <div className="grid grid-cols-1 gap-3 sm:gap-4">
-                {/* Name */}
-                <div>
-                  <label
-                    htmlFor="name"
-                    className="heading-font block text-sm font-medium text-slate-100"
+                  <div className="space-y-1.5">
+                    <label className="block text-[10px] font-semibold text-[#d4af37] uppercase tracking-wide">Message</label>
+                    <textarea 
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      rows="4"
+                      placeholder="Write your message here..." 
+                      className="w-full bg-[#0a0a0a] border border-[#1f1f1f] rounded-md px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/30 transition-all duration-300 resize-none hover:border-[#2a2a2a]"
+                    ></textarea>
+                  </div>
+
+                  <p className="text-[10px] text-gray-500">
+                    By submitting, you agree to our <span className="text-[#d4af37] hover:underline cursor-pointer">Terms & Privacy Policy</span>.
+                  </p>
+
+                  <button 
+                    type="submit" 
+                    className="group/btn relative w-full overflow-hidden bg-gradient-to-r from-[#d4af37] to-[#c5a028] hover:from-[#c5a028] hover:to-[#d4af37] text-black font-bold text-xs tracking-wide py-2.5 rounded-md transition-all duration-300 shadow-lg shadow-[#d4af37]/20 hover:shadow-[#d4af37]/40 hover:-translate-y-px"
                   >
-                    Name
-                  </label>
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    value={form.name}
-                    onChange={handleChange}
-                    className={`paragraph-font mt-1 w-full rounded-lg border bg-black/60 px-3 py-2.5 text-slate-100 placeholder-slate-500 outline-none focus:ring-2 ${
-                      errors.name
-                        ? "border-red-500/60 focus:ring-red-500/40"
-                        : "border-white/10 focus:border-[#fde68a] focus:ring-[#fde68a]/30"
-                    }`}
-                    placeholder="Your name"
-                    aria-invalid={!!errors.name}
-                  />
-                  {errors.name && (
-                    <p className="paragraph-font mt-1 text-xs text-red-400">
-                      {errors.name}
-                    </p>
-                  )}
-                </div>
-
-                {/* Phone */}
-                <div>
-                  <label
-                    htmlFor="phone"
-                    className="heading-font block text-sm font-medium text-slate-100"
-                  >
-                    Phone
-                  </label>
-                  <input
-                    id="phone"
-                    name="phone"
-                    type="tel"
-                    value={form.phone}
-                    onChange={handleChange}
-                    className="paragraph-font mt-1 w-full rounded-lg border border-white/10 bg-black/60 px-3 py-2.5 text-slate-100 placeholder-slate-500 outline-none focus:border-[#fde68a] focus:ring-2 focus:ring-[#fde68a]/30"
-                    placeholder="+91 ..."
-                  />
-                </div>
-
-                {/* Message */}
-                <div>
-                  <label
-                    htmlFor="message"
-                    className="heading-font block text-sm font-medium text-slate-100"
-                  >
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows={5}
-                    value={form.message}
-                    onChange={handleChange}
-                    className={`paragraph-font mt-1 w-full rounded-lg border bg-black/60 px-3 py-2.5 text-slate-100 placeholder-slate-500 outline-none focus:ring-2 ${
-                      errors.message
-                        ? "border-red-500/60 focus:ring-red-500/40"
-                        : "border-white/10 focus:border-[#fde68a] focus:ring-[#fde68a]/30"
-                    }`}
-                    placeholder="How can we help you?"
-                    aria-invalid={!!errors.message}
-                  />
-                  {errors.message && (
-                    <p className="paragraph-font mt-1 text-xs text-red-400">
-                      {errors.message}
-                    </p>
-                  )}
-                </div>
-              </div>
-
-              <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <p className="paragraph-font text-[11px] text-slate-400">
-                  By submitting, you agree to our Terms &amp; Privacy Policy.
-                </p>
-                <button
-                  type="submit"
-                  disabled={sending}
-                  className={`paragraph-font inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs sm:text-sm font-semibold text-neutral-900 shadow-lg ring-1 border transition ${
-                    sending
-                      ? "opacity-70 cursor-not-allowed"
-                      : "hover:brightness-110"
-                  }`}
-                  style={{
-                    background: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base})`,
-                    boxShadow: `0 10px 24px ${BRAND.glow}`,
-                    borderColor: BRAND.soft,
-                  }}
-                >
-                  {sending ? (
-                    <>
-                      <svg
-                        className="h-4 w-4 animate-spin"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                      >
-                        <circle
-                          cx="12"
-                          cy="12"
-                          r="10"
-                          stroke="currentColor"
-                          strokeOpacity="0.25"
-                          strokeWidth="4"
-                        />
-                        <path
-                          d="M22 12a10 10 0 0 1-10 10"
-                          stroke="currentColor"
-                          strokeWidth="4"
-                        />
-                      </svg>
-                      Sending...
-                    </>
-                  ) : (
-                    <>
+                    <span className="relative z-10 flex items-center justify-center gap-1.5">
                       SEND MESSAGE
-                      <svg width="16" height="16" viewBox="0 0 24 24">
-                        <path
-                          d="M5 12h14M13 5l7 7-7 7"
-                          stroke="currentColor"
-                          strokeWidth="1.8"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          fill="none"
-                        />
-                      </svg>
-                    </>
-                  )}
-                </button>
+                      <Send className="w-3 h-3 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform duration-300" />
+                    </span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700"></div>
+                  </button>
+                </form>
               </div>
-            </form>
+            </div>
+          </div>
+        </div>
+
+        {/* Map Section - Compact */}
+        <div className="mt-16 relative">
+          <div className="absolute -inset-px bg-gradient-to-r from-[#d4af37]/20 via-[#d4af37]/10 to-[#d4af37]/20 rounded-lg blur-sm opacity-50"></div>
+          <div className="relative overflow-hidden rounded-lg border border-[#1f1f1f] shadow-2xl">
+            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#d4af37]/50 to-transparent"></div>
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3540.696929111623!2d81.65365437526121!3d21.19567788049572!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a28dd318a22241f%3A0x1bf7dd9a38b42117!2sMahesh%20Ventures%20%7C%20Best%20Real%20Estate%20Consultant%20%7C%20Real%20Estate%20Agent%20%7C%20Property%20Consultant%20%7C%20Property%20Dealer%20in%20Raipur!5e1!3m2!1sen!2sin!4v1780552625617!5m2!1sen!2sin" 
+              width="100%" 
+              height="380px" 
+              style={{ border: 0, filter: "grayscale(15%) contrast(105%) brightness(92%)" }} 
+              allowFullScreen="" 
+              loading="lazy" 
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Google Maps Location"
+              className="w-full"
+            ></iframe>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
-}
+};
+
+export default Contact;

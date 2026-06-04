@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import img from "../../images/warehouse.png"; // <-- yahan apni warehouse image ka sahi path/naam lagao
+import img from "../../images/warehouse.jpeg"; // <-- yahan apni warehouse image ka sahi path/naam lagao
 
 const BRAND = {
   base: "#facc15", // gold

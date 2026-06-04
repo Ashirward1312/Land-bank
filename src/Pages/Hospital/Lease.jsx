@@ -12,7 +12,7 @@ import {
   ArrowRight,
   Sparkles,
 } from "lucide-react";
-import img from "../../images/lease.png"; // <-- yahan apni land-on-lease image ka sahi path/naam lagao
+import img from "../../images/lease.jpeg"; // <-- yahan apni land-on-lease image ka sahi path/naam lagao
 
 const BRAND = {
   base: "#facc15", // gold

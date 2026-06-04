@@ -73,6 +73,10 @@ export default function CategoriesSection() {
     setSelected((s) => (s === id ? null : id));
   };
 
+  const handleGetInTouch = () => {
+    navigate("/contact");
+  };
+
   return (
     <section
       id="categories"
@@ -213,19 +217,24 @@ export default function CategoriesSection() {
 
             {/* Subtext */}
             <p className="mt-3 sm:mt-4 text-sm sm:text-base text-slate-400 leading-relaxed max-w-lg mx-auto">
-              Whether you're searching for premium lands, commercial properties, 
-              residential plots, investment opportunities, or any exclusive real estate — 
-              <span className="text-slate-200 font-medium"> we've got you covered.</span>
+              Whether you're searching for premium lands, commercial properties,
+              residential plots, investment opportunities, or any exclusive real
+              estate —{" "}
+              <span className="text-slate-200 font-medium">
+                we've got you covered.
+              </span>
             </p>
 
             <p className="mt-2 text-xs sm:text-sm text-slate-500 italic">
-              Share your requirements with us and let our experts curate the perfect options for you.
+              Share your requirements with us and let our experts curate the
+              perfect options for you.
             </p>
 
-            {/* CTA Button */}
+            {/* CTA Button – route-based, no #contact */}
             <div className="mt-6 sm:mt-8">
-              <a
-                href="/#contact"
+              <button
+                type="button"
+                onClick={handleGetInTouch}
                 className="group inline-flex items-center justify-center gap-2 rounded-full px-6 sm:px-8 py-3 sm:py-3.5 text-sm sm:text-base font-semibold text-neutral-900 ring-1 border transition-all duration-300 hover:scale-[1.02]"
                 style={{
                   background: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)`,
@@ -241,7 +250,7 @@ export default function CategoriesSection() {
               >
                 <span>GET IN TOUCH</span>
                 <ArrowRightIcon className="h-4 w-4 sm:h-5 sm:w-5 transition-transform duration-300 group-hover:translate-x-1" />
-              </a>
+              </button>
             </div>
 
             {/* Bottom tagline */}

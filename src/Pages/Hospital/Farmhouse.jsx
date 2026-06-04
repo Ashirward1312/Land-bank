@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import img from "../../images/farm.png";
+import img from "../../images/farm.jpeg";
 
 const BRAND = {
   base: "#facc15",

@@ -1,7 +1,11 @@
 "use client";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { FaArrowLeft } from "react-icons/fa";
 
 export default function Services() {
+  const navigate = useNavigate();
+
   // Gold tokens (premium)
   const GOLD = {
     soft: "#F3D98E", // light gold highlight
@@ -26,8 +30,7 @@ export default function Services() {
       id: "listing",
       title: "OWNER LISTING",
       icon: ListingIcon,
-      summary:
-        "List your plot with complete details and get direct buyer leads.",
+      summary: "List your plot with complete details and get direct buyer leads.",
       points: [
         "High‑visibility listing with photos & location",
         "Lead delivery via call/WhatsApp/email",
@@ -95,7 +98,37 @@ export default function Services() {
 
   return (
     <main className="bg-neutral-950 text-neutral-100" id="services">
-      <section className="max-w-[1200px] mx-auto px-4 md:px-6 py-12">
+      <section className="max-w-[1200px] mx-auto px-4 md:px-6 py-20">
+        {/* ✅ Back to Home button (premium, left) */}
+        <div className="mt-2 mb-6 flex justify-start">
+          <button
+            type="button"
+            onClick={() => navigate("/")}
+            className="group inline-flex items-center gap-2 rounded-full border px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] transition active:scale-95"
+            style={{
+              borderColor: BRAND.ring,
+              background: "rgba(255,255,255,0.06)",
+              color: BRAND.soft,
+              boxShadow: `0 10px 24px -16px ${BRAND.glow}`,
+              backdropFilter: "blur(6px)",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = BRAND.light)}
+            onMouseLeave={(e) => (e.currentTarget.style.color = BRAND.soft)}
+          >
+            <span
+              className="grid h-7 w-7 place-items-center rounded-full transition-colors"
+              style={{
+                background: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)`,
+                color: "#0a0a0a",
+                boxShadow: `0 6px 18px -8px ${BRAND.glow}`,
+              }}
+            >
+              <FaArrowLeft className="h-3.5 w-3.5" />
+            </span>
+            Back to Home
+          </button>
+        </div>
+
         <header className="text-center mb-8">
           <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight uppercase">
             OUR{" "}
@@ -149,9 +182,7 @@ export default function Services() {
                     <h3 className="text-lg font-semibold uppercase">
                       {s.title}
                     </h3>
-                    <p className="text-sm text-neutral-400 mt-1">
-                      {s.summary}
-                    </p>
+                    <p className="text-sm text-neutral-400 mt-1">{s.summary}</p>
                   </div>
                 </div>
 
@@ -185,8 +216,10 @@ export default function Services() {
                     {isOpen ? "HIDE DETAILS" : "VIEW DETAILS"}
                   </button>
 
-                  <a
-                    href="#contact"
+                  {/* ✅ no hash: go to /contact */}
+                  <button
+                    type="button"
+                    onClick={() => navigate("/contact")}
                     className="inline-flex items-center justify-center rounded-lg px-4 py-2.5 text-sm font-semibold text-neutral-900 ring-1 transition active:scale-[.99] uppercase"
                     style={{
                       background: `linear-gradient(135deg, ${BRAND.soft}, ${BRAND.base} 70%)`,
@@ -201,7 +234,7 @@ export default function Services() {
                     }
                   >
                     ENQUIRE NOW
-                  </a>
+                  </button>
                 </div>
               </article>
             );
